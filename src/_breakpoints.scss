@@ -1,0 +1,71 @@
+@use 'sass:map';
+
+// Screen height breakpoints variables
+$breakpoint-h-xs: 500px;
+$breakpoint-h-sm: 600px;
+$breakpoint-h-md: 800px;
+$breakpoint-h-lg: 900px;
+$breakpoint-h-xl: 1080px;
+
+// Screen size breakpoints variables (width)
+$breakpoint-egis-mini-laptop: 1400px; // Screen width for mini egis laptops seem to be ~1365px
+$breakpoint-s: 576px;
+$breakpoint-m: 768px;
+$breakpoint-l: 992px;
+$breakpoint-xl: 1280px;
+$breakpoint-xxl: 1600px;
+$breakpoint-fullhd: 1920px;
+$breakpoint-quadhd: 2560px;
+$breakpoint-quxga: 3200px;
+$breakpoint-4Kdci: 4096px;
+
+$breakpoints: (
+  'egis-mini-laptop': (
+    $breakpoint-egis-mini-laptop
+  ),
+  's': (
+    $breakpoint-s
+  ),
+  'm': (
+    $breakpoint-m
+  ),
+  'l': (
+    $breakpoint-l
+  ),
+  'xl': (
+    $breakpoint-xl
+  ),
+  'xxl': (
+    $breakpoint-xxl
+  ),
+  'fullhd': (
+    $breakpoint-fullhd
+  ),
+  'quadhd': (
+    $breakpoint-quadhd
+  ),
+  'quxga': (
+    $breakpoint-quxga
+  ),
+  '4kdci': (
+    $breakpoint-4Kdci
+  )
+);
+
+@mixin respond-to-and-up($screensize) {
+  @media (min-width: (map.get($breakpoints, $screensize) + 1px)) {
+    @content;
+  }
+}
+
+@mixin respond-to-and-less($screensize) {
+  @media (max-width: map.get($breakpoints, $screensize)) {
+    @content;
+  }
+}
+
+@mixin respond-to-and-between($from-screen-size, $to-screen-size) {
+  @media screen and (min-width: (map.get($breakpoints, $from-screen-size) + 1px)) and (max-width: map.get($breakpoints, $to-screen-size)) {
+    @content;
+  }
+}
