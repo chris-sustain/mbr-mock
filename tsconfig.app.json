@@ -29,5 +29,5 @@
       "@components/*": ["src/components/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "react-router.config.ts"]
 }
