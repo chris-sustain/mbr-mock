@@ -12,7 +12,8 @@ import {
   Select,
   SelectValue
 } from 'react-aria-components';
-function App() {
+
+export default function Counter() {
   const { t } = useTranslation();
   const count = useSelector((state: RootState) => state.counter.value);
   const dispatch = useDispatch();
@@ -42,5 +43,3 @@ function App() {
     </>
   );
 }
-
-export default App;
