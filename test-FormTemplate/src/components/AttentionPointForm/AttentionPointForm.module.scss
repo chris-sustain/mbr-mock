@@ -1,0 +1,38 @@
+.attention-points-dialog {
+  min-width: 450px;
+  width: min(650px, 85vw);
+  border-radius: 28px;
+  padding: 0;
+  overflow: hidden;
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.ap-form-container {
+  padding: 20px;
+}
+
+.apdialog-open-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffc03c;
+  color: #006170;
+
+  .text {
+    text-decoration: underline;
+    font-weight: 500;
+  }
+
+  .icon {
+    display: inline-flex;
+    font-size: 2rem;
+    width: 2rem;
+    height: 2rem;
+    justify-content: center;
+    align-items: center;
+    font-weight: 300;
+  }
+}
