@@ -1,5 +1,15 @@
 {
   "common": {
-    "Hello": "Hello you"
+    "Hello": "Hello you",
+    "NotificationSystem": {
+      "ActionBtnLabel": "Action",
+      "critical": {
+        "defaultTitle": "Critical"
+      },
+      "info": {
+        "defaultTitle": "Information"
+      }
+    },
+    "close": "Close"
   }
 }
