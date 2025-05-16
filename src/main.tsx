@@ -3,11 +3,12 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import './translation/i18n';
 import { RouterProvider } from 'react-router';
-import { store } from '@src/store';
-import { Provider } from 'react-redux';
 import { router } from './router';
 import './index.scss';
-
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '@src/react-query/queryClient';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { NotificationContainer } from '@components/NotificationSystem/NotificationSystem';
 const root = document.getElementById('root');
 
 if (!root) {
@@ -16,8 +17,10 @@ if (!root) {
 
 ReactDOM.createRoot(root).render(
   <StrictMode>
-    <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-    </Provider>
+      <ReactQueryDevtools />
+      <NotificationContainer />
+    </QueryClientProvider>
   </StrictMode>
 );
