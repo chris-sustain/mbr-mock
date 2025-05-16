@@ -8,11 +8,7 @@ export const RootLayout = () => {
 
   return (
     <div className={styles['root']}>
-      {isLogged ? (
-        <>
-          <NavBar />
-        </>
-      ) : null}
+      {isLogged ? <NavBar /> : null}
       <Outlet />
     </div>
   );
