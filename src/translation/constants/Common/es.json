@@ -10,6 +10,14 @@
         "defaultTitle": "Información"
       }
     },
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "page": {
+      "create": {
+        "link": "Crear una referencia"
+      },
+      "search": {
+        "link": "Buscar"
+      }
+    }
   }
 }

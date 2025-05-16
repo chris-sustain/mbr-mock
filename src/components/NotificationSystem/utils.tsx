@@ -16,7 +16,7 @@ export const getParsedProps = ({
   icon?: React.ReactNode;
   actionCallback?: () => void;
   actionBtnLabel?: string;
-   
+
   t: (_: string) => string;
 }) => {
   console.warn(t);
