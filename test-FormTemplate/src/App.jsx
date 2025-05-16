@@ -28,16 +28,16 @@ function App() {
       type: 'select',
       placeholder: 'Dropdown placeholder',
       defaultValue: 'pref2',
-      choices: [
+      options: [
         { label: 'Pref 1', value: 'pref1' },
-        { label: 'Pref 2', value: 'pref2' }
+        { label: 'Select me to show more preferences', value: 'pref2' }
       ]
     },
     {
       name: 'more-preferences',
       title: 'More preferences',
       type: 'checkboxes',
-      choices: [
+      options: [
         { label: 'Pref 3', value: 'pref3' },
         { label: 'Pref 4', value: 'pref4' }
       ],
@@ -47,7 +47,7 @@ function App() {
       name: 'even-more-preferences',
       title: 'Preferences that are displayed and required if more-preferences are all selected.',
       type: 'radios',
-      choices: [
+      options: [
         { label: 'option 1', value: 'option1' },
         { label: 'option 2', value: 'option2' }
       ],
