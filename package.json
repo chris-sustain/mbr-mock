@@ -19,8 +19,10 @@
   "dependencies": {
     "@tanstack/react-query": "^5.76.1",
     "@tanstack/react-table": "^8.21.3",
+    "@tanstack/react-virtual": "^3.13.8",
     "classnames": "^2.5.1",
     "i18next": "^25.1.2",
+    "lucide-react": "^0.511.0",
     "react": "^19.1.0",
     "react-aria-components": "^1.8.0",
     "react-dom": "^19.1.0",

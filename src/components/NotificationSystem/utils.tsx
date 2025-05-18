@@ -1,4 +1,4 @@
-import type { ToastType } from './NotificationSystem';
+import type { ToastType } from './types';
 export const getParsedProps = ({
   type,
   title,

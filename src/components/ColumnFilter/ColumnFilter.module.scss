@@ -1,0 +1,129 @@
+.filterContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 8px;
+  color: #999;
+}
+
+.filterInput {
+  width: 100%;
+  padding: 6px 28px 6px 28px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  
+  &:focus {
+    outline: none;
+    border-color: #0A285F;
+    box-shadow: 0 0 0 1px rgba(10, 40, 95, 0.25);
+  }
+}
+
+.clearButton {
+  position: absolute;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  
+  &:hover {
+    color: #E3350D;
+  }
+}
+
+.rangeContainer {
+  position: relative;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.rangeInputs {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.rangeInput {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  
+  &:focus {
+    outline: none;
+    border-color: #0A285F;
+    box-shadow: 0 0 0 1px rgba(10, 40, 95, 0.25);
+  }
+  
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  &[type=number] {
+    -moz-appearance: textfield;
+  }
+}
+
+.rangeSeparator {
+  padding: 0 8px;
+  color: #999;
+}
+
+.selectContainer {
+  position: relative;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.selectInput {
+  width: 100%;
+  padding: 6px 28px 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  appearance: none;
+  font-size: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  background-size: 16px;
+  
+  &:focus {
+    outline: none;
+    border-color: #0A285F;
+    box-shadow: 0 0 0 1px rgba(10, 40, 95, 0.25);
+  }
+}
+
+.clearSelectButton {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  
+  &:hover {
+    color: #E3350D;
+  }
+}
