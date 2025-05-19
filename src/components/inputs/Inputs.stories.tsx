@@ -1,26 +1,62 @@
 import type { StoryObj } from '@storybook/react';
-import type { FocusEvent } from 'react';
-import TextIpnut from './Text/Text';
+import { userEvent, within, expect, waitFor, screen } from '@storybook/test';
+import { type FocusEvent } from 'react';
+import TextInput from './Text/Text';
 
 export default {
   title: 'Inputs/TextInput',
-  component: TextIpnut
+  component: TextInput
 };
 
-export const Base: StoryObj<typeof TextIpnut> = {
+export const Base: StoryObj<typeof TextInput> = {
   args: {
     type: 'text',
     label: 'Label',
-    error: "",
     isRequired: true,
     isDisabled: false,
     isReadOnly: false,
-    textArea: false,
+    multiline: false,
     onChange: (val: string) => {
       console.log(val);
     },
     onBlur: (e: FocusEvent<HTMLInputElement, Element>) => {
-      console.log("blur", e.target.value);
+      console.log('blur', e.target.value);
     }
+  }
+};
+
+export const NativeValidation: StoryObj<typeof TextInput> = {
+  args: {
+    type: 'email',
+    label: 'Email',
+    isRequired: true
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    await user.type(canvas.getByRole('textbox'), 'hello');
+    await user.tab();
+    expect(
+      canvas.getByText(
+        'Veuillez inclure "@" dans l\'adresse e-mail. Il manque un symbole "@" dans "hello".'
+      )
+    ).toBeVisible();
+
+    await user.type(canvas.getByRole('textbox'), '@domain.com');
+    await user.tab();
+    expect(
+      canvas.queryByText(
+        'Veuillez inclure "@" dans l\'adresse e-mail. Il manque un symbole "@" dans "hello".'
+      )
+    ).not.toBeInTheDocument();
+  }
+};
+
+export const CustomValidation: StoryObj<typeof TextInput> = {
+  args: {
+    ...Base.args,
+    label: 'The answer is 42',
+    validate: (val: string) => (val !== '42' ? 'not the answer' : null)
+  }
 };
