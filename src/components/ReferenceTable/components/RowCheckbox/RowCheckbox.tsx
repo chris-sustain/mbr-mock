@@ -2,9 +2,9 @@ import styles from './RowCheckbox.module.scss';
 import React, { useRef } from 'react';
 import { useCheckbox } from '@react-aria/checkbox';
 type RowCheckboxProps = {
-  id: number;
-  selectedIds: number[];
-  setSelectedIds: React.Dispatch<React.SetStateAction<number[]>>;
+  id: string;
+  selectedIds: string[];
+  setSelectedIds: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
 export const RowCheckbox: React.FC<RowCheckboxProps> = ({ id, selectedIds, setSelectedIds }) => {

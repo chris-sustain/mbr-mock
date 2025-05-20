@@ -23,9 +23,12 @@
   flex: 1;
   overflow: auto;
 
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  // border: 1px solid #e2e8f0;
+  // border-radius: 8px;
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 11px 11px 0px 0px;
+  border: 0.5px solid var(--neutral-300);
+  background: var(--neutral-0);
 }
 
 .table {
@@ -91,6 +94,16 @@
   &:hover {
     background-color: #f1f5f9;
   }
+
+  &.selected {
+    border: 0.538px solid var(--neutral-300);
+    background: #a1bee0;
+  }
+
+  &.draft {
+    border: 0.578px solid var(--neutral-300);
+    background: var(--egisbase-ne-pas-modifier-rouge-rouge-200);
+  }
 }
 
 .td {
@@ -99,102 +112,34 @@
   color: #334155;
 }
 
-.spriteCell {
+.id,
+.commercialTitle,
+.egisOwnerFiliale,
+.domain,
+.country,
+.startDate,
+.endDate,
+.totalContractAmount,
+.egisPart,
+.filialePart,
+.satisfecit {
+  color: var(--secondary-500);
+  text-align: center;
+  font-size: 0.6rem;
+  font-weight: 500;
   display: flex;
   justify-content: center;
+
+  &.header {
+    font-family: Urbanist;
+  }
 }
 
-.sprite {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
+.commercialTitle {
+  text-align: left;
+  min-width: 200px;
 }
 
-.typesList {
-  display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
-}
-
-.typeTag {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 500;
-  text-align: center;
-  color: white;
-}
-
-// Type colors based on Reference types
-.typeNormal {
-  background-color: #a8a878;
-}
-
-.typeFire {
-  background-color: #f08030;
-}
-
-.typeWater {
-  background-color: #6890f0;
-}
-
-.typeElectric {
-  background-color: #f8d030;
-}
-
-.typeGrass {
-  background-color: #78c850;
-}
-
-.typeIce {
-  background-color: #98d8d8;
-}
-
-.typeFighting {
-  background-color: #c03028;
-}
-
-.typePoison {
-  background-color: #a040a0;
-}
-
-.typeGround {
-  background-color: #e0c068;
-}
-
-.typeFlying {
-  background-color: #a890f0;
-}
-
-.typePsychic {
-  background-color: #f85888;
-}
-
-.typeBug {
-  background-color: #a8b820;
-}
-
-.typeRock {
-  background-color: #b8a038;
-}
-
-.typeGhost {
-  background-color: #705898;
-}
-
-.typeDragon {
-  background-color: #7038f8;
-}
-
-.typeDark {
-  background-color: #705848;
-}
-
-.typeSteel {
-  background-color: #b8b8d0;
-}
-
-.typeFairy {
-  background-color: #ee99ac;
+.id {
+  white-space: nowrap;
 }

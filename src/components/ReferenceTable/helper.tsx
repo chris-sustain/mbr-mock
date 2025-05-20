@@ -2,13 +2,11 @@ import React from 'react';
 
 import { ArrowDown, ArrowUp } from 'lucide-react';
 import styles from './ReferenceTable.module.scss';
-import type { EnhancedReference } from '@src/types/reference';
+import type { Reference } from '@src/types/reference';
 import { flexRender, type Header } from '@tanstack/react-table';
 import classNames from 'classnames';
 
-export const SortedHeaderCell: React.FC<{ header: Header<EnhancedReference, unknown> }> = ({
-  header
-}) => {
+export const SortedHeaderCell: React.FC<{ header: Header<Reference, unknown> }> = ({ header }) => {
   const sortDirection = header.column.getIsSorted();
   if (!sortDirection) return null;
 
@@ -20,7 +18,7 @@ export const SortedHeaderCell: React.FC<{ header: Header<EnhancedReference, unkn
   return <span className={styles.sortIcon}>{getSortIcon()}</span>;
 };
 
-export const renderHeaderCell = (header: Header<EnhancedReference, unknown>) => {
+export const renderHeaderCell = (header: Header<Reference, unknown>) => {
   if (header.isPlaceholder) return null;
 
   return (

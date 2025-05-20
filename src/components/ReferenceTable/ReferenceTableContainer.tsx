@@ -1,23 +1,25 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createColumnHelper, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import type { SortingState, VisibilityState, Row } from '@tanstack/react-table';
-import type { EnhancedReference } from '@src/types/reference';
+import type { Reference } from '@src/types/reference';
 import { ReferenceTable } from './ReferenceTable';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import styles from './ReferenceTable.module.scss';
-import type { ColumnKey } from '@src/types/table';
+import type { ColumnKey, TableMode } from '@src/types/table';
 import { useReferenceQuery, useReferenceTable } from '@src/hooks';
+import { HeaderCheckbox, RowCheckbox, CellDateRenderer, CellAmountRenderer } from './components';
+import { COLUMNS_IDS, TABLE_MODES } from '@src/utils';
+import { useTranslation } from 'react-i18next';
+import styles from './ReferenceTable.module.scss';
 import classNames from 'classnames';
-import { HeaderCheckbox, RowCheckbox } from './components';
-export const ReferenceTableContainer: React.FC = () => {
+import {} from '@src/types/table';
+
+export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: TableMode }) => {
   const [sorting, setSorting] = useState<SortingState>([{ id: 'id', desc: true }]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const tableContainerRef = React.useRef<HTMLDivElement | null>(null);
-  // const [showSelector, setShowSelector] = useState(false);
   const { setSort } = useReferenceTable();
-  const columnHelper = createColumnHelper<EnhancedReference>();
-
-  // Add this effect to sync sorting state with server
+  const columnHelper = createColumnHelper<Reference>();
+  const { t } = useTranslation();
   useEffect(() => {
     if (sorting.length > 0) {
       const { id, desc } = sorting[0];
@@ -28,10 +30,37 @@ export const ReferenceTableContainer: React.FC = () => {
   }, [sorting, setSort]);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isFetching } =
-    useReferenceQuery({ limit: 25 });
-  const allRows = useMemo(() => (data ? data.pages.flatMap((d) => d.data) : []), [data]);
-  const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
+    useReferenceQuery();
+  const allRows = useMemo(
+    () =>
+      data
+        ? data.pages.flatMap((d) => {
+            // Transform the data to match the expected structure
+            return d.results.map((item: any, index: number) => ({
+              id: '00001-00' + index,
+              commercialTitle:
+                'Assistance technique pour la réalisation des ateliers-dépôts des lignes A & B du métro',
+              egisOwnerFiliale: 'Egis Rail',
+              domain: '--',
+              country: 'France',
+              startDate: '2019-08-30T08:22:32.245-0700',
+              endDate: '2019-08-30T08:22:32.245-0700',
+              totalContractAmount: '1000000',
+              egisPart: '500000',
+              filialePart: '500000',
+              satisfecit: '--'
+            }));
+          })
+        : [],
+    [data]
+  );
+  const [selectedIds, setSelectedIds] = React.useState<string[]>([]);
   const allIds = allRows.map((row) => row.id);
+
+  const getHeaderLabel = (columnId: ColumnKey) => {
+    const className = classNames(styles[columnId], styles['header']);
+    return <span className={className}>{t('common.table.' + columnId)}</span>;
+  };
 
   const columns = useMemo(
     () => [
@@ -44,7 +73,7 @@ export const ReferenceTableContainer: React.FC = () => {
             setSelectedIds={setSelectedIds}
           />
         ),
-        cell: ({ row }: { row: Row<EnhancedReference> }) => (
+        cell: ({ row }: { row: Row<Reference> }) => (
           <RowCheckbox
             id={row.original.id}
             selectedIds={selectedIds}
@@ -53,93 +82,103 @@ export const ReferenceTableContainer: React.FC = () => {
         ),
         enableSorting: false
       },
-      columnHelper.accessor('id', {
-        header: 'ID',
-        cell: (info) => info.getValue(),
-        enableGlobalFilter: true,
+      columnHelper.accessor(COLUMNS_IDS.id, {
+        header: () => getHeaderLabel(COLUMNS_IDS.id),
+        cell: (info) => <span className={`${styles[COLUMNS_IDS.id]}`}>{info.getValue()}</span>,
         enableSorting: true
       }),
-      columnHelper.accessor('sprite', {
-        header: 'Image',
+      columnHelper.accessor(COLUMNS_IDS.commercialTitle, {
+        header: () => getHeaderLabel(COLUMNS_IDS.commercialTitle),
         cell: (info) => (
-          <div className={styles.spriteCell}>
-            <img src={info.getValue()} alt="Reference sprite" className={styles.sprite} />
-          </div>
-        ),
-        enableSorting: false,
-        enableColumnFilter: false
-      }),
-      columnHelper.accessor('name', {
-        header: 'Name',
-        cell: (info) => info.getValue(),
-        enableSorting: true
-      }),
-      columnHelper.accessor('types', {
-        header: 'Types',
-        cell: (info) => (
-          <div className={styles.typesList}>
-            {info.getValue().map((type) => (
-              <span key={type} className={classNames(styles.typeTag, styles[`type${type}`])}>
-                {type}
-              </span>
-            ))}
-          </div>
+          <span className={`${styles[COLUMNS_IDS.commercialTitle]}`}>{info.getValue()}</span>
         ),
         enableSorting: false
       }),
-      columnHelper.accessor('abilities', {
-        header: 'Abilities',
-        cell: (info) => info.getValue().join(', '),
-        enableSorting: false
-      }),
-      columnHelper.accessor('height', {
-        header: 'Height (m)',
-        cell: (info) => info.getValue().toFixed(1),
+      columnHelper.accessor(COLUMNS_IDS.egisOwnerFiliale, {
+        header: () => getHeaderLabel(COLUMNS_IDS.egisOwnerFiliale),
+        cell: (info) => (
+          <span className={`${styles[COLUMNS_IDS.egisOwnerFiliale]}`}>{info.getValue()}</span>
+        ),
         enableSorting: true
       }),
-      columnHelper.accessor('weight', {
-        header: 'Weight (kg)',
-        cell: (info) => info.getValue().toFixed(1),
+      columnHelper.accessor(COLUMNS_IDS.domain, {
+        header: () => getHeaderLabel(COLUMNS_IDS.domain),
+        cell: (info) => <span className={`${styles[COLUMNS_IDS.domain]}`}>{info.getValue()}</span>,
         enableSorting: true
       }),
-      columnHelper.accessor('experience', {
-        header: 'Base Exp',
-        cell: (info) => info.getValue(),
+      columnHelper.accessor(COLUMNS_IDS.country, {
+        header: () => getHeaderLabel(COLUMNS_IDS.country),
+        cell: (info) => <span className={`${styles[COLUMNS_IDS.country]}`}>{info.getValue()}</span>,
         enableSorting: true
       }),
-      columnHelper.accessor('hp', {
-        header: 'HP',
-        cell: (info) => info.getValue(),
+      columnHelper.accessor(COLUMNS_IDS.startDate, {
+        header: () => getHeaderLabel(COLUMNS_IDS.startDate),
+        cell: (info) => (
+          <span className={`${styles[COLUMNS_IDS.startDate]}`}>
+            <CellDateRenderer value={info.getValue()} />
+          </span>
+        ),
         enableSorting: true
       }),
-      columnHelper.accessor('attack', {
-        header: 'Attack',
-        cell: (info) => info.getValue(),
+      columnHelper.accessor(COLUMNS_IDS.endDate, {
+        header: () => getHeaderLabel(COLUMNS_IDS.endDate),
+        cell: (info) => (
+          <span className={`${styles[COLUMNS_IDS.endDate]}`}>
+            <CellDateRenderer value={info.getValue()} />
+          </span>
+        ),
         enableSorting: true
       }),
-      columnHelper.accessor('defense', {
-        header: 'Defense',
-        cell: (info) => info.getValue(),
+      columnHelper.accessor(COLUMNS_IDS.totalContractAmount, {
+        header: () => getHeaderLabel(COLUMNS_IDS.totalContractAmount),
+        cell: (info) => (
+          <span className={`${styles[COLUMNS_IDS.totalContractAmount]}`}>
+            <CellAmountRenderer value={info.getValue()} />
+          </span>
+        ),
         enableSorting: true
       }),
-      columnHelper.accessor('specialAttack', {
-        header: 'Sp. Atk',
-        cell: (info) => info.getValue(),
+      columnHelper.accessor(COLUMNS_IDS.egisPart, {
+        header: () => getHeaderLabel(COLUMNS_IDS.egisPart),
+        cell: (info) => (
+          <span className={`${styles[COLUMNS_IDS.egisPart]}`}>
+            <CellAmountRenderer value={info.getValue()} />
+          </span>
+        ),
         enableSorting: true
       }),
-      columnHelper.accessor('specialDefense', {
-        header: 'Sp. Def',
-        cell: (info) => info.getValue(),
+      columnHelper.accessor(COLUMNS_IDS.filialePart, {
+        header: () => getHeaderLabel(COLUMNS_IDS.filialePart),
+        cell: (info) => (
+          <span className={`${styles[COLUMNS_IDS.filialePart]}`}>
+            <CellAmountRenderer value={info.getValue()} />
+          </span>
+        ),
         enableSorting: true
       }),
-      columnHelper.accessor('speed', {
-        header: 'Speed',
-        cell: (info) => info.getValue(),
+      columnHelper.accessor(COLUMNS_IDS.satisfecit, {
+        header: () => getHeaderLabel(COLUMNS_IDS.satisfecit),
+        cell: (info) => (
+          <span className={`${styles[COLUMNS_IDS.satisfecit]}`}>{info.getValue()}</span>
+        ),
         enableSorting: true
       })
     ],
     [columnHelper]
   );
+
+  const getRowClassName = (row: Row<Reference>) => {
+    const isSelected = selectedIds.includes(row.original.id);
+
+    console.log('row', row);
+    console.log('mode', mode);
+    console.log('isSelected', isSelected);
+    return classNames(styles.tr, {
+      [styles.selected]: isSelected,
+      [styles.draft]: isSelected && mode === TABLE_MODES.draft,
+      [styles.validating]: isSelected && mode === TABLE_MODES.validating
+    });
+  };
 
   const table = useReactTable({
     data: allRows,
@@ -154,6 +193,7 @@ export const ReferenceTableContainer: React.FC = () => {
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel()
+    // getRowClassName
   });
 
   const { rows } = table.getRowModel();
@@ -182,7 +222,12 @@ export const ReferenceTableContainer: React.FC = () => {
       return;
     }
 
-    if (lastItem.index >= allRows.length - 10 && hasNextPage && !isFetchingNextPage) {
+    if (lastItem.index >= allRows.length && hasNextPage && !isFetchingNextPage) {
+      console.log('lastItem', lastItem);
+      console.log('allRows.length', allRows.length);
+      console.log('hasNextPage', hasNextPage);
+      console.log('isFetchingNextPage', isFetchingNextPage);
+      console.log('fetching next page');
       fetchNextPage();
     }
   }, [
@@ -209,6 +254,7 @@ export const ReferenceTableContainer: React.FC = () => {
       paddingBottom={paddingBottom}
       isLoading={isLoading}
       isFetching={isFetching}
+      getRowClassName={getRowClassName}
     />
   );
 };

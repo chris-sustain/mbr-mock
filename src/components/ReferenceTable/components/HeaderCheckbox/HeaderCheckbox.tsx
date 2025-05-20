@@ -4,9 +4,9 @@ import React, { useRef } from 'react';
 import { useCheckbox } from '@react-aria/checkbox';
 
 type HeaderCheckboxProps = {
-  allIds: number[];
-  selectedIds: number[];
-  setSelectedIds: (ids: number[]) => void;
+  allIds: string[];
+  selectedIds: string[];
+  setSelectedIds: (ids: string[]) => void;
 };
 
 export const HeaderCheckbox: React.FC<HeaderCheckboxProps> = ({
