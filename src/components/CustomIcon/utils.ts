@@ -9,7 +9,7 @@ const iconModuleContext = import.meta.glob('./icons/*.svg', {
 // Create a union type of literal string values
 // We need to manually define this for now since TypeScript can't infer it dynamically
 // This will need to be updated when new icons are added
-export type IconName = 'add' | 'addChat';
+export type IconName = 'add' | 'addChat' | 'moreOrLess';
 
 export const getSVGIconsAsComponents = () => {
   const processedIcons = Object.keys(iconModuleContext).reduce<Record<string, React.ComponentType>>(
@@ -28,3 +28,5 @@ export const getSVGIconsAsComponents = () => {
 export const availableIconNames = Object.keys(iconModuleContext).map((path) =>
   path.replace('./icons/', '').replace('.svg', '')
 );
+
+console.log(availableIconNames);

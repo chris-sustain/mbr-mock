@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import type { Table } from '@tanstack/react-table';
-import { ChevronDown, Columns, Eye, EyeOff } from 'lucide-react';
 import styles from './ColumnSelector.module.scss';
-import clsx from 'clsx';
+import classNames from 'classnames';
+import { CustomIcon } from '../CustomIcon';
 
 interface ColumnSelectorProps<T> {
   table: Table<T>;
@@ -30,15 +30,15 @@ export function ColumnSelector<T>({ table }: ColumnSelectorProps<T>) {
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <button
         className={styles.toggleButton}
         onClick={handleToggle}
         aria-label="Toggle column visibility"
         aria-expanded={isOpen}>
-        <Columns size={16} />
-        <span className={styles.toggleText}>Columns</span>
-        <ChevronDown size={16} className={clsx(styles.chevron, { [styles.chevronOpen]: isOpen })} />
+        <CustomIcon name="moreOrLess" size={20} />
+
+        {/* <ChevronDown size={16} className={classNames(styles.chevron, { [styles.chevronOpen]: isOpen })} /> */}
       </button>
 
       {isOpen && (
@@ -51,7 +51,6 @@ export function ColumnSelector<T>({ table }: ColumnSelectorProps<T>) {
                   className={styles.toggleAllButton}
                   onClick={() => handleToggleAll(true)}
                   disabled={visibleColumns.length === allColumns.length}>
-                  <Eye size={14} />
                   <span>Show All</span>
                 </button>
                 <button
@@ -59,7 +58,6 @@ export function ColumnSelector<T>({ table }: ColumnSelectorProps<T>) {
                   onClick={() => handleToggleAll(false)}
                   disabled={hiddenColumns.length === allColumns.length - 1} // Keep at least one column visible
                 >
-                  <EyeOff size={14} />
                   <span>Hide All</span>
                 </button>
               </div>
@@ -94,6 +92,6 @@ export function ColumnSelector<T>({ table }: ColumnSelectorProps<T>) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

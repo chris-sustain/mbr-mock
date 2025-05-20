@@ -1,31 +1,35 @@
-import type { EnhancedPokemon, PokemonDetails, PokemonListResponse } from '@src/types/pokemon';
+import type {
+  EnhancedReference,
+  ReferenceDetails,
+  ReferenceListResponse
+} from '@src/types/reference';
 
 const API_BASE_URL = 'https://pokeapi.co/api/v2';
 
-export async function fetchPokemonList(
+export async function fetchReferenceList(
   offset: number,
   limit: number
-): Promise<PokemonListResponse> {
+): Promise<ReferenceListResponse> {
   const response = await fetch(`${API_BASE_URL}/pokemon?offset=${offset}&limit=${limit}`);
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch Pokemon list: ${response.status}`);
+    throw new Error(`Failed to fetch Reference list: ${response.status}`);
   }
 
   return response.json();
 }
 
-export async function fetchPokemonDetails(url: string): Promise<PokemonDetails> {
+export async function fetchReferenceDetails(url: string): Promise<ReferenceDetails> {
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch Pokemon details: ${response.status}`);
+    throw new Error(`Failed to fetch Reference details: ${response.status}`);
   }
 
   return response.json();
 }
 
-export function transformPokemonData(data: PokemonDetails): EnhancedPokemon {
+export function transformReferenceData(data: ReferenceDetails): EnhancedReference {
   return {
     id: data.id,
     name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
@@ -51,16 +55,21 @@ export function transformPokemonData(data: PokemonDetails): EnhancedPokemon {
   };
 }
 
-function getStatValue(data: PokemonDetails, statName: string): number {
+function getStatValue(data: ReferenceDetails, statName: string): number {
   const stat = data.stats.find((s) => s.stat.name === statName);
   return stat ? stat.base_stat : 0;
 }
 
-export async function fetchPokemonBatch(offset: number, limit: number): Promise<EnhancedPokemon[]> {
-  const listResponse = await fetchPokemonList(offset, limit);
+export async function fetchReferenceBatch(
+  offset: number,
+  limit: number
+): Promise<EnhancedReference[]> {
+  const listResponse = await fetchReferenceList(offset, limit);
 
-  const detailsPromises = listResponse.results.map((pokemon) => fetchPokemonDetails(pokemon.url));
+  const detailsPromises = listResponse.results.map((reference) =>
+    fetchReferenceDetails(reference.url)
+  );
 
   const detailsResponses = await Promise.all(detailsPromises);
-  return detailsResponses.map(transformPokemonData);
+  return detailsResponses.map(transformReferenceData);
 }

@@ -1,2 +1,3 @@
 export * from './useNotify';
-export * from './usePokemonQuery';
+export * from './useReferenceQuery';
+export * from './useReferenceTable';

@@ -9,6 +9,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@src/react-query/queryClient';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { NotificationContainer } from '@components/NotificationSystem/NotificationSystem';
+import { ReferenceFilterProvider } from '@src/contexts/ReferenceTableContext';
 const root = document.getElementById('root');
 
 if (!root) {
@@ -18,7 +19,9 @@ if (!root) {
 ReactDOM.createRoot(root).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <ReferenceFilterProvider>
+        <RouterProvider router={router} />
+      </ReferenceFilterProvider>
       <ReactQueryDevtools />
       <NotificationContainer />
     </QueryClientProvider>

@@ -1,15 +1,20 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { fetchPokemonBatch } from '@src/api/pokemonApi';
+import { fetchReferenceBatch } from '@src/api/referenceApi';
 
-interface UsePokemonQueryOptions {
+import { useReferenceTable } from './useReferenceTable';
+interface UseReferenceQueryOptions {
   limit?: number;
 }
 
-export function usePokemonQuery({ limit = 20 }: UsePokemonQueryOptions = {}) {
+export function useReferenceQuery({ limit = 20 }: UseReferenceQueryOptions = {}) {
+  //customize url with filters
+  //const { filters } = useReferenceFilters();
+  const { sort, search, filters } = useReferenceTable();
+
   return useInfiniteQuery({
-    queryKey: ['pokemon', limit],
+    queryKey: ['reference', limit],
     queryFn: async ({ pageParam = 0 }) => {
-      const data = await fetchPokemonBatch(pageParam, limit);
+      const data = await fetchReferenceBatch(pageParam, limit);
       return {
         data,
         nextOffset: pageParam + limit,

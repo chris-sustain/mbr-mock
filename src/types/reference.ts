@@ -1,28 +1,28 @@
-export interface PokemonListResponse {
+export interface ReferenceListResponse {
   count: number;
   next: string | null;
   previous: string | null;
-  results: PokemonListItem[];
+  results: ReferenceListItem[];
 }
 
-export interface PokemonListItem {
+export interface ReferenceListItem {
   name: string;
   url: string;
 }
 
-export interface PokemonDetails {
+export interface ReferenceDetails {
   id: number;
   name: string;
   height: number;
   weight: number;
   base_experience: number;
-  types: PokemonType[];
-  abilities: PokemonAbility[];
-  stats: PokemonStat[];
-  sprites: PokemonSprites;
+  types: ReferenceType[];
+  abilities: ReferenceAbility[];
+  stats: ReferenceStat[];
+  sprites: ReferenceSprites;
 }
 
-export interface PokemonType {
+export interface ReferenceType {
   slot: number;
   type: {
     name: string;
@@ -30,7 +30,7 @@ export interface PokemonType {
   };
 }
 
-export interface PokemonAbility {
+export interface ReferenceAbility {
   ability: {
     name: string;
     url: string;
@@ -39,7 +39,7 @@ export interface PokemonAbility {
   slot: number;
 }
 
-export interface PokemonStat {
+export interface ReferenceStat {
   base_stat: number;
   effort: number;
   stat: {
@@ -48,7 +48,7 @@ export interface PokemonStat {
   };
 }
 
-export interface PokemonSprites {
+export interface ReferenceSprites {
   front_default: string;
   front_shiny: string;
   back_default: string;
@@ -60,7 +60,7 @@ export interface PokemonSprites {
   };
 }
 
-export interface EnhancedPokemon {
+export interface EnhancedReference {
   id: number;
   name: string;
   height: number;
