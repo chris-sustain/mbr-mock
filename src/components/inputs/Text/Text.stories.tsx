@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react';
-import { userEvent, within, expect, waitFor, screen } from '@storybook/test';
+import { userEvent, within, expect } from '@storybook/test';
 import { type FocusEvent } from 'react';
-import TextInput from './Text/Text';
+import TextInput from './Text';
 
 export default {
   title: 'Inputs/TextInput',
@@ -57,6 +57,19 @@ export const CustomValidation: StoryObj<typeof TextInput> = {
   args: {
     ...Base.args,
     label: 'The answer is 42',
-    validate: (val: string) => (val !== '42' ? 'not the answer' : null)
+    validate: (val: string) => val !== '42' ? 'not the answer' : null,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    await user.type(canvas.getByRole('textbox'), 'La réponse D');
+    await user.tab();
+    expect(canvas.getByText('not the answer')).toBeVisible();
+
+    await user.clear(canvas.getByRole('textbox'));
+    await user.type(canvas.getByRole('textbox'), '42');
+    await user.tab();
+    expect(canvas.queryByText('not the answer')).not.toBeInTheDocument();
   }
 };
