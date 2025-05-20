@@ -45,7 +45,8 @@ i18n
       es: {
         translation: ES_COMMON
       }
-    }
+    },
+    transKeepBasicHtmlNodesFor: ['span', 'br', 'strong', 'i', 'p']
   });
 
 export default i18n;

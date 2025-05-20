@@ -1,19 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
   height: 100vh;
   padding: 24px;
-
-  @media (max-width: 768px) {
-    padding: 16px;
-  }
-}
-
-.headerActions {
-  display: flex;
-
-  height: 100%;
-  margin: auto;
 }
 
 .title {
@@ -30,6 +22,7 @@
 .tableWrapper {
   flex: 1;
   overflow: auto;
+
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -204,33 +197,4 @@
 
 .typeFairy {
   background-color: #ee99ac;
-}
-
-.loadingIndicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 60px;
-  color: #0a285f;
-  font-weight: 500;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-
-  &.loadingActive {
-    opacity: 1;
-  }
-}
-
-.spinner {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

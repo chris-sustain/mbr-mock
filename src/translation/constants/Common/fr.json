@@ -11,6 +11,9 @@
       }
     },
     "close": "Fermer",
+    "emptyState": {
+      "title": " <span class='highlight'>Aucune résultat pour la recherche demandée.</span> Réessayez avec d'autres mots-clés."
+    },
     "page": {
       "create": {
         "link": "Créer une référence"

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createColumnHelper, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import type { SortingState, VisibilityState } from '@tanstack/react-table';
+import type { SortingState, VisibilityState, Row } from '@tanstack/react-table';
 import type { EnhancedReference } from '@src/types/reference';
 import { ReferenceTable } from './ReferenceTable';
 import { useVirtualizer } from '@tanstack/react-virtual';
@@ -8,9 +8,7 @@ import styles from './ReferenceTable.module.scss';
 import type { ColumnKey } from '@src/types/table';
 import { useReferenceQuery, useReferenceTable } from '@src/hooks';
 import classNames from 'classnames';
-import { ColumnSelector } from '@src/components/ColumnSelector';
-import { CustomIcon } from '@src/components/CustomIcon';
-import { Plus } from 'lucide-react';
+import { HeaderCheckbox, RowCheckbox } from './components';
 export const ReferenceTableContainer: React.FC = () => {
   const [sorting, setSorting] = useState<SortingState>([{ id: 'id', desc: true }]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -29,11 +27,32 @@ export const ReferenceTableContainer: React.FC = () => {
     }
   }, [sorting, setSort]);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useReferenceQuery({ limit: 25 });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isFetching } =
+    useReferenceQuery({ limit: 25 });
   const allRows = useMemo(() => (data ? data.pages.flatMap((d) => d.data) : []), [data]);
+  const [selectedIds, setSelectedIds] = React.useState<number[]>([]);
+  const allIds = allRows.map((row) => row.id);
 
   const columns = useMemo(
     () => [
+      {
+        id: 'select',
+        header: () => (
+          <HeaderCheckbox
+            allIds={allIds}
+            selectedIds={selectedIds}
+            setSelectedIds={setSelectedIds}
+          />
+        ),
+        cell: ({ row }: { row: Row<EnhancedReference> }) => (
+          <RowCheckbox
+            id={row.original.id}
+            selectedIds={selectedIds}
+            setSelectedIds={setSelectedIds}
+          />
+        ),
+        enableSorting: false
+      },
       columnHelper.accessor('id', {
         header: 'ID',
         cell: (info) => info.getValue(),
@@ -117,29 +136,7 @@ export const ReferenceTableContainer: React.FC = () => {
         header: 'Speed',
         cell: (info) => info.getValue(),
         enableSorting: true
-      }),
-      {
-        id: 'actions',
-        header: () => (
-          <div className={styles.headerActions}>
-            {/* +/- */}
-            {/* <span
-              style={{ cursor: 'pointer' }}
-              // onClick={(e) => {
-              //   e.stopPropagation();
-              //   setShowSelector((prev) => !prev);
-              // }}
-            /> */}
-            {/* {showSelector && ( */}
-            {/* <div style={{ position: 'absolute', zIndex: 1000 }}> */}
-            <ColumnSelector table={table} />
-            {/* </div> */}
-            {/* )} */}
-          </div>
-        ),
-        cell: () => <CustomIcon name="add" />, // or your row actions
-        enableSorting: false
-      }
+      })
     ],
     [columnHelper]
   );
@@ -210,6 +207,8 @@ export const ReferenceTableContainer: React.FC = () => {
       isFetchingNextPage={isFetchingNextPage}
       paddingTop={paddingTop}
       paddingBottom={paddingBottom}
+      isLoading={isLoading}
+      isFetching={isFetching}
     />
   );
 };

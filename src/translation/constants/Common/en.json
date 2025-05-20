@@ -11,6 +11,9 @@
       }
     },
     "close": "Close",
+    "emptyState": {
+      "title": " <strong>No results found for the requested search.</strong> Try again with different keywords."
+    },
     "page": {
       "create": {
         "link": "Create a reference"
