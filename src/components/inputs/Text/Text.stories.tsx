@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react';
 import { userEvent, within, expect } from '@storybook/test';
 import { type FocusEvent } from 'react';
-import TextInput from './Text';
+import { TextInput } from './Text';
 
 export default {
   title: 'Inputs/TextInput',
@@ -51,7 +51,7 @@ export const CustomValidation: StoryObj<typeof TextInput> = {
   args: {
     ...Base.args,
     label: 'The answer is 42',
-    validate: (val: string) => val !== '42' ? 'not the answer' : null,
+    validate: (val: string) => (val !== '42' ? 'not the answer' : null)
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

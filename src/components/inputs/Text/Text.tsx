@@ -1,8 +1,8 @@
-import {TextField, Input, FieldError, TextArea, type TextFieldProps} from 'react-aria-components';
-import Label from "../Label"; 
-import styles from  "./styles.module.scss";
+import { TextField, Input, FieldError, TextArea, type TextFieldProps } from 'react-aria-components';
+import { Label } from '../Label';
+import styles from './Text.module.scss';
 
-export default function TextIpnut({
+export function TextInput({
   label,
   multiline = false,
   ...textFieldProps
