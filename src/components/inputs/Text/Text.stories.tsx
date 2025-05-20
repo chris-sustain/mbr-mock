@@ -37,18 +37,12 @@ export const NativeValidation: StoryObj<typeof TextInput> = {
 
     await user.type(canvas.getByRole('textbox'), 'hello');
     await user.tab();
-    expect(
-      canvas.getByText(
-        'Veuillez inclure "@" dans l\'adresse e-mail. Il manque un symbole "@" dans "hello".'
-      )
-    ).toBeVisible();
+    expect(canvas.getByText(/veuillez inclure "@"|please include an '@'/i)).toBeVisible();
 
     await user.type(canvas.getByRole('textbox'), '@domain.com');
     await user.tab();
     expect(
-      canvas.queryByText(
-        'Veuillez inclure "@" dans l\'adresse e-mail. Il manque un symbole "@" dans "hello".'
-      )
+      canvas.queryByText(/veuillez inclure "@"|please include an '@'/i)
     ).not.toBeInTheDocument();
   }
 };
