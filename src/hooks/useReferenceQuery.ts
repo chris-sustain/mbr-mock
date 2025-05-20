@@ -2,6 +2,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { fetchReferenceBatch } from '@src/api/referenceApi';
 
 import { useReferenceTable } from './useReferenceTable';
+import { queryKeys } from '@src/react-query/constants';
 interface UseReferenceQueryOptions {
   limit?: number;
 }
@@ -12,7 +13,7 @@ export function useReferenceQuery({ limit = 20 }: UseReferenceQueryOptions = {})
   const { sort, search, filters } = useReferenceTable();
 
   return useInfiniteQuery({
-    queryKey: ['reference', limit],
+    queryKey: [queryKeys.reference, limit, sort, search, filters],
     queryFn: async ({ pageParam = 0 }) => {
       const data = await fetchReferenceBatch(pageParam, limit);
       return {

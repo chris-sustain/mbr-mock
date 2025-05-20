@@ -35,7 +35,7 @@ export const ReferenceTable: React.FC<{
       return null;
     }
 
-    if (!isLoading && !isFetching /* toremove && allRows.length === 0 */) {
+    if (!isLoading && !isFetching && allRows.length === 0) {
       return <EmptyState height={tableContainerRef.current?.clientHeight || 0} />;
     }
 
