@@ -1,6 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { createColumnHelper, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import type { SortingState, VisibilityState, Row } from '@tanstack/react-table';
+import {
+  createColumnHelper,
+  getCoreRowModel,
+  useReactTable,
+  type SortingState,
+  type VisibilityState,
+  type Row
+} from '@tanstack/react-table';
 import type { Reference } from '@src/types/reference';
 import { ReferenceTable } from './ReferenceTable';
 import { useVirtualizer } from '@tanstack/react-virtual';
@@ -11,7 +17,7 @@ import { COLUMNS_IDS, TABLE_MODES } from '@src/utils';
 import { useTranslation } from 'react-i18next';
 import styles from './ReferenceTable.module.scss';
 import classNames from 'classnames';
-import {} from '@src/types/table';
+import { useNavigate } from 'react-router';
 
 export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: TableMode }) => {
   const [sorting, setSorting] = useState<SortingState>([{ id: 'id', desc: true }]);
@@ -19,6 +25,12 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
   const tableContainerRef = React.useRef<HTMLDivElement | null>(null);
   const { setSort } = useReferenceTable();
   const columnHelper = createColumnHelper<Reference>();
+  const navigate = useNavigate();
+  const handleRowClick = (row: Row<Reference>) => {
+    // Example: navigate to `/reference/${row.original.id}`
+    navigate(`/reference/${row.original.id}`);
+  };
+
   const { t } = useTranslation();
   useEffect(() => {
     if (sorting.length > 0) {
@@ -36,6 +48,8 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
       data
         ? data.pages.flatMap((d) => {
             // Transform the data to match the expected structure
+            //wait for back disable eslint @typescript-eslint/no-explicit-any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             return d.results.map((item: any, index: number) => ({
               id: '00001-00' + index,
               commercialTitle:
@@ -170,9 +184,6 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
   const getRowClassName = (row: Row<Reference>) => {
     const isSelected = selectedIds.includes(row.original.id);
 
-    console.log('row', row);
-    console.log('mode', mode);
-    console.log('isSelected', isSelected);
     return classNames(styles.tr, {
       [styles.selected]: isSelected,
       [styles.draft]: isSelected && mode === TABLE_MODES.draft,
@@ -223,11 +234,6 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
     }
 
     if (lastItem.index >= allRows.length && hasNextPage && !isFetchingNextPage) {
-      console.log('lastItem', lastItem);
-      console.log('allRows.length', allRows.length);
-      console.log('hasNextPage', hasNextPage);
-      console.log('isFetchingNextPage', isFetchingNextPage);
-      console.log('fetching next page');
       fetchNextPage();
     }
   }, [
@@ -255,6 +261,7 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
       isLoading={isLoading}
       isFetching={isFetching}
       getRowClassName={getRowClassName}
+      handleRowClick={handleRowClick}
     />
   );
 };

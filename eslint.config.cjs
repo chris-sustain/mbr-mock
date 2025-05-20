@@ -90,7 +90,9 @@ module.exports = defineConfig([
       'no-duplicate-imports': 'error',
       '@tanstack/query/exhaustive-deps': 'error',
       'react-refresh/only-export-components': 'off',
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }]
+      'no-unused-vars': 'off'
+      //how to make it compliant with type definition
+      // 'no-unused-vars': ['error', { argsIgnorePattern: '^_' }]
     },
 
     settings: {

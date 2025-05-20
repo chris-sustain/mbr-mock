@@ -1,3 +1,4 @@
+//disable eslint no-unused-vars
 import type { Reference } from './reference';
 import { TABLE_MODES } from '@src/utils/table';
 //to build this type using the columns in the table

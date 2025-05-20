@@ -1,13 +1,20 @@
 import styles from './RowCheckbox.module.scss';
 import React, { useRef } from 'react';
 import { useCheckbox } from '@react-aria/checkbox';
+import classNames from 'classnames';
 type RowCheckboxProps = {
   id: string;
   selectedIds: string[];
   setSelectedIds: React.Dispatch<React.SetStateAction<string[]>>;
+  className?: string;
 };
 
-export const RowCheckbox: React.FC<RowCheckboxProps> = ({ id, selectedIds, setSelectedIds }) => {
+export const RowCheckbox: React.FC<RowCheckboxProps> = ({
+  id,
+  selectedIds,
+  setSelectedIds,
+  className
+}) => {
   const isSelected = selectedIds.includes(id);
   const ref = useRef(null);
 
@@ -32,7 +39,7 @@ export const RowCheckbox: React.FC<RowCheckboxProps> = ({ id, selectedIds, setSe
   return (
     <input
       {...inputProps}
-      className={styles.checkbox}
+      className={classNames(styles.checkbox, className)}
       ref={ref}
       type="checkbox"
       checked={isSelected}

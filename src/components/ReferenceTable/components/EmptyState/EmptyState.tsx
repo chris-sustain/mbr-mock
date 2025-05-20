@@ -7,7 +7,6 @@ type EmptyStateProps = {
 };
 
 export const EmptyState = ({ height }: EmptyStateProps) => {
-  console.log('height', height);
   return (
     <tr className={styles.root}>
       <td colSpan={15} style={{ padding: 0, height: height - TABLE_HEADER_HEIGHT }}>

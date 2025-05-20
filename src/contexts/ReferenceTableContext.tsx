@@ -4,6 +4,8 @@ import type { ReferenceFilters, ReferenceSort, ReferenceSearch } from '@src/type
 
 interface ReferenceTableContextType {
   filters: ReferenceFilters;
+  // to do add type for value
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setFilter: (key: keyof ReferenceFilters, value: any) => void;
   sort: ReferenceSort | null;
   setSort: (sort: ReferenceSort | null) => void;
@@ -25,6 +27,8 @@ export function ReferenceFilterProvider({ children }: { children: ReactNode }) {
     active: false
   });
 
+  // to do add type for value
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const setFilter = (key: keyof ReferenceFilters, value: any) => {
     setFilters((prev) => ({
       ...prev,

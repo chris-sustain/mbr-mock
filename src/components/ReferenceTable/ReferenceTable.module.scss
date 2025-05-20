@@ -6,6 +6,8 @@
   overflow-y: hidden;
   height: 100vh;
   padding: 24px;
+
+  background-color: var(--neutral-0);
 }
 
 .title {
@@ -21,14 +23,10 @@
 
 .tableWrapper {
   flex: 1;
-  overflow: auto;
-
-  // border: 1px solid #e2e8f0;
-  // border-radius: 8px;
-  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   border-radius: 11px 11px 0px 0px;
   border: 0.5px solid var(--neutral-300);
   background: var(--neutral-0);
+  overflow-x: auto;
 }
 
 .table {
@@ -40,8 +38,8 @@
 .th {
   position: sticky;
   top: 0;
-  background-color: #f8fafc;
-  padding: 12px 16px;
+  background-color: var(--neutral-0);
+  padding: 12px 9px;
   font-weight: 600;
   color: #0a285f;
   text-align: left;
@@ -61,7 +59,6 @@
 .headerCell {
   display: flex;
   flex-direction: column;
-  // align-items: center;
   justify-content: center;
 }
 
@@ -110,6 +107,8 @@
   padding: 12px 16px;
   border-bottom: 1px solid #e2e8f0;
   color: #334155;
+  text-align: center;
+  cursor: pointer;
 }
 
 .id,

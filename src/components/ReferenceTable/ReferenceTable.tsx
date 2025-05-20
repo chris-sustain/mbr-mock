@@ -20,6 +20,7 @@ export const ReferenceTable: React.FC<{
   isLoading: boolean;
   isFetching: boolean;
   getRowClassName: (row: Row<Reference>) => string;
+  handleRowClick: (row: Row<Reference>) => void;
 }> = ({
   table,
   rows,
@@ -31,7 +32,8 @@ export const ReferenceTable: React.FC<{
   paddingBottom,
   isLoading,
   isFetching,
-  getRowClassName
+  getRowClassName,
+  handleRowClick
 }) => {
   const renderBody = () => {
     if (!isLoading && !isFetching && allRows.length === 0) {
@@ -71,7 +73,8 @@ export const ReferenceTable: React.FC<{
               key={row.id}
               className={classNames(styles.tr, getRowClassName(row))}
               ref={rowVirtualizer.measureElement}
-              data-index={virtualRow.index}>
+              data-index={virtualRow.index}
+              onClick={() => handleRowClick(row)}>
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} className={styles.td}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -98,7 +101,7 @@ export const ReferenceTable: React.FC<{
 
   return (
     <div className={styles.container}>
-      <div className={styles.tableWrapper} ref={tableContainerRef}>
+      <div className={classNames(styles.tableWrapper, 'main-scrollbar')} ref={tableContainerRef}>
         <table className={styles.table}>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (

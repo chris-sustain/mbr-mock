@@ -28,5 +28,3 @@ export const getSVGIconsAsComponents = () => {
 export const availableIconNames = Object.keys(iconModuleContext).map((path) =>
   path.replace('./icons/', '').replace('.svg', '')
 );
-
-console.log(availableIconNames);
