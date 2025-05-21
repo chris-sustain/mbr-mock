@@ -35,23 +35,26 @@ export const CustomLink = ({
 }: CustomLinkProps) => {
   const linkPath = pathType === 'dynamic' ? path(...pathParams) : PATHS[path];
 
+  const getLinkClass = (isActive: boolean, isPending: boolean) => {
+    const mainClass = type === 'nav' ? styles['nav-link'] : styles['link'];
+    return classNames(mainClass, className, {
+      [styles['active']]: isActive,
+      [styles['pending']]: isPending
+    });
+  };
+
   if (type === 'nav') {
     return (
       <NavLink
         to={linkPath}
-        className={({ isActive, isPending }) =>
-          classNames(styles['nav-link'], className, {
-            [styles['active']]: isActive,
-            [styles['pending']]: isPending
-          })
-        }>
+        className={({ isActive, isPending }) => getLinkClass(isActive, isPending)}>
         {children}
       </NavLink>
     );
   }
 
   return (
-    <Link to={linkPath} className={classNames(styles['link'], className)}>
+    <Link to={linkPath} className={getLinkClass(false, false)}>
       {children}
     </Link>
   );
