@@ -1,20 +1,21 @@
 import styles from './NavBar.module.scss';
 import { useTranslation } from 'react-i18next';
-import { CustomLink } from '@components/CustomLink';
+import { PATHS } from '@src/router';
+import { NavLink } from 'react-router';
 
 export const NavBar = () => {
   const { t } = useTranslation();
   return (
     <div className={`${styles['root']}`}>
-      <CustomLink pathType="static" path="HOME" type="nav">
+      <NavLink to={PATHS.HOME} className={styles['link']}>
         {t('common.page.search.link')}
-      </CustomLink>
-      <CustomLink pathType="static" path="NEW" type="nav">
+      </NavLink>
+      <NavLink to={PATHS.NEW} className={styles['link']}>
         {t('common.page.create.link')}
-      </CustomLink>
-      <CustomLink pathType="static" path="VALIDATION" type="nav">
+      </NavLink>
+      <NavLink to={PATHS.VALIDATION} className={styles['link']}>
         {t('common.page.validation.link')}
-      </CustomLink>
+      </NavLink>
     </div>
   );
 };

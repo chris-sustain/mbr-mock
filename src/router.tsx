@@ -2,17 +2,18 @@ import { createBrowserRouter } from 'react-router';
 import { RootLayout } from '@components/RootLayout';
 import { CreateRefPage } from '@components/CreateRefPage';
 import { SearchRefPage } from '@components/SearchRefPage';
-import { CreateRefFromDraftPage } from '@components/CreateRefFromDraftPage';
+import { DraftsPage } from '@components/DraftsPage';
 import { ValidationPage } from '@components/ValidationPage';
 import { EditRefPage } from '@components/EditRefPage';
-
+import { RefPage } from '@components/RefPage';
 export const PATHS = {
   HOME: '/',
   NEW: '/new',
-  NEW_DRAFT: '/new/draft',
+  DRAFTS: '/drafts',
   VALIDATION: '/validation',
   NEW_REFERENCE: '/reference/new',
-  EDIT_REFERENCE: '/reference/edit/:id'
+  EDIT_REFERENCE: '/reference/:id/edit',
+  REFERENCE: '/reference/:id'
 };
 
 export const router = createBrowserRouter([
@@ -30,12 +31,16 @@ export const router = createBrowserRouter([
         element: <CreateRefPage />
       },
       {
-        path: PATHS.NEW_DRAFT,
-        element: <CreateRefFromDraftPage />
+        path: PATHS.DRAFTS,
+        element: <DraftsPage />
       },
       {
         path: PATHS.VALIDATION,
         element: <ValidationPage />
+      },
+      {
+        path: PATHS.REFERENCE,
+        element: <RefPage />
       },
       {
         path: PATHS.NEW_REFERENCE,
