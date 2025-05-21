@@ -1,0 +1,30 @@
+.root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.active {
+  color: yellow;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  &.active {
+    background-color: rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+  }
+
+  &.pending {
+    opacity: 0.7;
+  }
+}

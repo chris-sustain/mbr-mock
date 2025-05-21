@@ -1,31 +1,20 @@
-import { NavLink } from 'react-router';
 import styles from './NavBar.module.scss';
-import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { CustomLink } from '@components/CustomLink';
+
 export const NavBar = () => {
   const { t } = useTranslation();
   return (
     <div className={`${styles['root']}`}>
-      <NavLink
-        to="/"
-        className={({ isActive, isPending }) =>
-          classNames(styles['link'], {
-            [styles['active']]: isActive,
-            [styles['pending']]: isPending
-          })
-        }>
+      <CustomLink path="HOME" type="nav">
         {t('common.page.search.link')}
-      </NavLink>
-      <NavLink
-        to="/create"
-        className={({ isActive, isPending }) =>
-          classNames(styles['link'], {
-            [styles['active']]: isActive,
-            [styles['pending']]: isPending
-          })
-        }>
+      </CustomLink>
+      <CustomLink path="NEW" type="nav">
         {t('common.page.create.link')}
-      </NavLink>
+      </CustomLink>
+      <CustomLink path="VALIDATION" type="nav">
+        {t('common.page.validation.link')}
+      </CustomLink>
     </div>
   );
 };
