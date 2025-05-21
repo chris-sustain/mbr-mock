@@ -40,7 +40,7 @@ export const CustomLink = ({
       <NavLink
         to={linkPath}
         className={({ isActive, isPending }) =>
-          classNames(styles['link'], className, {
+          classNames(styles['nav-link'], className, {
             [styles['active']]: isActive,
             [styles['pending']]: isPending
           })
