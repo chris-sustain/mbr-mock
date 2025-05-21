@@ -2,18 +2,18 @@ import { createPortal } from 'react-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import type { NotifySettings } from './types';
 
-import CustomNotification from './components/CustomNotification/CustomNotification';
+import { CustomNotification } from './components/CustomNotification/CustomNotification';
 
 import { getParsedProps } from './utils';
 
-type CustomNotificationProps = {
+interface CustomNotificationProps {
   type: 'info' | 'critical' | 'promise';
   title?: string;
   closable?: boolean;
   icon?: React.ReactNode;
   actionCallback?: () => void;
   actionBtnLabel?: string;
-};
+}
 
 /**
  * @returns The container for the notifications. It should be placed at the root of the application.
