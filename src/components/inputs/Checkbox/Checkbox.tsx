@@ -11,12 +11,12 @@ type CheckBoxProps = Omit<CheckboxPropsAria, 'children'> & {
 };
 
 export const Checkbox: React.FC<CheckBoxProps> = ({ children, variant = 'default', ...props }) => {
-  const rootClassname = classNames(styles['react-aria-Checkbox'], styles[variant]);
+  const rootClassname = classNames(styles['root'], styles[variant]);
   return (
     <CheckboxAria {...props} className={rootClassname}>
       {({ isIndeterminate }) => (
         <>
-          <div className={`${styles['checkbox']} ${styles[variant]}`}>
+          <div className={`${styles['checkbox']}`}>
             <svg viewBox="0 0 16 18" aria-hidden="true">
               {isIndeterminate ? (
                 <svg
