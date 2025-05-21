@@ -1,4 +1,3 @@
-
 .field {
   display: flex;
   flex-direction: column;
@@ -6,7 +5,7 @@
 
 .segment {
   padding: 0 3px;
-  
+
   &:focus {
     background-color: lightblue;
     border: none;
@@ -19,11 +18,11 @@
   justify-content: space-between;
   margin-bottom: 8px;
   border-radius: 6px;
-  background-color: #EFEFEF;
-  border: 1px solid #EFEFEF;
+  background-color: #efefef;
+  border: 1px solid #efefef;
   outline: none;
   padding: 10px 6px;
-  
+
   &[data-focus-within] {
     border: 1px solid black;
     background-color: white;
@@ -46,7 +45,8 @@
   border: 1px solid black;
   border-radius: 6px;
   padding: 12px;
-  
+  background-color: white;
+
   &:focus-within {
     box-shadow: 0 0 5px darkslategrey;
   }
@@ -70,11 +70,11 @@
   cursor: pointer;
 
   &:hover {
-    background-color: #EFEFEF;
+    background-color: #efefef;
   }
 
   &[data-selected] {
-    background-color: #AFBB32;
+    background-color: #afbb32;
   }
 }
 
@@ -88,7 +88,10 @@
   border-radius: 999px;
 
   &:hover {
-    background-color: #EFEFEF;
+    background-color: #efefef;
   }
+}
 
+.error {
+  color: red;
 }

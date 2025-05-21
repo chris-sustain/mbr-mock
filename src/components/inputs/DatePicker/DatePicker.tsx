@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import classNames from "classnames";
+import { useContext } from 'react';
+import classNames from 'classnames';
 import {
   Button,
   Calendar,
@@ -15,6 +15,7 @@ import {
   type DatePickerProps,
   type DateValue,
   DatePickerStateContext,
+  FieldError
 } from 'react-aria-components';
 import { Label } from '../Label';
 
@@ -25,7 +26,9 @@ function DateInputButton() {
 
   return (
     <Group className={classNames(styles.input, { [styles.isOpen]: isOpen })}>
-      <DateInput>{(segment) => <DateSegment segment={segment} className={styles.segment}/>}</DateInput>
+      <DateInput>
+        {(segment) => <DateSegment segment={segment} className={styles.segment} />}
+      </DateInput>
       <Button className={styles.button}>▼</Button>
     </Group>
   );
@@ -33,9 +36,11 @@ function DateInputButton() {
 
 export default function DatePicker({
   label,
+  popoverBoundary,
   ...datePickerProps
 }: {
   label: string;
+  popoverBoundary?: Element;
 } & DatePickerProps<DateValue>) {
   const { isRequired } = datePickerProps;
 
@@ -45,18 +50,23 @@ export default function DatePicker({
         <Label isRequired={isRequired}>{label}</Label>
         <DateInputButton />
       </div>
-      <Popover className={styles.popover}>
+      <FieldError className={styles.error} />
+      <Popover className={styles.popover} boundaryElement={popoverBoundary}>
         <Dialog>
           <Calendar>
             <header className={styles.header}>
               <Heading />
               <div>
-                <Button slot="previous" className={styles.navButton}>{"<"}</Button>
-                <Button slot="next" className={styles.navButton}>{">"}</Button>
+                <Button slot="previous" className={styles.navButton}>
+                  {'<'}
+                </Button>
+                <Button slot="next" className={styles.navButton}>
+                  {'>'}
+                </Button>
               </div>
             </header>
             <CalendarGrid>
-              {(date) => <CalendarCell date={date} className={styles.cell}/>}
+              {(date) => <CalendarCell date={date} className={styles.cell} />}
             </CalendarGrid>
           </Calendar>
         </Dialog>
