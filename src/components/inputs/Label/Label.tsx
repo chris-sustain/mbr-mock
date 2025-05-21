@@ -16,7 +16,7 @@ export function Label({
   return (
     <div className={classNames(styles.label, className)}>
       <ReactAriaLabel>{children}</ReactAriaLabel>
-      {isRequired && <span className={styles.star}>*</span>}
+      {isRequired ? <span className={styles.star}>*</span> : null}
     </div>
   );
 }
