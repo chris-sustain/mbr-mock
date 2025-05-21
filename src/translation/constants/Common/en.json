@@ -19,8 +19,20 @@
         "link": "Create a reference"
       },
 
+      "new": {
+        "link": "New"
+      },
+      "newDraft": {
+        "link": "New draft"
+      },
+      "reference": {
+        "link": "Reference"
+      },
       "search": {
         "link": "Search"
+      },
+      "validation": {
+        "link": "Validation"
       }
     },
     "table": {
