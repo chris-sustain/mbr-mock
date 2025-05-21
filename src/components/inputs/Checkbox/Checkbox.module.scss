@@ -11,6 +11,8 @@
   --focus-ring-color: var(--vert-500-hover);
   --background-color-disabled: var(--vert-500-disabled);
   --hover-background: var(--vert-500-hover);
+  --invalid-color: var(#c90d0d);
+  --invalid-color-pressed: var(#c90d0d);
 
   &.secondary {
     --selected-color: #c90d0d;
@@ -93,7 +95,6 @@
 
   &[data-invalid] {
     .checkbox {
-      --checkmark-color: var(--vert-500);
       border-color: var(--invalid-color);
     }
 
