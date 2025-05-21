@@ -68,10 +68,7 @@ export const Focus: StoryObj<typeof Checkbox> = {
   args: {
     ...Base.args
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const checkbox = canvas.getByRole('checkbox');
-
+  play: async () => {
     // Simulate focus
     await userEvent.tab(); // Tab to focus the checkbox
   }
