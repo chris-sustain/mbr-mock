@@ -1,11 +1,24 @@
 import { createBrowserRouter } from 'react-router';
+import { RootLayout } from '@components/RootLayout';
 import { CreateRefPage } from '@components/CreateRefPage';
 import { SearchRefPage } from '@components/SearchRefPage';
-import { RootLayout } from '@components/RootLayout';
+import { DraftsPage } from '@components/DraftsPage';
+import { ValidationPage } from '@components/ValidationPage';
+import { EditRefPage } from '@components/EditRefPage';
+import { RefPage } from '@components/RefPage';
+export const PATHS = {
+  HOME: '/',
+  NEW: '/new',
+  DRAFTS: '/drafts',
+  VALIDATION: '/validation',
+  NEW_REFERENCE: '/reference/new',
+  EDIT_REFERENCE: '/reference/:id/edit',
+  REFERENCE: '/reference/:id'
+};
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: PATHS.HOME,
     element: <RootLayout />,
     children: [
       {
@@ -14,8 +27,28 @@ export const router = createBrowserRouter([
         element: <SearchRefPage />
       },
       {
-        path: '/create',
+        path: PATHS.NEW,
         element: <CreateRefPage />
+      },
+      {
+        path: PATHS.DRAFTS,
+        element: <DraftsPage />
+      },
+      {
+        path: PATHS.VALIDATION,
+        element: <ValidationPage />
+      },
+      {
+        path: PATHS.REFERENCE,
+        element: <RefPage />
+      },
+      {
+        path: PATHS.NEW_REFERENCE,
+        element: <CreateRefPage />
+      },
+      {
+        path: `${PATHS.EDIT_REFERENCE}`,
+        element: <EditRefPage />
       }
     ]
   }
