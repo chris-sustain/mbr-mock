@@ -1,8 +1,7 @@
 import styles from './HeaderCheckbox.module.scss';
-
-import React, { useRef } from 'react';
-import { useCheckbox } from '@react-aria/checkbox';
+import React from 'react';
 import classNames from 'classnames';
+import { Checkbox } from '@src/components/inputs/Checkbox';
 type HeaderCheckboxProps = {
   allIds: string[];
   selectedIds: string[];
@@ -18,34 +17,14 @@ export const HeaderCheckbox: React.FC<HeaderCheckboxProps> = ({
 }) => {
   const isAllSelected = selectedIds.length === allIds.length && allIds.length > 0;
   const isIndeterminate = selectedIds.length > 0 && !isAllSelected;
-  const ref = useRef<HTMLInputElement>(null);
-
-  const { inputProps } = useCheckbox(
-    {
-      'aria-label': 'Select all',
-      isSelected: isAllSelected,
-      isIndeterminate,
-      onChange: (checked: boolean) => {
-        setSelectedIds(checked ? allIds : []);
-      }
-    },
-    {
-      isSelected: isAllSelected,
-      setSelected: (v: boolean) => setSelectedIds(v ? allIds : []),
-      toggle: () => setSelectedIds(isAllSelected ? [] : allIds)
-    },
-    ref
-  );
 
   return (
-    <input
-      {...inputProps}
-      ref={ref}
+    <Checkbox
       className={classNames(styles.checkbox, className)}
-      type="checkbox"
-      checked={isAllSelected}
+      isSelected={isAllSelected}
+      isIndeterminate={isIndeterminate}
       aria-checked={isIndeterminate ? 'mixed' : isAllSelected}
-      onChange={(e) => setSelectedIds(e.target.checked ? allIds : [])}
+      onChange={(isSelected) => setSelectedIds(isSelected ? allIds : [])}
     />
   );
 };

@@ -36,8 +36,8 @@
   forced-color-adjust: none;
 
   .checkbox {
-    width: 1.1rem;
-    height: 1.1rem;
+    width: 1rem;
+    height: 1rem;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     transition: all 200ms;
@@ -48,8 +48,8 @@
   }
 
   svg {
-    width: 1.1rem;
-    height: 1.1rem;
+    width: 1rem;
+    height: 1rem;
     fill: none;
     stroke: var(--checkmark-color);
     stroke-width: 3px;

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import styles from './ReferenceTable.module.scss';
-
 import type { Reference } from '@src/types/reference';
 import { flexRender, type Row, type Table } from '@tanstack/react-table';
 import type { Virtualizer } from '@tanstack/react-virtual';
@@ -37,7 +36,12 @@ export const ReferenceTable: React.FC<{
 }) => {
   const renderBody = () => {
     if (!isLoading && !isFetching && allRows.length === 0) {
-      return <EmptyState height={tableContainerRef.current?.clientHeight || 0} />;
+      return (
+        <EmptyState
+          height={tableContainerRef.current?.clientHeight || 0}
+          colSpan={table.getAllColumns().length}
+        />
+      );
     }
 
     return (

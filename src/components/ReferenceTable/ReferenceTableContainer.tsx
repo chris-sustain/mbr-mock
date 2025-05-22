@@ -17,8 +17,9 @@ import { COLUMNS_IDS, TABLE_MODES } from '@src/utils';
 import { useTranslation } from 'react-i18next';
 import styles from './ReferenceTable.module.scss';
 import classNames from 'classnames';
-import { useNavigate } from 'react-router';
-
+import { useNavigate, generatePath } from 'react-router';
+import { UnstyledLink } from '@src/components/UnstyledLink';
+import { PATHS } from '@src/router';
 export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: TableMode }) => {
   const [sorting, setSorting] = useState<SortingState>([{ id: 'id', desc: true }]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -98,82 +99,122 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
       },
       columnHelper.accessor(COLUMNS_IDS.id, {
         header: () => getHeaderLabel(COLUMNS_IDS.id),
-        cell: (info) => <span className={`${styles[COLUMNS_IDS.id]}`}>{info.getValue()}</span>,
+        cell: (info) => (
+          <UnstyledLink
+            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+            className={`${styles[COLUMNS_IDS.id]}`}>
+            {info.getValue()}
+          </UnstyledLink>
+        ),
         enableSorting: true
       }),
       columnHelper.accessor(COLUMNS_IDS.commercialTitle, {
         header: () => getHeaderLabel(COLUMNS_IDS.commercialTitle),
         cell: (info) => (
-          <span className={`${styles[COLUMNS_IDS.commercialTitle]}`}>{info.getValue()}</span>
+          <UnstyledLink
+            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+            className={`${styles[COLUMNS_IDS.commercialTitle]}`}>
+            {info.getValue()}
+          </UnstyledLink>
         ),
         enableSorting: false
       }),
       columnHelper.accessor(COLUMNS_IDS.egisOwnerFiliale, {
         header: () => getHeaderLabel(COLUMNS_IDS.egisOwnerFiliale),
         cell: (info) => (
-          <span className={`${styles[COLUMNS_IDS.egisOwnerFiliale]}`}>{info.getValue()}</span>
+          <UnstyledLink
+            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+            className={`${styles[COLUMNS_IDS.egisOwnerFiliale]}`}>
+            {info.getValue()}
+          </UnstyledLink>
         ),
         enableSorting: true
       }),
       columnHelper.accessor(COLUMNS_IDS.domain, {
         header: () => getHeaderLabel(COLUMNS_IDS.domain),
-        cell: (info) => <span className={`${styles[COLUMNS_IDS.domain]}`}>{info.getValue()}</span>,
+        cell: (info) => (
+          <UnstyledLink
+            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+            className={`${styles[COLUMNS_IDS.domain]}`}>
+            {info.getValue()}
+          </UnstyledLink>
+        ),
         enableSorting: true
       }),
       columnHelper.accessor(COLUMNS_IDS.country, {
         header: () => getHeaderLabel(COLUMNS_IDS.country),
-        cell: (info) => <span className={`${styles[COLUMNS_IDS.country]}`}>{info.getValue()}</span>,
+        cell: (info) => (
+          <UnstyledLink
+            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+            className={`${styles[COLUMNS_IDS.country]}`}>
+            {info.getValue()}
+          </UnstyledLink>
+        ),
         enableSorting: true
       }),
       columnHelper.accessor(COLUMNS_IDS.startDate, {
         header: () => getHeaderLabel(COLUMNS_IDS.startDate),
         cell: (info) => (
-          <span className={`${styles[COLUMNS_IDS.startDate]}`}>
+          <UnstyledLink
+            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+            className={`${styles[COLUMNS_IDS.startDate]}`}>
             <CellDateRenderer value={info.getValue()} />
-          </span>
+          </UnstyledLink>
         ),
         enableSorting: true
       }),
       columnHelper.accessor(COLUMNS_IDS.endDate, {
         header: () => getHeaderLabel(COLUMNS_IDS.endDate),
         cell: (info) => (
-          <span className={`${styles[COLUMNS_IDS.endDate]}`}>
+          <UnstyledLink
+            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+            className={`${styles[COLUMNS_IDS.endDate]}`}>
             <CellDateRenderer value={info.getValue()} />
-          </span>
+          </UnstyledLink>
         ),
         enableSorting: true
       }),
       columnHelper.accessor(COLUMNS_IDS.totalContractAmount, {
         header: () => getHeaderLabel(COLUMNS_IDS.totalContractAmount),
         cell: (info) => (
-          <span className={`${styles[COLUMNS_IDS.totalContractAmount]}`}>
+          <UnstyledLink
+            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+            className={`${styles[COLUMNS_IDS.totalContractAmount]}`}>
             <CellAmountRenderer value={info.getValue()} />
-          </span>
+          </UnstyledLink>
         ),
         enableSorting: true
       }),
       columnHelper.accessor(COLUMNS_IDS.egisPart, {
         header: () => getHeaderLabel(COLUMNS_IDS.egisPart),
         cell: (info) => (
-          <span className={`${styles[COLUMNS_IDS.egisPart]}`}>
+          <UnstyledLink
+            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+            className={`${styles[COLUMNS_IDS.egisPart]}`}>
             <CellAmountRenderer value={info.getValue()} />
-          </span>
+          </UnstyledLink>
         ),
         enableSorting: true
       }),
       columnHelper.accessor(COLUMNS_IDS.filialePart, {
         header: () => getHeaderLabel(COLUMNS_IDS.filialePart),
         cell: (info) => (
-          <span className={`${styles[COLUMNS_IDS.filialePart]}`}>
+          <UnstyledLink
+            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+            className={`${styles[COLUMNS_IDS.filialePart]}`}>
             <CellAmountRenderer value={info.getValue()} />
-          </span>
+          </UnstyledLink>
         ),
         enableSorting: true
       }),
       columnHelper.accessor(COLUMNS_IDS.satisfecit, {
         header: () => getHeaderLabel(COLUMNS_IDS.satisfecit),
         cell: (info) => (
-          <span className={`${styles[COLUMNS_IDS.satisfecit]}`}>{info.getValue()}</span>
+          <UnstyledLink
+            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+            className={`${styles[COLUMNS_IDS.satisfecit]}`}>
+            {info.getValue()}
+          </UnstyledLink>
         ),
         enableSorting: true
       })
