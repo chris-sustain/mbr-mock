@@ -31,11 +31,11 @@ export type TableMode = (typeof TABLE_MODES)[keyof typeof TABLE_MODES];
 export type ColumnRenderer = 'text' | 'date' | 'amount';
 
 // Type for column configuration
-export type ColumnConfig = {
+export interface ColumnConfig {
   id: ColumnKey;
   enableSorting: boolean;
   renderer: ColumnRenderer;
-};
+}
 
 // Type for the entire config object
 export type ColumnConfigs = Record<ColumnKey, ColumnConfig>;

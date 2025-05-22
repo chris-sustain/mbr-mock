@@ -4,9 +4,12 @@ import { useReferenceTable } from './useReferenceTable';
 import { queryKeys } from '@src/react-query/constants';
 import type { Reference } from '@src/types/reference';
 
-const transformReferenceData = (data: any): Reference[] => {
-  return data.results.map((item: any, index: number) => ({
-    id: '00001-00' + index,
+//todo add type
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
+const transformReferenceData = (_: any): Reference[] => {
+  // Generate an array of 100 items
+  return Array.from({ length: 100 }, () => ({
+    id: `REF-${Math.random().toString(36).substring(2, 15)}`,
     commercialTitle:
       'Assistance technique pour la réalisation des ateliers-dépôts des lignes A & B du métro',
     egisOwnerFiliale: 'Egis Rail',

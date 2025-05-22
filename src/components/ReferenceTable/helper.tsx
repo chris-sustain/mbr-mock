@@ -5,6 +5,8 @@ import styles from './ReferenceTable.module.scss';
 import type { Reference } from '@src/types/reference';
 import { flexRender, type Header } from '@tanstack/react-table';
 import classNames from 'classnames';
+import type { ColumnConfig } from '@src/types/table';
+import { CellDateRenderer, CellAmountRenderer } from './components';
 
 export const SortedHeaderCell: React.FC<{ header: Header<Reference, unknown> }> = ({ header }) => {
   const sortDirection = header.column.getIsSorted();
@@ -31,4 +33,18 @@ export const renderHeaderCell = (header: Header<Reference, unknown>) => {
       <SortedHeaderCell header={header} />
     </div>
   );
+};
+
+// Extract renderer logic to a separate utility
+export const renderCellContent = (config: ColumnConfig, value: string) => {
+  switch (config.renderer) {
+    case 'date':
+      return <CellDateRenderer value={value} />;
+    case 'amount':
+      return <CellAmountRenderer value={value} />;
+    case 'text':
+      return value;
+    default:
+      return value;
+  }
 };
