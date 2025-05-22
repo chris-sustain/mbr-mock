@@ -1,11 +1,11 @@
 import styles from './CircularProgress.module.scss';
 
-type CircularProgressProps = {
+interface CircularProgressProps {
   size?: number;
   color?: string;
   backgroundColor?: string;
   thickness?: number;
-};
+}
 
 export const CircularProgress = ({
   size = 20,

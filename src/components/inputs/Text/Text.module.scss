@@ -1,9 +1,11 @@
 .field {
   display: flex;
   flex-direction: column;
+  margin-bottom: 9px;
 
   input,
   textarea {
+    width: 100%;
     margin-bottom: 8px;
     border-radius: 6px;
     background-color: #efefef;
@@ -23,6 +25,10 @@
       border: 1px solid red;
       background-color: #ffe5e5;
     }
+  }
+
+  textarea {
+    min-height: 214px;
   }
 }
 
