@@ -1,6 +1,6 @@
 export type ToastType = 'info' | 'critical' | 'promise';
 
-export type NotifySettings = {
+export interface NotifySettings {
   component?: string;
   type?: ToastType;
   title?: string;
@@ -10,4 +10,4 @@ export type NotifySettings = {
   icon?: React.ReactNode;
   actionCallback?: () => void;
   actionBtnLabel?: string;
-};
+}

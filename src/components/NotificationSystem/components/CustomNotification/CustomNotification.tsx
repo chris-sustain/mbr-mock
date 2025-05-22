@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 // todo import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import styles from './CustomNotification.module.scss';
 
-const CustomNotification = ({
+export const CustomNotification = ({
   type,
   title,
   closable,
@@ -75,5 +75,3 @@ const CustomNotification = ({
     </div>
   );
 };
-
-export default CustomNotification;

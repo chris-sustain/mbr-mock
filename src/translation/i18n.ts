@@ -1,4 +1,4 @@
-import i18n from 'i18next';
+import * as i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { i18nextPlugin } from 'translation-check';
 import EN_COMMON from './constants/Common/en.json';
@@ -49,4 +49,5 @@ i18n
     transKeepBasicHtmlNodesFor: ['span', 'br', 'strong', 'i', 'p']
   });
 
+//eslint-disable-next-line import/no-default-export
 export default i18n;
