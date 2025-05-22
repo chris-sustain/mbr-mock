@@ -21,6 +21,7 @@ import {
   type DateRangePickerProps,
   type DateInputProps
 } from 'react-aria-components';
+import { CaretLeftIcon, CaretRightIcon, CalendarDotsIcon } from '@phosphor-icons/react';
 import { Label } from '../Label';
 
 import styles from './DatePicker.module.scss';
@@ -39,7 +40,9 @@ function DateInputButton({ children }: { children: ReactNode }) {
   return (
     <Group className={classNames(styles.input, { [styles.isOpen]: isOpen })}>
       {children}
-      <Button className={styles.button}>▼</Button>
+      <Button className={styles.button}>
+        <CalendarDotsIcon size={16} />
+      </Button>
     </Group>
   );
 }
@@ -51,10 +54,10 @@ function CalendarContent() {
         <Heading />
         <div>
           <Button slot="previous" className={styles.navButton}>
-            {'<'}
+            <CaretLeftIcon />
           </Button>
           <Button slot="next" className={styles.navButton}>
-            {'>'}
+            <CaretRightIcon />
           </Button>
         </div>
       </header>
@@ -82,7 +85,7 @@ export function DatePicker({
       <FieldError className={styles.error} />
       <Popover className={styles.popover}>
         <Dialog>
-          <Calendar>
+          <Calendar className={styles.calendar}>
             <CalendarContent />
           </Calendar>
         </Dialog>
@@ -113,7 +116,7 @@ export function DateRangePicker({
       <FieldError className={styles.error} />
       <Popover className={styles.popover}>
         <Dialog>
-          <RangeCalendar>
+          <RangeCalendar className={styles.rangeCalendar}>
             <CalendarContent />
           </RangeCalendar>
         </Dialog>

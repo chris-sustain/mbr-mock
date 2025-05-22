@@ -23,20 +23,20 @@
   justify-content: space-between;
   margin-bottom: 8px;
   border-radius: 6px;
-  background-color: #efefef;
-  border: 1px solid #efefef;
+  background-color: var(--vert-500-disabled);
+  border: 1px solid var(--vert-500-disabled);
   outline: none;
   padding: 10px 6px;
 
   &[data-focus-within] {
-    border: 1px solid black;
+    border: 1px solid var(--vert-500-pressed);
     background-color: white;
-    box-shadow: 0 0 5px darkgrey;
+    box-shadow: 0 0 3px var(--vert-500);
   }
 }
 
 .isOpen {
-  border: 1px solid black;
+  border: 1px solid var(--vert-500-disabled);
   background-color: white;
 }
 
@@ -47,13 +47,23 @@
 }
 
 .popover {
-  border: 1px solid black;
+  border: 1px solid var(--vert-500-disabled);
   border-radius: 6px;
   padding: 12px;
   background-color: white;
 
   &:focus-within {
-    box-shadow: 0 0 5px darkslategrey;
+    box-shadow: 0 0 3px var(--vert-500);
+  }
+}
+
+.calendar {
+  table {
+    border-collapse: collapse;
+
+    td {
+      padding: 2px 0;
+    }
   }
 }
 
@@ -70,16 +80,36 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 999px;
   outline: none;
   cursor: pointer;
+  border-radius: 999px;
 
   &:hover {
     background-color: #efefef;
   }
 
   &[data-selected] {
-    background-color: #afbb32;
+    background-color: var(--vert-500);
+  }
+}
+
+.rangeCalendar {
+  @extend .calendar;
+
+  .cell {
+    &[data-selected] {
+      border-radius: 0;
+    }
+
+    &[data-selection-start] {
+      border-start-start-radius: 999px;
+      border-end-start-radius: 999px;
+    }
+
+    &[data-selection-end] {
+      border-start-end-radius: 999px;
+      border-end-end-radius: 999px;
+    }
   }
 }
 

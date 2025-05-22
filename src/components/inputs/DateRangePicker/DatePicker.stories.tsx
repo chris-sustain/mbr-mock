@@ -112,7 +112,7 @@ export const Range: StoryObj<typeof DateRangePicker> = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const user = userEvent.setup();
-    const error = /antérieure/i;
+    const error = /antérieure|before/i;
     await user.click(canvas.getByRole('button', { name: 'submit' }));
     expect(canvas.getByText(error)).toBeVisible();
 
