@@ -2,8 +2,19 @@ import type { StoryObj } from '@storybook/react';
 import { Button, Form } from 'react-aria-components';
 import { parseDate, type DateValue } from '@internationalized/date';
 import { userEvent, within, expect } from '@storybook/test';
-import DatePicker from './DatePicker';
-import { useState } from 'react';
+import { DatePicker, DateRangePicker } from './DatePicker';
+
+// Doesn’t navigate in tests
+function TestForm({ children }: { children: React.ReactNode }) {
+  return (
+    <Form
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}>
+      {children}
+    </Form>
+  );
+}
 
 export default {
   title: 'Inputs/DatePicker',
@@ -24,13 +35,10 @@ export const Base: StoryObj<typeof DatePicker> = {
 
 export const InvalidStartDate: StoryObj<typeof DatePicker> = {
   render: (args) => (
-    <Form
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}>
+    <TestForm>
       <DatePicker {...args} />
       <Button type="submit">submit</Button>
-    </Form>
+    </TestForm>
   ),
   args: {
     label: 'Date trop tôt',
@@ -57,10 +65,7 @@ export const CustomValidation: StoryObj<typeof DatePicker> = {
     const startDate = parseDate('2020-01-01');
 
     return (
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}>
+      <TestForm>
         <DatePicker
           label="Pay date"
           defaultValue={parseDate('2018-01-01')}
@@ -69,7 +74,7 @@ export const CustomValidation: StoryObj<typeof DatePicker> = {
           }
         />
         <Button type="submit">submit</Button>
-      </Form>
+      </TestForm>
     );
   },
   play: async ({ canvasElement }) => {
@@ -84,6 +89,39 @@ export const CustomValidation: StoryObj<typeof DatePicker> = {
     await user.click(canvas.getByRole('spinbutton', { name: /(année|year), pay/i }));
     await user.keyboard('2022');
     await user.click(canvas.getByRole('button', { name: /submit/i }));
+    expect(canvas.queryByText(error)).not.toBeInTheDocument();
+  }
+};
+
+export const Range: StoryObj<typeof DateRangePicker> = {
+  render: (args) => (
+    <TestForm>
+      <DateRangePicker {...args} />
+      <Button type="submit">submit</Button>
+    </TestForm>
+  ),
+  args: {
+    label: 'Range',
+    startName: 'start',
+    endName: 'end',
+    defaultValue: {
+      start: parseDate('2020-01-01'),
+      end: parseDate('2000-01-01')
+    }
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+    const error = /antérieure/i;
+    await user.click(canvas.getByRole('button', { name: 'submit' }));
+    expect(canvas.getByText(error)).toBeVisible();
+
+    await user.click(canvas.getAllByRole('spinbutton', { name: /(année|year)/i })[0]);
+    await user.keyboard('2010');
+
+    await user.click(canvas.getAllByRole('spinbutton', { name: /(année|year)/i })[1]);
+    await user.keyboard('2020');
+    await user.click(canvas.getByRole('button', { name: 'submit' }));
     expect(canvas.queryByText(error)).not.toBeInTheDocument();
   }
 };

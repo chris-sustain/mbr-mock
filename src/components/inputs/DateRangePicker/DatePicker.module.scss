@@ -4,7 +4,7 @@
 }
 
 .segment {
-  padding: 0 3px;
+  padding: 0 1px;
 
   &:focus {
     background-color: lightblue;
@@ -13,7 +13,12 @@
   }
 }
 
+.separator {
+  padding: 0 12px;
+}
+
 .input {
+  width: max-content;
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
