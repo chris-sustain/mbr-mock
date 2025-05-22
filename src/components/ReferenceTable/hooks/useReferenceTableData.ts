@@ -7,13 +7,12 @@ export const useReferenceTableData = () => {
   const [sorting, setSorting] = useState<SortingState>([{ id: 'id', desc: true }]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const { setSort } = useReferenceTable();
+  const { data, isLoading, isFetching } = useReferenceQuery(currentPage);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isFetching } =
-    useReferenceQuery();
-
-  const allRows = useMemo(() => (data ? data.pages.flatMap((d) => d.results) : []), [data]);
-  const allIds = allRows.map((row) => row.id);
+  const allRows = useMemo(() => data?.results ?? [], [data?.results]);
+  const totalPages = useMemo(() => data?.totalPages ?? 1, [data?.totalPages]);
 
   useEffect(() => {
     if (sorting.length > 0) {
@@ -32,11 +31,10 @@ export const useReferenceTableData = () => {
     selectedIds,
     setSelectedIds,
     allRows,
-    allIds,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
     isLoading,
-    isFetching
+    isFetching,
+    currentPage,
+    setCurrentPage,
+    totalPages
   };
 };

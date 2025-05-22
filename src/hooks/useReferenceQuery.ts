@@ -1,12 +1,14 @@
-import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
-import { fetchReference, FETCH_REFERENCE_INITIAL_URL, baseUrl } from '@src/api/referenceApi';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { fetchReference, FETCH_REFERENCE_INITIAL_URL } from '@src/api/referenceApi';
 import { useReferenceTable } from './useReferenceTable';
 import { queryKeys } from '@src/react-query/constants';
 import type { Reference } from '@src/types/reference';
+import { useEffect } from 'react';
 
 //todo add type
-//eslint-disable-next-line @typescript-eslint/no-explicit-any
-const transformReferenceData = (_: any): Reference[] => {
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+export const transformReferenceData = (_: any): Reference[] => {
   // Generate an array of 100 items
   return Array.from({ length: 100 }, () => ({
     id: `REF-${Math.random().toString(36).substring(2, 15)}`,
@@ -24,30 +26,52 @@ const transformReferenceData = (_: any): Reference[] => {
   }));
 };
 
-export function useReferenceQuery() {
+export function useReferenceQuery(page = 1) {
   const { sort, search, filters } = useReferenceTable();
+  const queryClient = useQueryClient();
 
-  return useInfiniteQuery({
-    queryKey: [queryKeys.reference, sort, search, filters],
-    queryFn: async ({ pageParam }) => {
-      const response = await fetchReference(pageParam);
+  const query = useQuery({
+    queryKey: [queryKeys.reference, sort, search, filters, page],
+    queryFn: async () => {
+      // const response = await fetchReference(`${baseUrl}?page=${page}`);
+      const url =
+        page > 1 ? `${FETCH_REFERENCE_INITIAL_URL}?page=${page}` : FETCH_REFERENCE_INITIAL_URL;
+      const response = await fetchReference(url);
       return {
         ...response,
-        results: transformReferenceData(response)
+        results: transformReferenceData(response),
+        currentPage: page,
+        totalPages: Math.ceil(1000 / 100),
+        totalItems: response.count
       };
-    },
-    initialPageParam: FETCH_REFERENCE_INITIAL_URL,
-    //wait for back disable eslint @typescript-eslint/no-explicit-any
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    getNextPageParam: (lastPage: any) => {
-      return lastPage.next ? baseUrl + lastPage.next : undefined;
     },
     staleTime: 60 * 1000, // 1 minute
     refetchOnWindowFocus: false,
-    // Add these options to help prevent unnecessary re-renders
     refetchOnMount: false,
     refetchOnReconnect: false,
-    retry: false,
-    placeholderData: keepPreviousData
+    retry: false
   });
+
+  // Add prefetching logic
+  useEffect(() => {
+    if (query.data && page < query.data.totalPages) {
+      const nextPage = page + 1;
+      queryClient.prefetchQuery({
+        queryKey: [queryKeys.reference, sort, search, filters, nextPage],
+        queryFn: async () => {
+          const url = `${FETCH_REFERENCE_INITIAL_URL}?page=${nextPage}`;
+          const response = await fetchReference(url);
+          return {
+            ...response,
+            results: transformReferenceData(response),
+            currentPage: nextPage,
+            totalPages: Math.ceil(1000 / 100),
+            totalItems: response.count
+          };
+        }
+      });
+    }
+  }, [page, query.data, queryClient, sort, search, filters]);
+
+  return query;
 }

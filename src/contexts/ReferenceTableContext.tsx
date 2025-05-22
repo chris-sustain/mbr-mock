@@ -21,7 +21,7 @@ export const ReferenceTableContext = createContext<ReferenceTableContextType | u
 
 export function ReferenceFilterProvider({ children }: { children: ReactNode }) {
   const [filters, setFilters] = useState<ReferenceFilters>({});
-  const [sort, setSort] = useState<ReferenceSort | null>(null);
+  const [sort, setSort] = useState<ReferenceSort | null>({ column: 'id', direction: 'desc' });
   const [search, setSearch] = useState<ReferenceSearch>({
     query: '',
     active: false
