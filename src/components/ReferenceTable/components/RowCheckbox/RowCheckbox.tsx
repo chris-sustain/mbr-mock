@@ -2,12 +2,12 @@ import styles from './RowCheckbox.module.scss';
 import React from 'react';
 import classNames from 'classnames';
 import { Checkbox } from '@src/components/inputs/Checkbox';
-type RowCheckboxProps = {
+interface RowCheckboxProps {
   id: string;
   selectedIds: string[];
   setSelectedIds: React.Dispatch<React.SetStateAction<string[]>>;
   className?: string;
-};
+}
 
 export const RowCheckbox: React.FC<RowCheckboxProps> = ({
   id,

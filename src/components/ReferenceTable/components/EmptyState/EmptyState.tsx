@@ -2,10 +2,10 @@ import styles from './EmptyState.module.scss';
 import { Trans } from 'react-i18next';
 import { CustomIcon } from '@src/components/CustomIcon/CustomIcon';
 const TABLE_HEADER_HEIGHT = 50;
-type EmptyStateProps = {
+interface EmptyStateProps {
   height: number;
   colSpan: number;
-};
+}
 
 export const EmptyState = ({ height, colSpan }: EmptyStateProps) => {
   return (

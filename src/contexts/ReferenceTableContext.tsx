@@ -38,8 +38,8 @@ export function ReferenceFilterProvider({ children }: { children: ReactNode }) {
 
   const clearFilter = (key: keyof ReferenceFilters) => {
     setFilters((prev) => {
-      const newFilters = { ...prev };
-      delete newFilters[key];
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { [key]: _, ...newFilters } = prev;
       return newFilters;
     });
   };

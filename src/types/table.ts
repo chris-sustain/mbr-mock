@@ -21,10 +21,21 @@ type FilterKey = ColumnKey;
 type FilterValue = string | number | string[];
 
 // Create a type for the filters object
-export type ReferenceFilters = {
-  [K in FilterKey]?: FilterValue;
-};
+export type ReferenceFilters = Partial<Record<FilterKey, FilterValue>>;
 
 // export type ColumnId = keyof typeof COLUMNS_IDS;
 
 export type TableMode = (typeof TABLE_MODES)[keyof typeof TABLE_MODES];
+
+// Type for the renderer options
+export type ColumnRenderer = 'text' | 'date' | 'amount';
+
+// Type for column configuration
+export type ColumnConfig = {
+  id: ColumnKey;
+  enableSorting: boolean;
+  renderer: ColumnRenderer;
+};
+
+// Type for the entire config object
+export type ColumnConfigs = Record<ColumnKey, ColumnConfig>;

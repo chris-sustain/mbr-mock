@@ -31,5 +31,3 @@ export const CellDateRenderer: React.FC<CellDateRendererProps> = ({ value }) => 
 
   return <span>{formatDate(value)}</span>;
 };
-
-export default CellDateRenderer;

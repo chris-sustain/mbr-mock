@@ -33,5 +33,3 @@ export const CellAmountRenderer: React.FC<CellAmountRendererProps> = ({ value })
 
   return <span>{formatAmount(value)}</span>;
 };
-
-export default CellAmountRenderer;

@@ -6,6 +6,7 @@ import { flexRender, type Row, type Table } from '@tanstack/react-table';
 import type { Virtualizer } from '@tanstack/react-virtual';
 import { renderHeaderCell } from './helper';
 import { EmptyState } from './components';
+import { CircularProgress } from '@src/components/CircularProgress';
 import classNames from 'classnames';
 export const ReferenceTable: React.FC<{
   table: Table<Reference>;
@@ -36,12 +37,8 @@ export const ReferenceTable: React.FC<{
 }) => {
   const renderBody = () => {
     if (!isLoading && !isFetching && allRows.length === 0) {
-      return (
-        <EmptyState
-          height={tableContainerRef.current?.clientHeight || 0}
-          colSpan={table.getAllColumns().length}
-        />
-      );
+      const containerHeight = tableContainerRef?.current?.clientHeight || 0;
+      return <EmptyState height={containerHeight} colSpan={table.getAllColumns().length} />;
     }
 
     return (
@@ -65,7 +62,7 @@ export const ReferenceTable: React.FC<{
               return (
                 <tr key={virtualRow.key} className={styles.tr}>
                   <td colSpan={table.getAllColumns().length} className={styles.td}>
-                    Loading more data...
+                    <CircularProgress />
                   </td>
                 </tr>
               );
@@ -124,5 +121,3 @@ export const ReferenceTable: React.FC<{
     </div>
   );
 };
-
-export default ReferenceTable;

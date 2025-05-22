@@ -10,16 +10,17 @@ import {
 import type { Reference } from '@src/types/reference';
 import { ReferenceTable } from './ReferenceTable';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import type { ColumnKey, TableMode } from '@src/types/table';
+import type { ColumnKey, TableMode, ColumnConfig } from '@src/types/table';
 import { useReferenceQuery, useReferenceTable } from '@src/hooks';
 import { HeaderCheckbox, RowCheckbox, CellDateRenderer, CellAmountRenderer } from './components';
-import { COLUMNS_IDS, TABLE_MODES } from '@src/utils';
+import { COLUMNS_IDS, TABLE_MODES, COLUMN_CONFIGS } from '@src/utils';
 import { useTranslation } from 'react-i18next';
 import styles from './ReferenceTable.module.scss';
 import classNames from 'classnames';
 import { useNavigate, generatePath } from 'react-router';
 import { UnstyledLink } from '@src/components/UnstyledLink';
 import { PATHS } from '@src/router';
+
 export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: TableMode }) => {
   const [sorting, setSorting] = useState<SortingState>([{ id: 'id', desc: true }]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -44,37 +45,26 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isFetching } =
     useReferenceQuery();
-  const allRows = useMemo(
-    () =>
-      data
-        ? data.pages.flatMap((d) => {
-            // Transform the data to match the expected structure
-            //wait for back disable eslint @typescript-eslint/no-explicit-any
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            return d.results.map((item: any, index: number) => ({
-              id: '00001-00' + index,
-              commercialTitle:
-                'Assistance technique pour la réalisation des ateliers-dépôts des lignes A & B du métro',
-              egisOwnerFiliale: 'Egis Rail',
-              domain: '--',
-              country: 'France',
-              startDate: '2019-08-30T08:22:32.245-0700',
-              endDate: '2019-08-30T08:22:32.245-0700',
-              totalContractAmount: '1000000',
-              egisPart: '500000',
-              filialePart: '500000',
-              satisfecit: '--'
-            }));
-          })
-        : [],
-    [data]
-  );
+  const allRows = useMemo(() => (data ? data.pages.flatMap((d) => d.results) : []), [data]);
   const [selectedIds, setSelectedIds] = React.useState<string[]>([]);
   const allIds = allRows.map((row) => row.id);
 
   const getHeaderLabel = (columnId: ColumnKey) => {
     const className = classNames(styles[columnId], styles['header']);
     return <span className={className}>{t('common.table.' + columnId)}</span>;
+  };
+
+  const renderCellContent = (config: ColumnConfig, value: any) => {
+    switch (config.renderer) {
+      case 'date':
+        return <CellDateRenderer value={value} />;
+      case 'amount':
+        return <CellAmountRenderer value={value} />;
+      case 'text':
+        return value;
+      default:
+        return value;
+    }
   };
 
   const columns = useMemo(
@@ -97,127 +87,19 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
         ),
         enableSorting: false
       },
-      columnHelper.accessor(COLUMNS_IDS.id, {
-        header: () => getHeaderLabel(COLUMNS_IDS.id),
-        cell: (info) => (
-          <UnstyledLink
-            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
-            className={`${styles[COLUMNS_IDS.id]}`}>
-            {info.getValue()}
-          </UnstyledLink>
-        ),
-        enableSorting: true
-      }),
-      columnHelper.accessor(COLUMNS_IDS.commercialTitle, {
-        header: () => getHeaderLabel(COLUMNS_IDS.commercialTitle),
-        cell: (info) => (
-          <UnstyledLink
-            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
-            className={`${styles[COLUMNS_IDS.commercialTitle]}`}>
-            {info.getValue()}
-          </UnstyledLink>
-        ),
-        enableSorting: false
-      }),
-      columnHelper.accessor(COLUMNS_IDS.egisOwnerFiliale, {
-        header: () => getHeaderLabel(COLUMNS_IDS.egisOwnerFiliale),
-        cell: (info) => (
-          <UnstyledLink
-            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
-            className={`${styles[COLUMNS_IDS.egisOwnerFiliale]}`}>
-            {info.getValue()}
-          </UnstyledLink>
-        ),
-        enableSorting: true
-      }),
-      columnHelper.accessor(COLUMNS_IDS.domain, {
-        header: () => getHeaderLabel(COLUMNS_IDS.domain),
-        cell: (info) => (
-          <UnstyledLink
-            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
-            className={`${styles[COLUMNS_IDS.domain]}`}>
-            {info.getValue()}
-          </UnstyledLink>
-        ),
-        enableSorting: true
-      }),
-      columnHelper.accessor(COLUMNS_IDS.country, {
-        header: () => getHeaderLabel(COLUMNS_IDS.country),
-        cell: (info) => (
-          <UnstyledLink
-            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
-            className={`${styles[COLUMNS_IDS.country]}`}>
-            {info.getValue()}
-          </UnstyledLink>
-        ),
-        enableSorting: true
-      }),
-      columnHelper.accessor(COLUMNS_IDS.startDate, {
-        header: () => getHeaderLabel(COLUMNS_IDS.startDate),
-        cell: (info) => (
-          <UnstyledLink
-            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
-            className={`${styles[COLUMNS_IDS.startDate]}`}>
-            <CellDateRenderer value={info.getValue()} />
-          </UnstyledLink>
-        ),
-        enableSorting: true
-      }),
-      columnHelper.accessor(COLUMNS_IDS.endDate, {
-        header: () => getHeaderLabel(COLUMNS_IDS.endDate),
-        cell: (info) => (
-          <UnstyledLink
-            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
-            className={`${styles[COLUMNS_IDS.endDate]}`}>
-            <CellDateRenderer value={info.getValue()} />
-          </UnstyledLink>
-        ),
-        enableSorting: true
-      }),
-      columnHelper.accessor(COLUMNS_IDS.totalContractAmount, {
-        header: () => getHeaderLabel(COLUMNS_IDS.totalContractAmount),
-        cell: (info) => (
-          <UnstyledLink
-            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
-            className={`${styles[COLUMNS_IDS.totalContractAmount]}`}>
-            <CellAmountRenderer value={info.getValue()} />
-          </UnstyledLink>
-        ),
-        enableSorting: true
-      }),
-      columnHelper.accessor(COLUMNS_IDS.egisPart, {
-        header: () => getHeaderLabel(COLUMNS_IDS.egisPart),
-        cell: (info) => (
-          <UnstyledLink
-            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
-            className={`${styles[COLUMNS_IDS.egisPart]}`}>
-            <CellAmountRenderer value={info.getValue()} />
-          </UnstyledLink>
-        ),
-        enableSorting: true
-      }),
-      columnHelper.accessor(COLUMNS_IDS.filialePart, {
-        header: () => getHeaderLabel(COLUMNS_IDS.filialePart),
-        cell: (info) => (
-          <UnstyledLink
-            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
-            className={`${styles[COLUMNS_IDS.filialePart]}`}>
-            <CellAmountRenderer value={info.getValue()} />
-          </UnstyledLink>
-        ),
-        enableSorting: true
-      }),
-      columnHelper.accessor(COLUMNS_IDS.satisfecit, {
-        header: () => getHeaderLabel(COLUMNS_IDS.satisfecit),
-        cell: (info) => (
-          <UnstyledLink
-            to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
-            className={`${styles[COLUMNS_IDS.satisfecit]}`}>
-            {info.getValue()}
-          </UnstyledLink>
-        ),
-        enableSorting: true
-      })
+      ...Object.entries(COLUMN_CONFIGS).map(([key, config]) =>
+        columnHelper.accessor(key as ColumnKey, {
+          header: () => getHeaderLabel(key as ColumnKey),
+          cell: (info) => (
+            <UnstyledLink
+              to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+              className={`${styles[key]}`}>
+              {renderCellContent(config, info.getValue())}
+            </UnstyledLink>
+          ),
+          enableSorting: config.enableSorting
+        })
+      )
     ],
     [columnHelper]
   );
@@ -245,7 +127,6 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel()
-    // getRowClassName
   });
 
   const { rows } = table.getRowModel();
@@ -306,5 +187,3 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
     />
   );
 };
-
-export default ReferenceTable;

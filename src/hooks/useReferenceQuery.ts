@@ -1,15 +1,38 @@
 import { keepPreviousData, useInfiniteQuery } from '@tanstack/react-query';
 import { fetchReference, FETCH_REFERENCE_INITIAL_URL, baseUrl } from '@src/api/referenceApi';
-
 import { useReferenceTable } from './useReferenceTable';
 import { queryKeys } from '@src/react-query/constants';
+import type { Reference } from '@src/types/reference';
+
+const transformReferenceData = (data: any): Reference[] => {
+  return data.results.map((item: any, index: number) => ({
+    id: '00001-00' + index,
+    commercialTitle:
+      'Assistance technique pour la réalisation des ateliers-dépôts des lignes A & B du métro',
+    egisOwnerFiliale: 'Egis Rail',
+    domain: '--',
+    country: 'France',
+    startDate: '2019-08-30T08:22:32.245-0700',
+    endDate: '2019-08-30T08:22:32.245-0700',
+    totalContractAmount: '1000000',
+    egisPart: '500000',
+    filialePart: '500000',
+    satisfecit: '--'
+  }));
+};
 
 export function useReferenceQuery() {
   const { sort, search, filters } = useReferenceTable();
 
   return useInfiniteQuery({
     queryKey: [queryKeys.reference, sort, search, filters],
-    queryFn: ({ pageParam }) => fetchReference(pageParam),
+    queryFn: async ({ pageParam }) => {
+      const response = await fetchReference(pageParam);
+      return {
+        ...response,
+        results: transformReferenceData(response)
+      };
+    },
     initialPageParam: FETCH_REFERENCE_INITIAL_URL,
     //wait for back disable eslint @typescript-eslint/no-explicit-any
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
