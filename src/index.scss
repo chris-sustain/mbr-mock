@@ -1,14 +1,16 @@
 @import './breakpoints';
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
   --base-font-size: 16px;
   --base-line-height: 1.5;
   --success: #1fb81f;
+  --gris-200: #bebebe;
   --vert-500: #abc022;
   --vert-500-pressed: #91a41a;
   --vert-500-disabled: #d6d6d6;
   --vert-500-hover: #f6f9d7;
+  --vert-600: #91a41a;
 }
 
 html {
@@ -26,9 +28,9 @@ textarea {
 
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Urbanist', sans-serif;
   font-optical-sizing: auto;
-  font-weight: 400;
+  font-weight: 500;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
