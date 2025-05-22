@@ -88,3 +88,15 @@ export const SecondaryIndeterminate: StoryObj<typeof Checkbox> = {
     isIndeterminate: true
   }
 };
+
+export const Label: StoryObj<typeof Checkbox> = {
+  render: (args) => (
+    <>
+      <Checkbox {...args}>Some label</Checkbox>
+      <Checkbox {...args}>
+        <span style={{ color: 'pink' }}>Some pink label</span>
+      </Checkbox>
+    </>
+  ),
+  args: Base.args
+};
