@@ -4,46 +4,59 @@ import classNames from 'classnames';
 
 import styles from './CustomButton.module.scss';
 
-// Types of the props of AriaButton, without the props internally handled by the CustomButton component.
+// Use the types of the props of AriaButton without the common props which are internally handled by the CustomButton component.
 type AriaButtonProps = Omit<ComponentProps<typeof AriaButton>, 'className' | 'children'>;
 
 type CustomButtonProps = PropsWithChildren<AriaButtonProps> & {
-  /** The CSS className for the button element. */
+  /** Additional className applied to the react-aria Button. */
   className?: string;
+  /** The color (variant) of the button. */
+  color?: 'primary' | 'outlined' | 'tertiary';
+  /** The size of the button. */
+  size?: 'small' | 'medium' | 'large';
+  /** Defaults to false. If true, applies fully rounded borders. */
+  isRounded?: boolean;
+  /** Defaults to false. If true, adds **width: 100%** to the button. */
+  isFullWidth?: boolean;
 };
 
 /**
- * CustomButton component that wraps the AriaButton component.
- * It allows for additional styling and functionality.
- *
- * All the props are directly passed to the AriaButton component props, except for the following which are handled internally before being passed:
- * - **className**: The CSS className for the button element.
- * - **children**: The content to display in the button.
- * // todo: complete with isDisabled, isFullWidth, isRounded, etc.
- *
- * The component also accepts all the props of the AriaButton component. Here is an example of the most important ones:
- * - **onPress**: Function to call when the button is pressed.
- * - **ref**: A ref to the react-aria Button.
- * // todo: maybe mention that "isDisabled" is not passed to the AriaButton component directly but handled internally first before being passed?
- *
+ * CustomButton component that wraps the react-aria-components Button.
+ * Some props are passed directly to the Button while others are specific to this component.
+ * Refer to the Storybook for more information on the props and their usage.
  * https://react-spectrum.adobe.com/react-aria/Button.html
  */
-export const CustomButton = ({ className, children, ...rest }: CustomButtonProps) => {
-  const buttonClassName = classNames(styles['button'], className);
+export const CustomButton = ({
+  children,
+  className,
+  color = 'primary',
+  size = 'medium',
+  isRounded,
+  isFullWidth,
+  ...rest
+}: CustomButtonProps) => {
+  const buttonClassName = classNames(
+    styles['button'],
+    className,
+    {
+      [styles[`color-${color}`]]: color,
+      [styles[`size-${size}`]]: size,
+      [styles['rounded']]: isRounded,
+      [styles['full-width']]: isFullWidth,
+    }
+  );
 
   return (
-    // Pass props after spreading the rest of the props in order to keep control over the className.
     <AriaButton {...rest} className={buttonClassName}>
       {children}
     </AriaButton>
   );
 };
 
-// Todo: remove.
-export const Test = () => {
-  return (
-    <CustomButton className="test" onPress={() => console.warn('Button pressed')}>
-      {'aze'}
-    </CustomButton>
-  );
-};
+// export const Test = () => {
+//   return (
+//     <CustomButton className={styles['temp']} onPress={() => console.warn('Button pressed')}>
+//       {'aze'}
+//     </CustomButton>
+//   );
+// };
