@@ -3,6 +3,7 @@ import { Form, Group, type GroupProps } from 'react-aria-components';
 import { TextInput } from '@components/inputs/Text';
 import { Checkbox } from '@components/inputs/Checkbox';
 import styles from './CreateRefPage.module.scss';
+import { useTranslation } from 'react-i18next';
 
 function FormSection({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -22,17 +23,19 @@ function FieldRow({ children, ...groupProps }: { children: ReactNode } & GroupPr
 }
 
 function GeneralInfo() {
+  const { t } = useTranslation();
+
   return (
     <>
-      <TextInput label="Titre contractuel du projet" isRequired />
-      <TextInput label="Titre commercial du projet" isRequired />
+      <TextInput label={t('common.createRef.fields.contractualProjectTitle')} isRequired />
+      <TextInput label={t('common.createRef.fields.commercialProjectTitle')} isRequired />
       <FieldRow>
         {'Select, rédacteur'}
         {'Select, validateur'}
       </FieldRow>
-      <TextInput label="Mandataire en cas de groupement" isRequired />
-      <TextInput label="N° offre CRM filiale" isRequired />
-      <TextInput label="N° projet EARTH filiale" isRequired />
+      <TextInput label={t('common.createRef.fields.groupingAgent')} isRequired />
+      <TextInput label={t('common.createRef.fields.subsidiaryOfferNumber')} isRequired />
+      <TextInput label={t('common.createRef.fields.subsidiaryEarthProjectNumber')} isRequired />
       <div>{'FieldArray -> select, filiales'}</div>
       <div>{'Select, caractéristiques'}</div>
       <div>{'Tags, tags'}</div>
@@ -41,80 +44,84 @@ function GeneralInfo() {
 }
 
 function Client() {
+  const { t } = useTranslation();
   return (
     <>
-      <TextInput label="Client" isRequired />
+      <TextInput label={t('common.createRef.fields.client')} isRequired />
       <div>{'Select, type de client'}</div>
-      <TextInput label="Description du client direct" multiline />
-      <TextInput label="Adresse du client direct" multiline />
+      <TextInput label={t('common.createRef.fields.directClientDescription')} multiline />
+      <TextInput label={t('common.createRef.fields.directClientAddress')} multiline />
       <FieldRow>
-        <TextInput label="Client final (bénéficiaire)" />
-        <TextInput label="Adresse du client final" />
+        <TextInput label={t('common.createRef.fields.finalClient')} />
+        <TextInput label={t('common.createRef.fields.finalClientAddress')} />
       </FieldRow>
       <FieldRow>
-        <TextInput label="Contact client : Prénom - NOM" />
-        <TextInput label="Contact client : Fonction" />
+        <TextInput label={t('common.createRef.fields.clientContactName')} />
+        <TextInput label={t('common.createRef.fields.clientContactFunction')} />
       </FieldRow>
       <FieldRow>
-        <TextInput label="Contact client : Téléphone" />
-        <TextInput label="Contact client : Fax" />
+        <TextInput label={t('common.createRef.fields.clientContactPhone')} />
+        <TextInput label={t('common.createRef.fields.clientContactFax')} />
       </FieldRow>
-      <TextInput label="Contact client : Email" />
+      <TextInput label={t('common.createRef.fields.clientContactEmail')} />
     </>
   );
 }
 
 function ProjectContext() {
+  const { t } = useTranslation();
   return (
     <>
-      <TextInput label="Adresse du client direct" multiline isRequired />
+      <TextInput label={t('common.createRef.fields.directClientAddress')} multiline isRequired />
       <TextInput
-        label="Description des services fournis par la filiale Egis propriétaire de la référence"
+        label={t('common.createRef.fields.servicesDescription')}
         multiline
         isRequired
       />
-      <TextInput label="Résumé du projet" multiline isRequired />
+      <TextInput label={t('common.createRef.fields.projectSummary')} multiline isRequired />
       <div>{'Select, Domaine'}</div>
       <div>{'Select, Géographie'}</div>
       <div>{'Array -> Select, mission'}</div>
       <div>{'Array -> Select, produit'}</div>
       <div>{'Array -> Select, produit'}</div>
-      <TextInput label="Commentaire(s) (à usage interne)" multiline />
+      <TextInput label={t('common.createRef.fields.internalComments')} multiline />
     </>
   );
 }
 
 function Provision() {
+  const { t } = useTranslation();
   return (
     <>
       <FieldRow>{'dates'}</FieldRow>
       <FieldRow>
         {'dates'}
         <span></span>
-        <Checkbox>{'Prestation terminée'}</Checkbox>
+        <Checkbox>{t('common.createRef.fields.serviceCompleted')}</Checkbox>
       </FieldRow>
     </>
   );
 }
 
 function RefForm() {
+  const { t } = useTranslation();
   return (
     <Form>
-      <FormSection title="Informations générales">
+      <FormSection title={t('common.createRef.sections.generalInfo')}>
         <GeneralInfo />
       </FormSection>
-      <FormSection title="Clients">
+      <FormSection title={t('common.createRef.sections.clients')}>
         <Client />
       </FormSection>
-      <FormSection title="Contexte du projet">
+      <FormSection title={t('common.createRef.sections.projectContext')}>
         <ProjectContext />
       </FormSection>
-      <FormSection title="Notre prestation">
+      <FormSection title={t('common.createRef.sections.ourService')}>
         <Provision />
       </FormSection>
-      <FormSection title="Intervanants">{'Form'}</FormSection>
-      <FormSection title="Montants et financements">{'Form'}</FormSection>
-      <FormSection title="Fichiers liés">{'Form'}</FormSection>
+      <FormSection title={t('common.createRef.sections.participants')}>{'Form'}</FormSection>
+      <FormSection title={t('common.createRef.sections.amountsAndFunding')}>{'Form'}</FormSection>
+      <FormSection title={t('common.createRef.sections.relatedFiles')}>{'Form'}</FormSection>
     </Form>
   );
 }
