@@ -1,6 +1,4 @@
-import styles from './HeaderCheckbox.module.scss';
 import React from 'react';
-import classNames from 'classnames';
 import { Checkbox } from '@src/components/inputs/Checkbox';
 interface HeaderCheckboxProps {
   allIds: string[];
@@ -20,7 +18,7 @@ export const HeaderCheckbox: React.FC<HeaderCheckboxProps> = ({
 
   return (
     <Checkbox
-      className={classNames(styles.checkbox, className)}
+      className={className}
       isSelected={isAllSelected}
       isIndeterminate={isIndeterminate}
       aria-checked={isIndeterminate ? 'mixed' : isAllSelected}

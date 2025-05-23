@@ -1,7 +1,6 @@
-import styles from './RowCheckbox.module.scss';
 import React from 'react';
-import classNames from 'classnames';
 import { Checkbox } from '@src/components/inputs/Checkbox';
+import styles from './RowCheckbox.module.scss';
 interface RowCheckboxProps {
   id: string;
   selectedIds: string[];
@@ -18,12 +17,14 @@ export const RowCheckbox: React.FC<RowCheckboxProps> = ({
   const isSelected = selectedIds.includes(id);
 
   return (
-    <Checkbox
-      className={classNames(styles.checkbox, className)}
-      isSelected={isSelected}
-      onChange={(isSelected) => {
-        setSelectedIds((prev) => (isSelected ? [...prev, id] : prev.filter((_id) => _id !== id)));
-      }}
-    />
+    <div className={styles['root']}>
+      <Checkbox
+        className={className}
+        isSelected={isSelected}
+        onChange={(isSelected) => {
+          setSelectedIds((prev) => (isSelected ? [...prev, id] : prev.filter((_id) => _id !== id)));
+        }}
+      />
+    </div>
   );
 };

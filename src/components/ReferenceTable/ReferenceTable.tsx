@@ -1,4 +1,4 @@
-import { memo, useRef } from 'react';
+import { memo, useRef, useCallback } from 'react';
 
 import styles from './ReferenceTable.module.scss';
 import type { Reference } from '@src/types/reference';
@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import { useLoadingState } from '@src/hooks/useLoadingState';
 import { getColumnWidth } from '@src/utils/table';
 
-export const ReferenceTable = memo<{
+export const ReferenceTable: React.FC<{
   table: Table<Reference>;
   rows: Row<Reference>[];
   allRows: Reference[];
@@ -19,87 +19,98 @@ export const ReferenceTable = memo<{
   currentPage: number;
   setCurrentPage: (page: number) => void;
   totalPages: number;
-}>(
-  ({
-    table,
-    rows,
-    allRows,
-    isLoading,
-    isFetching,
-    getRowClassName,
-    currentPage,
-    setCurrentPage,
-    totalPages
-  }) => {
-    const tableContainerRef = useRef<HTMLDivElement | null>(null);
-    const headerRef = useRef<HTMLTableSectionElement | null>(null);
-    const showLoading = useLoadingState(isLoading);
+}> = ({
+  table,
+  rows,
+  allRows,
+  isLoading,
+  isFetching,
+  getRowClassName,
+  currentPage,
+  setCurrentPage,
+  totalPages
+}) => {
+  const tableContainerRef = useRef<HTMLDivElement | null>(null);
+  const headerRef = useRef<HTMLTableRowElement | null>(null);
+  const bodyRef = useRef<HTMLTableSectionElement | null>(null);
+  const showLoading = useLoadingState(isLoading);
 
-    const containerHeight = tableContainerRef?.current?.clientHeight || 400;
-    const headerHeight = headerRef?.current?.clientHeight || 40;
+  const containerHeight = tableContainerRef?.current?.clientHeight || 400;
+  const headerHeight = headerRef?.current?.clientHeight || 40;
 
-    const renderBody = () => {
-      if (!showLoading && !isFetching && allRows.length === 0) {
-        return <EmptyState height={containerHeight} colSpan={table.getAllColumns().length} />;
-      }
+  const handleBodyScroll = useCallback((e: React.UIEvent<HTMLTableSectionElement>) => {
+    if (headerRef.current) {
+      headerRef.current.scrollLeft = e.currentTarget.scrollLeft;
+    }
+  }, []);
 
-      if (showLoading) {
-        return <LoadingState height={containerHeight} colSpan={table.getAllColumns().length} />;
-      }
+  const renderBody = () => {
+    if (!showLoading && !isFetching && allRows.length === 0) {
+      return <EmptyState height={containerHeight} colSpan={table.getAllColumns().length} />;
+    }
 
-      return (
-        <>
-          {rows.map((row) => {
-            return (
-              <tr key={row.id} className={classNames(styles.tr, getRowClassName(row))}>
-                {row.getVisibleCells().map((cell, i) => {
+    if (showLoading) {
+      return <LoadingState height={containerHeight} colSpan={table.getAllColumns().length} />;
+    }
+
+    return (
+      <>
+        {rows.map((row) => {
+          return (
+            <tr key={row.id} className={classNames(styles.tr, getRowClassName(row))}>
+              {row.getVisibleCells().map((cell, i) => {
+                const columnWidth = getColumnWidth(i);
+                console.log('columnWidth', columnWidth);
+                return (
+                  <td key={cell.id} className={styles.td} style={getColumnWidth(i)}>
+                    <div className={styles.cellContent} style={getColumnWidth(i)}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </div>
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </>
+    );
+  };
+  const tableWrapperClass = classNames(styles.tableWrapper, 'main-scrollbar');
+
+  return (
+    <div className={styles.container}>
+      <div className={tableWrapperClass} ref={tableContainerRef}>
+        <table className={styles.table}>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id} ref={headerRef}>
+                {headerGroup.headers.map((header, i) => {
                   return (
-                    <td key={cell.id} className={styles.td}>
-                      <div className={styles.cellContent} style={getColumnWidth(i)}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    <th key={header.id} className={styles.th} style={getColumnWidth(i)}>
+                      <div className={styles.headerCell} style={getColumnWidth(i)}>
+                        {renderHeaderCell(header)}
                       </div>
-                    </td>
+                    </th>
                   );
                 })}
               </tr>
-            );
-          })}
-        </>
-      );
-    };
-    const tableWrapperClass = classNames(styles.tableWrapper, 'main-scrollbar');
-
-    return (
-      <div className={styles.container}>
-        <div className={tableWrapperClass} ref={tableContainerRef}>
-          <table className={styles.table}>
-            <thead ref={headerRef}>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header, i) => {
-                    return (
-                      <th key={header.id} className={styles.th} style={getColumnWidth(i)}>
-                        <div className={styles.headerCell} style={getColumnWidth(i)}>
-                          {renderHeaderCell(header)}
-                        </div>
-                      </th>
-                    );
-                  })}
-                </tr>
-              ))}
-            </thead>
-            <tbody style={{ height: containerHeight - headerHeight }} className="main-scrollbar">
-              {renderBody()}
-            </tbody>
-          </table>
-        </div>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          isLoading={isLoading}
-          onPageChange={setCurrentPage}
-        />
+            ))}
+          </thead>
+          <tbody
+            ref={bodyRef}
+            style={{ height: containerHeight - headerHeight }}
+            className="main-scrollbar"
+            onScroll={handleBodyScroll}>
+            {renderBody()}
+          </tbody>
+        </table>
       </div>
-    );
-  }
-);
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        isLoading={isLoading}
+        onPageChange={setCurrentPage}
+      />
+    </div>
+  );
+};
