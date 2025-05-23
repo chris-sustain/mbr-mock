@@ -1,4 +1,4 @@
-@import './breakpoints';
+@use './breakpoints';
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
@@ -54,12 +54,12 @@ code {
 }
 .main-scrollbar::-webkit-scrollbar {
   width: 6px;
-  @include respond-to-and-between('s', 'xl') {
+  @include breakpoints.respond-to-and-between('s', 'xl') {
     width: 4px;
     height: 4px;
   }
 
-  @include respond-to-and-up('quadhd') {
+  @include breakpoints.respond-to-and-up('quadhd') {
     width: 16px;
   }
 }
