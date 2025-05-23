@@ -1,13 +1,15 @@
 import { Button as AriaButton } from 'react-aria-components';
-import type { PropsWithChildren, ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 import classNames from 'classnames';
 
 import styles from './CustomButton.module.scss';
 
-// Use the types of the props of AriaButton without the common props which are internally handled by the CustomButton component.
+// Types of the react-aria Button without the common props handled internally by the CustomButton component.
 type AriaButtonProps = Omit<ComponentProps<typeof AriaButton>, 'className' | 'children'>;
 
-type CustomButtonProps = PropsWithChildren<AriaButtonProps> & {
+type CustomButtonProps = AriaButtonProps & {
+  /** The content of the button. */
+  children?: React.ReactNode;
   /** Additional className applied to the react-aria Button. */
   className?: string;
   /** The color (variant) of the button. */
