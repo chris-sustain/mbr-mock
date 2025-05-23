@@ -35,16 +35,12 @@ export const CustomButton = ({
   isFullWidth,
   ...rest
 }: CustomButtonProps) => {
-  const buttonClassName = classNames(
-    styles['button'],
-    className,
-    {
-      [styles[`color-${color}`]]: color,
-      [styles[`size-${size}`]]: size,
-      [styles['rounded']]: isRounded,
-      [styles['full-width']]: isFullWidth,
-    }
-  );
+  const buttonClassName = classNames(styles['button'], className, {
+    [styles[`color-${color}`]]: color,
+    [styles[`size-${size}`]]: size,
+    [styles['rounded']]: isRounded,
+    [styles['full-width']]: isFullWidth
+  });
 
   return (
     <AriaButton {...rest} className={buttonClassName}>

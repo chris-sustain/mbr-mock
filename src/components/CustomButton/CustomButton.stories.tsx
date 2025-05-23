@@ -111,7 +111,7 @@ export const Default = {};
 
 export const FullWidth = {
   args: {
-    isFullWidth: true,
+    isFullWidth: true
   },
   render: (args: typeof CustomButton) => {
     return (
