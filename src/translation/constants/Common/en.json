@@ -15,7 +15,6 @@
       "create": {
         "link": "Create a reference"
       },
-
       "new": {
         "link": "New"
       },
@@ -30,6 +29,38 @@
       },
       "validation": {
         "link": "Validation"
+      }
+    },
+    "createRef": {
+      "sections": {
+        "generalInfo": "General Information",
+        "clients": "Clients",
+        "projectContext": "Project Context",
+        "ourService": "Our Service",
+        "participants": "Participants",
+        "amountsAndFunding": "Amounts and Funding",
+        "relatedFiles": "Related Files"
+      },
+      "fields": {
+        "contractualProjectTitle": "Contractual project title",
+        "commercialProjectTitle": "Commercial project title",
+        "groupingAgent": "Agent in case of grouping",
+        "subsidiaryOfferNumber": "Subsidiary CRM offer number",
+        "subsidiaryEarthProjectNumber": "Subsidiary EARTH project number",
+        "client": "Client",
+        "directClientDescription": "Direct client description",
+        "directClientAddress": "Direct client address",
+        "finalClient": "Final client (beneficiary)",
+        "finalClientAddress": "Final client address",
+        "clientContactName": "Client contact: First name - LAST NAME",
+        "clientContactFunction": "Client contact: Function",
+        "clientContactPhone": "Client contact: Phone",
+        "clientContactFax": "Client contact: Fax",
+        "clientContactEmail": "Client contact: Email",
+        "servicesDescription": "Description of services provided by the Egis subsidiary owning the reference",
+        "projectSummary": "Project summary",
+        "internalComments": "Comment(s) (for internal use)",
+        "serviceCompleted": "Service completed"
       }
     }
   }

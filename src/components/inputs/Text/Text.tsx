@@ -1,4 +1,5 @@
 import { TextField, Input, FieldError, TextArea, type TextFieldProps } from 'react-aria-components';
+import classNames from 'classnames';
 import { Label } from '../Label';
 import styles from './Text.module.scss';
 
@@ -11,10 +12,10 @@ export function TextInput({
   multiline?: boolean;
 } & TextFieldProps) {
   const Cmp = multiline ? TextArea : Input;
-  const { isRequired } = textFieldProps;
+  const { isRequired, className } = textFieldProps;
 
   return (
-    <TextField className={styles.field} {...textFieldProps}>
+    <TextField {...textFieldProps} className={classNames(styles.field, className)}>
       <Label isRequired={isRequired}>{label}</Label>
       <Cmp />
       <FieldError className={styles.error} />
