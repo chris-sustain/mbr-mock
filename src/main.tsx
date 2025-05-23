@@ -1,11 +1,12 @@
+import './normalize.css';
+import './index.scss';
+
 import { StrictMode } from 'react';
 
 import ReactDOM from 'react-dom/client';
 import './translation/i18n';
 import { RouterProvider } from 'react-router';
 import { router } from './router';
-import './normalize.css';
-import './index.scss';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@src/react-query/queryClient';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
