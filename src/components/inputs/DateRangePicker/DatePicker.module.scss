@@ -1,0 +1,132 @@
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.segment {
+  padding: 0 1px;
+
+  &:focus {
+    background-color: lightblue;
+    border: none;
+    outline: none;
+  }
+}
+
+.separator {
+  padding: 0 12px;
+}
+
+.input {
+  width: max-content;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  background-color: var(--vert-500-disabled);
+  border: 1px solid var(--vert-500-disabled);
+  outline: none;
+  padding: 10px 6px;
+
+  &[data-focus-within] {
+    border: 1px solid var(--vert-500-pressed);
+    background-color: white;
+    box-shadow: 0 0 3px var(--vert-500);
+  }
+}
+
+.isOpen {
+  border: 1px solid var(--vert-500-disabled);
+  background-color: white;
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.popover {
+  border: 1px solid var(--vert-500-disabled);
+  border-radius: 6px;
+  padding: 12px;
+  background-color: white;
+
+  &:focus-within {
+    box-shadow: 0 0 3px var(--vert-500);
+  }
+}
+
+.calendar {
+  table {
+    border-collapse: collapse;
+
+    td {
+      padding: 2px 0;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px;
+}
+
+.cell {
+  height: 2em;
+  width: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  cursor: pointer;
+  border-radius: 999px;
+
+  &:hover {
+    background-color: #efefef;
+  }
+
+  &[data-selected] {
+    background-color: var(--vert-500);
+  }
+}
+
+.rangeCalendar {
+  @extend .calendar;
+
+  .cell {
+    &[data-selected] {
+      border-radius: 0;
+    }
+
+    &[data-selection-start] {
+      border-start-start-radius: 999px;
+      border-end-start-radius: 999px;
+    }
+
+    &[data-selection-end] {
+      border-start-end-radius: 999px;
+      border-end-end-radius: 999px;
+    }
+  }
+}
+
+.navButton {
+  // FIXME when we have icons
+  height: 32px;
+  width: 32px;
+  font-size: 24px;
+  border: none;
+  background-color: transparent;
+  border-radius: 999px;
+
+  &:hover {
+    background-color: #efefef;
+  }
+}
+
+.error {
+  color: red;
+}
