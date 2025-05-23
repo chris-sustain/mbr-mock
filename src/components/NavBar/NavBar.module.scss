@@ -56,13 +56,6 @@
       width: 100%;
     }
   }
-
-  &.inactive {
-
-    &::after {
-      width: 0;
-    }
-  }
 }
 
 .language-switcher {

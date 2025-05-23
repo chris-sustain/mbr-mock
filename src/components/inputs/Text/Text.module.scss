@@ -1,0 +1,33 @@
+.field {
+  display: flex;
+  flex-direction: column;
+
+  input,
+  textarea {
+    margin-bottom: 8px;
+    border-radius: 6px;
+    background-color: #efefef;
+    border: 1px solid #efefef;
+    outline: none;
+    padding: 10px 6px;
+
+    &:focus,
+    &:active {
+      border: 1px solid black;
+      background-color: white;
+      box-shadow: 0 0 5px darkgrey;
+    }
+  }
+
+  &[data-invalid] {
+    input,
+    textarea {
+      border: 1px solid red;
+      background-color: #ffe5e5;
+    }
+  }
+}
+
+.error {
+  color: red;
+}

@@ -6,9 +6,16 @@ interface CustomIconProps {
   name: IconName;
   size?: number;
   color?: string;
+  onClick?: () => void;
 }
 
-export const CustomIcon = ({ className, name, size = 24, color = '#000' }: CustomIconProps) => {
+export const CustomIcon = ({
+  className,
+  name,
+  size = 24,
+  color = '#000',
+  onClick
+}: CustomIconProps) => {
   const iconComponents = useMemo(() => getSVGIconsAsComponents(), []);
 
   const Icon = iconComponents[name];
@@ -22,7 +29,8 @@ export const CustomIcon = ({ className, name, size = 24, color = '#000' }: Custo
     className,
     width: size,
     height: size,
-    fill: color
+    fill: color,
+    onClick
   };
 
   return <Icon {...svgProps} />;

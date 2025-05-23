@@ -1,0 +1,22 @@
+.root {
+  display: inline-block;
+  position: relative;
+}
+
+.svg {
+  transform: rotate(-90deg);
+}
+
+.progress {
+  animation: rotate 1.4s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

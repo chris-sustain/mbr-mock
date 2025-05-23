@@ -8,6 +8,7 @@ const typescriptEslint = require('@typescript-eslint/eslint-plugin');
 const tanstackQuery = require('@tanstack/eslint-plugin-query');
 const reactRefresh = require('eslint-plugin-react-refresh');
 const js = require('@eslint/js');
+const importPlugin = require('eslint-plugin-import');
 
 const { FlatCompat } = require('@eslint/eslintrc');
 
@@ -39,8 +40,12 @@ module.exports = defineConfig([
 
     extends: compat.extends(
       'eslint:recommended',
+      'plugin:import/recommended',
+      'plugin:import/typescript',
       'plugin:react/recommended',
-      'plugin:@typescript-eslint/recommended',
+      'plugin:@typescript-eslint/eslint-recommended',
+      'plugin:@typescript-eslint/strict',
+      'plugin:@typescript-eslint/stylistic',
       'plugin:prettier/recommended',
       'prettier',
       'plugin:storybook/recommended',
@@ -52,11 +57,15 @@ module.exports = defineConfig([
       i18next: i18Next,
       '@typescript-eslint': typescriptEslint,
       '@tanstack/query': tanstackQuery,
-      'react-refresh': reactRefresh
+      'react-refresh': reactRefresh,
+      import: importPlugin
     },
 
     rules: {
-      'no-unused-vars': 'warn',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'error',
+      'import/no-default-export': 'error',
+      'import/prefer-default-export': 'off',
       'react/react-in-jsx-scope': 'off',
       'react/display-name': 'off',
       'no-prototype-builtins': 'off',
@@ -89,13 +98,16 @@ module.exports = defineConfig([
       'max-statements': ['warn', 50],
       'no-duplicate-imports': 'error',
       '@tanstack/query/exhaustive-deps': 'error',
-      'react-refresh/only-export-components': 'off',
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }]
+      'react-refresh/only-export-components': 'off'
     },
 
     settings: {
       react: {
         version: 'detect'
+      },
+      'import/resolver': {
+        typescript: true,
+        node: true
       }
     }
   },
