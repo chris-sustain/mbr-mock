@@ -4,7 +4,7 @@ import styles from './LoadingState.module.scss';
 import { CircularProgress } from '@src/components/CircularProgress';
 const TABLE_HEADER_HEIGHT = 50;
 interface LoadingStateProps {
-  height: number;
+  height: number | undefined;
   colSpan: number;
 }
 

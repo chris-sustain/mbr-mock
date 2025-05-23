@@ -41,31 +41,24 @@ code {
   z-index: 0;
 }
 
-// .main-scrollbar {
-//   @supports (-moz-appearance: none) {
-//     scrollbar-width: thin;
-//     scrollbar-color: #abc022 transparent;
-//   }
-// }
-// .main-scrollbar::-webkit-scrollbar {
-//   width: 6px;
-//   @include respond-to-and-between('s', 'xl') {
-//     width: 4px;
-//     height: 4px;
-//   }
+.main-scrollbar {
+  @supports (-moz-appearance: none) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--vert-500) transparent;
+  }
+}
+.main-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
 
-//   @include respond-to-and-up('quadhd') {
-//     width: 16px;
-//   }
-// }
+// /* For the track of the scrollbar */
+.main-scrollbar::-webkit-scrollbar-track {
+  background: transparent !important; /* Sets the track's background to transparent */
+}
 
-// // /* For the track of the scrollbar */
-// .main-scrollbar::-webkit-scrollbar-track {
-//   background: transparent !important; /* Sets the track's background to transparent */
-// }
-
-// .main-scrollbar::-webkit-scrollbar-thumb {
-//   background-color: #abc022 !important;
-//   border-radius: 50px;
-//   border: 1px solid transparent !important;
-// }
+.main-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--vert-500) !important;
+  border-radius: 50px;
+  border: 1px solid transparent !important;
+}

@@ -3,7 +3,7 @@ import { Trans } from 'react-i18next';
 import { CustomIcon } from '@src/components/CustomIcon/CustomIcon';
 const TABLE_HEADER_HEIGHT = 50;
 interface EmptyStateProps {
-  height: number;
+  height: number | undefined;
   colSpan: number;
 }
 

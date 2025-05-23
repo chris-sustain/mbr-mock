@@ -7,6 +7,7 @@ import { renderHeaderCell } from './helper';
 import { EmptyState, Pagination, LoadingState } from './components';
 import classNames from 'classnames';
 import { useLoadingState } from '@src/hooks/useLoadingState';
+import { getColumnWidth } from '@src/utils/table';
 
 export const ReferenceTable = memo<{
   table: Table<Reference>;
@@ -31,10 +32,13 @@ export const ReferenceTable = memo<{
     totalPages
   }) => {
     const tableContainerRef = useRef<HTMLDivElement | null>(null);
+    const headerRef = useRef<HTMLTableSectionElement | null>(null);
     const showLoading = useLoadingState(isLoading);
 
+    const containerHeight = tableContainerRef?.current?.clientHeight || 400;
+    const headerHeight = headerRef?.current?.clientHeight || 40;
+
     const renderBody = () => {
-      const containerHeight = tableContainerRef?.current?.clientHeight || 400;
       if (!showLoading && !isFetching && allRows.length === 0) {
         return <EmptyState height={containerHeight} colSpan={table.getAllColumns().length} />;
       }
@@ -45,35 +49,48 @@ export const ReferenceTable = memo<{
 
       return (
         <>
-          {rows.map((row) => (
-            <tr key={row.id} className={classNames(styles.tr, getRowClassName(row))}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className={styles.td}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
+          {rows.map((row) => {
+            return (
+              <tr key={row.id} className={classNames(styles.tr, getRowClassName(row))}>
+                {row.getVisibleCells().map((cell, i) => {
+                  return (
+                    <td key={cell.id} className={styles.td}>
+                      <div className={styles.cellContent} style={getColumnWidth(i)}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </div>
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
         </>
       );
     };
+    const tableWrapperClass = classNames(styles.tableWrapper, 'main-scrollbar');
 
     return (
       <div className={styles.container}>
-        <div className={classNames(styles.tableWrapper, 'main-scrollbar')} ref={tableContainerRef}>
+        <div className={tableWrapperClass} ref={tableContainerRef}>
           <table className={styles.table}>
-            <thead>
+            <thead ref={headerRef}>
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <th key={header.id} className={styles.th}>
-                      <div className={styles.headerCell}>{renderHeaderCell(header)}</div>
-                    </th>
-                  ))}
+                  {headerGroup.headers.map((header, i) => {
+                    return (
+                      <th key={header.id} className={styles.th} style={getColumnWidth(i)}>
+                        <div className={styles.headerCell} style={getColumnWidth(i)}>
+                          {renderHeaderCell(header)}
+                        </div>
+                      </th>
+                    );
+                  })}
                 </tr>
               ))}
             </thead>
-            <tbody>{renderBody()}</tbody>
+            <tbody style={{ height: containerHeight - headerHeight }} className="main-scrollbar">
+              {renderBody()}
+            </tbody>
           </table>
         </div>
         <Pagination

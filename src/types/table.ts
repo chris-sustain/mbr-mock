@@ -35,6 +35,8 @@ export interface ColumnConfig {
   id: ColumnKey;
   enableSorting: boolean;
   renderer: ColumnRenderer;
+  width?: string;
+  minWidth?: string;
 }
 
 // Type for the entire config object
