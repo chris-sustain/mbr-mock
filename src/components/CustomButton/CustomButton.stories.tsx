@@ -1,5 +1,6 @@
 import { fn } from '@storybook/test';
-import { CustomButton } from './CustomButton';
+import { CustomButton, type CustomButtonProps } from './CustomButton';
+import { CustomIcon } from '../CustomIcon/CustomIcon';
 
 export default {
   title: 'Components/CustomButton',
@@ -67,12 +68,32 @@ export default {
       description:
         'Whether the button is disabled or not. Passed directly to the AriaButton component.'
     },
+    startIcon: {
+      control: 'text',
+      description: 'The icon to display at the start of the button.',
+      table: {
+        category: 'Icons',
+        order: 7,
+        type: { summary: 'React.ReactNode' },
+        defaultValue: { summary: 'undefined' }
+      }
+    },
+    endIcon: {
+      control: 'text',
+      description: 'The icon to display at the end of the button.',
+      table: {
+        category: 'Icons',
+        order: 8,
+        type: { summary: 'React.ReactNode' },
+        defaultValue: { summary: 'undefined' }
+      }
+    },
     onPress: {
       control: 'none',
       description: 'Function to call when the button is pressed.',
       table: {
         category: 'Callbacks',
-        order: 100,
+        order: 9,
         type: { summary: 'function' },
         defaultValue: { summary: 'undefined' }
       }
@@ -80,7 +101,7 @@ export default {
     className: {
       table: {
         category: 'Misc',
-        order: 200
+        order: 10
       }
     },
     ref: {
@@ -88,7 +109,7 @@ export default {
       description: 'A ref to the react-aria Button.',
       table: {
         category: 'Misc',
-        order: 201,
+        order: 11,
         type: { summary: 'React.Ref<HTMLButtonElement> | React.Ref<HTMLDivElement>' },
         defaultValue: { summary: 'undefined' }
       }
@@ -107,17 +128,48 @@ export default {
   }
 };
 
-export const Default = {};
-
-export const FullWidth = {
-  args: {
-    isFullWidth: true
-  },
-  render: (args: typeof CustomButton) => {
+export const Default = {
+  render: (args: CustomButtonProps) => {
     return (
-      <div style={{ width: '300px', background: '#f0f0f0', padding: '20px' }}>
-        Containing block of 300px width.
-        <CustomButton {...args}>Wide test</CustomButton>
+      <div
+        style={{
+          display: 'flex',
+          width: '300px',
+          justifyContent: 'center'
+        }}>
+        <CustomButton {...args} />
+      </div>
+    );
+  }
+};
+
+export const WithStartAndEndIcons = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The `startIcon` and `endIcon` props add icons to the button. You can use any React node as an icon, but typically you would use a CustomIcon component. Use color="currentColor" to inherit the CustomButton text color.'
+      }
+    }
+  },
+  render: (args: CustomButtonProps) => {
+    const { startIcon, endIcon } = args;
+
+    return (
+      <div
+        style={{
+          display: 'flex',
+          width: '300px',
+          justifyContent: 'center'
+        }}>
+        <CustomButton
+          {...args}
+          startIcon={
+            startIcon ? startIcon : <CustomIcon name="add" size={24} color="currentColor" />
+          }
+          endIcon={endIcon ? endIcon : <span>➡️</span>}>
+          Search
+        </CustomButton>
       </div>
     );
   }

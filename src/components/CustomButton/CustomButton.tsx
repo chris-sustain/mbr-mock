@@ -7,7 +7,7 @@ import styles from './CustomButton.module.scss';
 // Types of the react-aria Button without the common props handled internally by the CustomButton component.
 type AriaButtonProps = Omit<ComponentPropsWithRef<typeof AriaButton>, 'className' | 'children'>;
 
-type CustomButtonProps = AriaButtonProps & {
+export type CustomButtonProps = AriaButtonProps & {
   /** The content of the button. */
   children?: React.ReactNode;
   /** Additional className applied to the react-aria Button. */
@@ -20,6 +20,10 @@ type CustomButtonProps = AriaButtonProps & {
   isRounded?: boolean;
   /** Defaults to false. If true, adds **width: 100%** to the button. */
   isFullWidth?: boolean;
+  /** The icon to display at the start of the button. */
+  startIcon?: React.ReactNode;
+  /** The icon to display at the end of the button. */
+  endIcon?: React.ReactNode;
 };
 
 /**
@@ -35,6 +39,8 @@ export const CustomButton = ({
   size = 'medium',
   isRounded,
   isFullWidth,
+  startIcon,
+  endIcon,
   ...rest
 }: CustomButtonProps) => {
   const buttonClassName = classNames(styles['button'], className, {
@@ -46,11 +52,22 @@ export const CustomButton = ({
 
   return (
     <AriaButton {...rest} className={buttonClassName}>
-      {children}
+      <IconWrapper>{startIcon}</IconWrapper>
+      <div>{children}</div>
+      <IconWrapper>{endIcon}</IconWrapper>
     </AriaButton>
   );
 };
 
+const IconWrapper = ({ children }: { children: React.ReactNode }) => {
+  if (children === undefined || children === null) {
+    return null;
+  }
+
+  return <div className={styles['icon-wrapper']}>{children}</div>;
+};
+
+// todo: remove
 // export const Test = () => {
 //   return (
 //     <CustomButton className={styles['temp']} onPress={() => console.warn('Button pressed')}>

@@ -7,7 +7,6 @@
   font-weight: 700;
   background: none;
   border: none;
-  line-height: 1.375;
   border-radius: 0.375rem;
   cursor: pointer;
   position: relative;
@@ -16,6 +15,7 @@
     border: 1px solid var(--gris-200, #bebebe);
     background: var(--gris-200, #bebebe);
     color: #ffffff;
+    cursor: default;
   }
 }
 
@@ -44,18 +44,21 @@
   gap: 0.375rem;
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
+  line-height: 1.428;
 }
 
 .size-medium {
   gap: 0.5rem;
   padding: 0.75rem 1.125rem;
   font-size: 1rem;
+  line-height: 1.375;
 }
 
 .size-large {
   gap: 0.625rem;
   padding: 1rem 1.75rem;
   font-size: 1.125rem;
+  line-height: 1.333;
 }
 
 /* Shape */
@@ -65,4 +68,12 @@
 
 .full-width {
   width: 100%;
+}
+
+/* Icon styles */
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: currentColor; // Ensures SVG icons inherit the button color
 }
