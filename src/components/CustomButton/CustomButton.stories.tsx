@@ -43,22 +43,43 @@ export default {
       },
       description: 'The size of the button.'
     },
-    isRounded: {
+    justifyContent: {
       table: {
         category: 'Main',
-        order: 4
-      }
+        order: 4,
+        type: { summary: 'string' },
+        defaultValue: { summary: 'center' }
+      },
+      control: {
+        type: 'radio',
+        options: [
+          'start',
+          'center',
+          'end',
+          'space-between',
+          'space-around',
+          'space-evenly'
+        ]
+      },
+      description:
+        'The justify-content CSS property defines how the browser distributes space between and around content items along the main-axis of a flex container. Defaults to "center".'
     },
-    isFullWidth: {
+    isRounded: {
       table: {
         category: 'Main',
         order: 5
       }
     },
+    isFullWidth: {
+      table: {
+        category: 'Main',
+        order: 6
+      }
+    },
     isDisabled: {
       table: {
         category: 'Main',
-        order: 6,
+        order: 7,
         type: { summary: 'boolean' },
         defaultValue: { summary: 'undefined' }
       },
@@ -73,7 +94,7 @@ export default {
       description: 'The icon to display at the start of the button.',
       table: {
         category: 'Icons',
-        order: 7,
+        order: 50,
         type: { summary: 'React.ReactNode' },
         defaultValue: { summary: 'undefined' }
       }
@@ -83,7 +104,7 @@ export default {
       description: 'The icon to display at the end of the button.',
       table: {
         category: 'Icons',
-        order: 8,
+        order: 51,
         type: { summary: 'React.ReactNode' },
         defaultValue: { summary: 'undefined' }
       }
@@ -93,7 +114,7 @@ export default {
       description: 'Function to call when the button is pressed.',
       table: {
         category: 'Callbacks',
-        order: 9,
+        order: 100,
         type: { summary: 'function' },
         defaultValue: { summary: 'undefined' }
       }
@@ -101,7 +122,7 @@ export default {
     className: {
       table: {
         category: 'Misc',
-        order: 10
+        order: 150
       }
     },
     ref: {
@@ -109,7 +130,7 @@ export default {
       description: 'A ref to the react-aria Button.',
       table: {
         category: 'Misc',
-        order: 11,
+        order: 151,
         type: { summary: 'React.Ref<HTMLButtonElement> | React.Ref<HTMLDivElement>' },
         defaultValue: { summary: 'undefined' }
       }
@@ -119,6 +140,7 @@ export default {
     children: 'Custom Button',
     color: 'primary',
     size: 'medium',
+    justifyContent: 'center',
     isRounded: false,
     isFullWidth: false,
     isDisabled: false,

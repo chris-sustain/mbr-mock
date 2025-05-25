@@ -16,6 +16,8 @@ export type CustomButtonProps = AriaButtonProps & {
   color?: 'primary' | 'outlined' | 'tertiary';
   /** The size of the button. */
   size?: 'small' | 'medium' | 'large';
+  /** Defaults to 'center'. If set, applies **justify-content: [value]** to the button. */
+  justifyContent?: 'start' | 'center' | 'end' | 'space-between' | 'space-around' | 'space-evenly';
   /** Defaults to false. If true, applies fully rounded borders. */
   isRounded?: boolean;
   /** Defaults to false. If true, adds **width: 100%** to the button. */
@@ -37,6 +39,7 @@ export const CustomButton = ({
   className,
   color = 'primary',
   size = 'medium',
+  justifyContent = 'center',
   isRounded,
   isFullWidth,
   startIcon,
@@ -47,13 +50,14 @@ export const CustomButton = ({
     [styles[`color-${color}`]]: color,
     [styles[`size-${size}`]]: size,
     [styles['rounded']]: isRounded,
-    [styles['full-width']]: isFullWidth
+    [styles['full-width']]: isFullWidth,
+    [styles[`justify-${justifyContent}`]]: justifyContent,
   });
 
   return (
     <AriaButton {...rest} className={buttonClassName}>
       <IconWrapper>{startIcon}</IconWrapper>
-      <div>{children}</div>
+      <div className={styles['content']}>{children}</div>
       <IconWrapper>{endIcon}</IconWrapper>
     </AriaButton>
   );
