@@ -1,10 +1,33 @@
 import { fn } from '@storybook/test';
+import type { Meta } from '@storybook/react';
 import { CustomButton, type CustomButtonProps } from './CustomButton';
 import { CustomIcon } from '../CustomIcon/CustomIcon';
 
 export default {
   title: 'Components/CustomButton',
   component: CustomButton,
+  decorators: [
+    (Story) => {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '8px',
+            backgroundColor: '#f0f0f0',
+            width: '500px',
+            padding: '8px'
+          }}>
+          <span
+            style={{
+              color: '#aaa'
+            }}>{`500px wide container for full-width and text behavior testing`}</span>
+          <Story />
+        </div>
+      );
+    }
+  ],
   parameters: {
     layout: 'centered'
   },
@@ -13,7 +36,9 @@ export default {
     children: {
       table: {
         category: 'Main',
-        order: 1
+        order: 1,
+        type: { summary: 'React.ReactNode' },
+        defaultValue: { summary: 'undefined' }
       },
       description: 'The content to display in the button.'
     },
@@ -52,34 +77,45 @@ export default {
       },
       control: {
         type: 'radio',
-        options: [
-          'start',
-          'center',
-          'end',
-          'space-between',
-          'space-around',
-          'space-evenly'
-        ]
+        options: ['start', 'center', 'end', 'space-between', 'space-around', 'space-evenly']
       },
       description:
         'The justify-content CSS property defines how the browser distributes space between and around content items along the main-axis of a flex container. Defaults to "center".'
     },
+    textBehavior: {
+      table: {
+        category: 'Main',
+        order: 5,
+        type: { summary: 'string' },
+        defaultValue: { summary: 'normal' }
+      },
+      control: {
+        type: 'radio',
+        options: ['normal', 'ellipsis', 'wrap', 'nowrap']
+      },
+      description:
+        'If set, applies text behavior to the button. "ellipsis" will truncate text with an ellipsis, while "wrap" will allow text to wrap onto multiple lines.'
+    },
     isRounded: {
       table: {
         category: 'Main',
-        order: 5
+        order: 6,
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'undefined' }
       }
     },
     isFullWidth: {
       table: {
         category: 'Main',
-        order: 6
+        order: 7,
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'undefined' }
       }
     },
     isDisabled: {
       table: {
         category: 'Main',
-        order: 7,
+        order: 8,
         type: { summary: 'boolean' },
         defaultValue: { summary: 'undefined' }
       },
@@ -110,7 +146,7 @@ export default {
       }
     },
     onPress: {
-      control: 'none',
+      control: false,
       description: 'Function to call when the button is pressed.',
       table: {
         category: 'Callbacks',
@@ -122,11 +158,13 @@ export default {
     className: {
       table: {
         category: 'Misc',
-        order: 150
+        order: 150,
+        type: { summary: 'string' },
+        defaultValue: { summary: 'undefined' }
       }
     },
     ref: {
-      control: 'none',
+      control: false,
       description: 'A ref to the react-aria Button.',
       table: {
         category: 'Misc',
@@ -138,32 +176,11 @@ export default {
   },
   args: {
     children: 'Custom Button',
-    color: 'primary',
-    size: 'medium',
-    justifyContent: 'center',
-    isRounded: false,
-    isFullWidth: false,
-    isDisabled: false,
-    className: '',
-    onPress: fn(),
-    ref: null
+    onPress: fn()
   }
-};
+} as Meta<typeof CustomButton>;
 
-export const Default = {
-  render: (args: CustomButtonProps) => {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          width: '300px',
-          justifyContent: 'center'
-        }}>
-        <CustomButton {...args} />
-      </div>
-    );
-  }
-};
+export const Default = {};
 
 export const WithStartAndEndIcons = {
   parameters: {
@@ -178,21 +195,11 @@ export const WithStartAndEndIcons = {
     const { startIcon, endIcon } = args;
 
     return (
-      <div
-        style={{
-          display: 'flex',
-          width: '300px',
-          justifyContent: 'center'
-        }}>
-        <CustomButton
-          {...args}
-          startIcon={
-            startIcon ? startIcon : <CustomIcon name="add" size={24} color="currentColor" />
-          }
-          endIcon={endIcon ? endIcon : <span>➡️</span>}>
-          Search
-        </CustomButton>
-      </div>
+      <CustomButton
+        {...args}
+        startIcon={startIcon ? startIcon : <CustomIcon name="add" size={24} color="currentColor" />}
+        endIcon={endIcon ? endIcon : <span>➡️</span>}
+      />
     );
   }
 };

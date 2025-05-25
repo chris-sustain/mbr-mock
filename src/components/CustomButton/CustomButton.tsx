@@ -18,6 +18,8 @@ export type CustomButtonProps = AriaButtonProps & {
   size?: 'small' | 'medium' | 'large';
   /** Defaults to 'center'. If set, applies **justify-content: [value]** to the button. */
   justifyContent?: 'start' | 'center' | 'end' | 'space-between' | 'space-around' | 'space-evenly';
+  /** Defaults to 'normal'. If set, applies 'ellipsis', 'wrap' or 'nowrap' behavior to the button text. */
+  textBehavior?: 'normal' | 'ellipsis' | 'wrap' | 'nowrap';
   /** Defaults to false. If true, applies fully rounded borders. */
   isRounded?: boolean;
   /** Defaults to false. If true, adds **width: 100%** to the button. */
@@ -40,6 +42,7 @@ export const CustomButton = ({
   color = 'primary',
   size = 'medium',
   justifyContent = 'center',
+  textBehavior = 'normal',
   isRounded,
   isFullWidth,
   startIcon,
@@ -51,13 +54,17 @@ export const CustomButton = ({
     [styles[`size-${size}`]]: size,
     [styles['rounded']]: isRounded,
     [styles['full-width']]: isFullWidth,
-    [styles[`justify-${justifyContent}`]]: justifyContent,
+    [styles[`justify-${justifyContent}`]]: justifyContent
+  });
+
+  const contentClassName = classNames(styles['content'], {
+    [styles[`text-behavior-${textBehavior}`]]: textBehavior
   });
 
   return (
     <AriaButton {...rest} className={buttonClassName}>
       <IconWrapper>{startIcon}</IconWrapper>
-      <div className={styles['content']}>{children}</div>
+      <div className={contentClassName}>{children}</div>
       <IconWrapper>{endIcon}</IconWrapper>
     </AriaButton>
   );

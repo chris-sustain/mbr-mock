@@ -23,7 +23,7 @@
   &-start {
     justify-content: flex-start;
   }
-  
+
   &-center {
     justify-content: center;
   }
@@ -42,6 +42,32 @@
 
   &-space-evenly {
     justify-content: space-evenly;
+  }
+}
+
+.content {
+  overflow: hidden;
+}
+
+.text-behavior {
+  &-normal {
+    text-overflow: clip;
+    white-space: normal;
+  }
+
+  &-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &-wrap {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  &-nowrap {
+    white-space: nowrap;
   }
 }
 
