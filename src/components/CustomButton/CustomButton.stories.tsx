@@ -203,3 +203,11 @@ export const WithStartAndEndIcons = {
     );
   }
 };
+
+export const KeepLongTextOnOneLine = {
+  args: {
+    children: 'This is a very long text that should not wrap and should be truncated if it exceeds the button width.',
+    textBehavior: 'nowrap',
+    isFullWidth: true
+  }
+}
