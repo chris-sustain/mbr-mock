@@ -1,5 +1,4 @@
 import type { StoryObj } from '@storybook/react';
-import { userEvent, within, expect } from '@storybook/test';
 import { useState } from 'react';
 import { FieldArray } from './FieldArray';
 import { TextInput } from '../Text';
@@ -10,11 +9,8 @@ export default {
   component: TextInput
 };
 
-const addButton = (onPress: (e: PressEvent) => void) => (
-  <Button onPress={onPress}>Add field</Button>
-);
 function FormTemplate() {
-  const [serverData, setServerData] = useState();
+  const [serverData, setServerData] = useState({});
 
   const buildNestedArray = (formdata: FormData) => {
     const names = formdata.getAll('nestedArray.name');
@@ -37,24 +33,22 @@ function FormTemplate() {
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          const formdata = new FormData(e.target);
+          const formdata = new FormData(e.currentTarget);
           setServerData(mapFormToData(formdata));
         }}>
         <TextInput label="Titre" name="titre" style={{ marginBottom: '24px' }} />
         <div style={{ marginBottom: '24px' }}>
-          <FieldArray
-            input={<TextInput label="test" name="flatArray" />}
-            addButton={addButton}></FieldArray>
+          <FieldArray addButtonLabel="Add item">
+            <TextInput label="test" name="flatArray" />
+          </FieldArray>
         </div>
         <div style={{ marginBottom: '24px' }}>
-          <FieldArray
-            input={
-              <>
-                <TextInput label="name" name="nestedArray.name" />
-                <TextInput label="address" name="nestedArray.address" />
-              </>
-            }
-            addButton={addButton}></FieldArray>
+          <FieldArray addButtonLabel="Add nested item">
+            <div style={{ background: 'lightgrey', padding: '6px', marginBottom: '16px' }}>
+              <TextInput label="name" name="nestedArray.name" />
+              <TextInput label="address" name="nestedArray.address" />
+            </div>
+          </FieldArray>
         </div>
         <button type="submit">submit</button>
       </Form>

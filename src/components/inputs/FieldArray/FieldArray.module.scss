@@ -1,0 +1,22 @@
+.array {
+  border: 1px solid var(--neutral-400);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.addButton {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px;
+  margin: 0 auto;
+  background-color: var(--neutral-300);
+  color: var(--neutral-500);
+  font-size: 12px;
+  line-height: 1;
+  border: none;
+  border-radius: 7px;
+  margin-top: 26px;
+  cursor: pointer;
+}
