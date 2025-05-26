@@ -1,12 +1,24 @@
-import { useCallback } from 'react';
-import { getCoreRowModel, useReactTable, type Row } from '@tanstack/react-table';
+import { useCallback, useState, useMemo } from 'react';
+import {
+  getCoreRowModel,
+  useReactTable,
+  createColumnHelper,
+  type Row,
+  type Table
+} from '@tanstack/react-table';
 import type { Reference } from '@src/types/reference';
 import { ReferenceTable } from './ReferenceTable';
-import type { TableMode } from '@src/types/table';
-import { TABLE_MODES } from '@src/utils';
+import type { TableMode, ColumnKey } from '@src/types/table';
+import { TABLE_MODES, COLUMN_CONFIGS } from '@src/utils';
+import { useReferenceTableData } from './hooks';
+import { useTranslation } from 'react-i18next';
+import { HeaderCheckbox, RowCheckbox } from './components';
+import { UnstyledLink } from '@src/components/UnstyledLink';
+import { generatePath } from 'react-router';
+import { PATHS } from '@src/router';
+import { renderCellContent } from './helper';
 import styles from './ReferenceTable.module.scss';
 import classNames from 'classnames';
-import { useReferenceTableData, useTableColumns } from './hooks';
 
 export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: TableMode }) => {
   const {
@@ -14,8 +26,6 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
     setSorting,
     columnVisibility,
     setColumnVisibility,
-    selectedIds,
-    setSelectedIds,
     allRows,
     isLoading,
     isFetching,
@@ -23,23 +33,68 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
     setCurrentPage,
     totalPages
   } = useReferenceTableData();
+  const [rowSelection, setRowSelection] = useState({});
 
-  const columns = useTableColumns(
-    allRows.map((row: Reference) => row.id),
-    selectedIds,
-    setSelectedIds
+  const { t } = useTranslation();
+  const columnHelper = createColumnHelper<Reference>();
+
+  const getHeaderLabel = (columnId: ColumnKey) => {
+    const className = classNames(styles[columnId], styles['header']);
+    return <span className={className}>{t('common.table.' + columnId)}</span>;
+  };
+
+  const columns = useMemo(
+    () => [
+      {
+        id: 'select',
+        header: ({ table }: { table: Table<Reference> }) => {
+          return (
+            <HeaderCheckbox
+              isSelected={table.getIsAllPageRowsSelected()}
+              isIndeterminate={table.getIsSomePageRowsSelected()}
+              onChange={table.getToggleAllRowsSelectedHandler()}
+            />
+          );
+        },
+        cell: ({ row }: { row: Row<Reference> }) => {
+          return (
+            <RowCheckbox
+              isSelected={row.getIsSelected()}
+              onChange={row.getToggleSelectedHandler()}
+            />
+          );
+        },
+        enableSorting: false
+      },
+      ...Object.entries(COLUMN_CONFIGS).map(([key, config]) =>
+        columnHelper.accessor(key as ColumnKey, {
+          header: () => getHeaderLabel(key as ColumnKey),
+          cell: (info) => {
+            return (
+              <UnstyledLink
+                to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+                className={`${styles[key]}`}>
+                {renderCellContent(config, info.getValue())}
+              </UnstyledLink>
+            );
+          },
+          enableSorting: config.enableSorting
+        })
+      )
+    ],
+    []
   );
 
   const getRowClassName = useCallback(
     (row: Row<Reference>) => {
-      const isSelected = selectedIds.includes(row.original.id);
+      const isSelected = Object.keys(rowSelection).includes(String(row.index));
       return classNames(styles.tr, {
         [styles.selected]: isSelected,
         [styles.draft]: isSelected && mode === TABLE_MODES.draft,
         [styles.validating]: isSelected && mode === TABLE_MODES.validating
       });
     },
-    [selectedIds, mode]
+    [rowSelection, mode, currentPage]
   );
 
   const table = useReactTable({
@@ -47,11 +102,15 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
     columns,
     state: {
       sorting,
-      columnVisibility
+      columnVisibility,
+      rowSelection: rowSelection
     },
     manualSorting: true,
     manualFiltering: true,
+    getRowId: (row) => row.id,
+    enableRowSelection: true,
     onSortingChange: setSorting,
+    onRowSelectionChange: setRowSelection,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel()
   });
