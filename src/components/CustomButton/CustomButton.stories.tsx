@@ -190,7 +190,7 @@ export const WithStartAndEndIcons = {
     docs: {
       description: {
         story:
-          'Use `startIcon` and `endIcon` props. You can pass a React node or a CustomIcon.<br/>Use `color="currentColor"` of the CustomIcon to automatically inherit the CustomButton text color of the variant.<br/>Use a height of 1.5 times the font size for the icon to match the height of the text (line height is 1.5). This ensures that the button height remains the same whether it contains text, just an icon, or both.<br/>Recommended line heights to use for each size: **small: 21px**, **medium: 24px**, **large: 27px**. For CustomIcon, use `size="1.5em"` to automatically match the line-height of each CustomButton size.'
+          'Use `startIcon` and `endIcon` props. You can pass a React node or a CustomIcon.<br/>Use `color="currentColor"` of the CustomIcon to automatically inherit the CustomButton text color of the variant.<br/>Use a height of 1.5 times the font size for the icon to match the height of the text (line height is 1.5). This ensures that the button height remains the same whether it contains text, just an icon, or both.<br/>Recommended line heights to use for each size: **small: 21px**, **medium: 24px**, **large: 27px**. For CustomIcon, use `size="1.5em"` to automatically match the line-height of each CustomButton size.<br/>Use css scale to adjust the icon size of the CustomIcon if needed, e.g., `style={{ transform: "scale(1.1)" }}`.'
       }
     }
   },

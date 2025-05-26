@@ -1,7 +1,7 @@
 import { useMemo, type SVGProps } from 'react';
 import { getSVGIconsAsComponents, type IconName } from './utils';
 
-interface CustomIconProps {
+interface CustomIconProps extends SVGProps<SVGSVGElement> {
   className?: string;
   name: IconName;
   size?: number | string;
@@ -14,7 +14,8 @@ export const CustomIcon = ({
   name,
   size = 24,
   color = '#000',
-  onClick
+  onClick,
+  ...rest
 }: CustomIconProps) => {
   const iconComponents = useMemo(() => getSVGIconsAsComponents(), []);
 
@@ -30,7 +31,8 @@ export const CustomIcon = ({
     width: size,
     height: size,
     fill: color,
-    onClick
+    onClick,
+    ...rest
   };
 
   return <Icon {...svgProps} />;
