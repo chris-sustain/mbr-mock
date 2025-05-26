@@ -29,13 +29,17 @@
   justify-content: center;
   width: 164px;
   background-color: white;
-  color: #08212C;
+  color: #08212c;
   white-space: nowrap;
   padding: 24px;
   font-size: 1rem;
   text-decoration: none;
   overflow: hidden;
   transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: #abc022;
+  }
 
   &::after {
     content: '';
@@ -48,17 +52,17 @@
   }
 
   &.active {
-    color: #ABC022;
+    color: #abc022;
 
     &::after {
-      background-color: #ABC022;
+      background-color: #abc022;
       height: 2px;
       width: 100%;
     }
   }
 }
 
-.language-switcher {
+.language-selector {
   position: absolute;
   top: 50%;
   right: 24px;

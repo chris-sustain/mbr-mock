@@ -1,72 +1,35 @@
-import { useEffect, useState } from 'react';
 import {
   Select,
-  Label,
   Button,
+  Popover,
   ListBox,
   ListBoxItem,
-  Popover,
   SelectValue,
+  type SelectProps
 } from 'react-aria-components';
+import { CaretDownIcon } from '@phosphor-icons/react/dist/ssr';
 
-type Language = {
-  code: string;
-  name: string;
-};
+import styles from './LanguageSelector.module.scss';
 
-const languages: Language[] = [
-  { code: 'en', name: 'English' },
-  { code: 'fr', name: 'Français' },
-  { code: 'de', name: 'Deutsch' },
-  { code: 'es', name: 'Español' },
-  { code: 'zh', name: '中文' },
-];
+export function LanguageSelector<T extends object>({ ...props }: SelectProps<T>) {
+  const options = [
+    { code: 'en', icon: <img src="/src/assets/icons/uk.svg" height={24} width={24} /> },
+    { code: 'fr', icon: <img src="/src/assets/icons/france.svg" height={24} width={24} /> },
+    { code: 'es', icon: <img src="/src/assets/icons/spain.svg" height={24} width={24} /> },
+    { code: 'br', icon: <img src="/src/assets/icons/brazil.svg" height={24} width={24} /> }
+  ];
 
-export function LanguageSelector({
-  defaultLanguage,
-  onLanguageChange,
-}: {
-  defaultLanguage: string;
-  onLanguageChange: (lang: string) => void;
-}) {
-
-  const [selectedLanguage, setSelectedLanguage] = useState(defaultLanguage)
-
-  useEffect(() => {
-    let newSelectedLanguage = languages[0].code
-    let defaultSelectedLanguage = languages.filter((language) => language.code === defaultLanguage)
-
-    if (defaultLanguage)
-      newSelectedLanguage = defaultSelectedLanguage[0].code
-
-    setSelectedLanguage(newSelectedLanguage)
-  }, [])
-  
   return (
-    <Select
-      aria-label='language-selector'
-      defaultSelectedKey={defaultLanguage}
-      selectedKey={selectedLanguage}
-      onSelectionChange={(key) => {
-        console.log('key', key)
-          // setSelectedLanguage(key)
-          onLanguageChange(key);
-      }}
-    >
-      <Button>
-        {/* {({ selectedItem }) => selectedItem?.rendered ?? 'Select a language'} */}
-        <SelectValue>
-          {({defaultChildren, isPlaceholder}) => {
-            return isPlaceholder ? <><b>Animal</b> selection</> : defaultChildren;
-          }}
-        </SelectValue>
-        {/* {selectedLanguage} */}
+    <Select {...props}>
+      <Button className={styles['select-button']}>
+        <SelectValue className={styles['select-value']} />
+        <div className={styles['select-button-drop-icon']} aria-hidden="true">
+          <CaretDownIcon />
+        </div>
       </Button>
       <Popover>
-        <ListBox>
-          {languages.map((lang) => (
-            <ListBoxItem key={lang.code} textValue={lang.name}>{lang.name}</ListBoxItem>
-          ))}
+        <ListBox className={styles['option-list']} items={options}>
+          {(item) => <ListBoxItem id={item.code}>{item.icon}</ListBoxItem>}
         </ListBox>
       </Popover>
     </Select>
