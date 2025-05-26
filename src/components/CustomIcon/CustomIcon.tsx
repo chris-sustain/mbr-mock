@@ -4,7 +4,7 @@ import { getSVGIconsAsComponents, type IconName } from './utils';
 interface CustomIconProps {
   className?: string;
   name: IconName;
-  size?: number;
+  size?: number | string;
   color?: string;
   onClick?: () => void;
 }

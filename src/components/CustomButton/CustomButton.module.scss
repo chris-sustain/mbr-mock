@@ -46,7 +46,7 @@
 }
 
 .content {
-  overflow: hidden;
+  overflow: hidden; // Prevents text overflow issues
 }
 
 .text-behavior {
@@ -72,19 +72,19 @@
 }
 
 /* Button color variants */
-.color-primary {
+.variant-primary {
   background: var(--vert-500, #abc022);
   border: 1px solid var(--vert-500, #abc022);
   color: #ffffff;
 }
 
-.color-outlined {
+.variant-secondary {
   background: transparent;
   border: 1px solid var(--vert-600, #91a41a);
   color: var(--vert-600, #91a41a);
 }
 
-.color-tertiary {
+.variant-tertiary {
   background: transparent;
   border: 1px solid transparent; // Keeps height consistent with other variants.
   color: var(--vert-500, #abc022);
@@ -93,28 +93,38 @@
 
 /* Sizes */
 .size-small {
-  gap: 0.375rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  line-height: 1.428;
+  gap: 0.375rem; // 6px
+  padding: 0.4375rem 1rem; // 7px 16px
+  font-size: 0.875rem; // 14px
 }
 
 .size-medium {
-  gap: 0.5rem;
-  padding: 0.75rem 1.125rem;
-  font-size: 1rem;
-  line-height: 1.375;
+  gap: 0.5rem; // 8px
+  padding: 0.625rem 1.125rem; // 10px 18px
+  font-size: 1rem; // 16px
 }
 
 .size-large {
-  gap: 0.625rem;
-  padding: 1rem 1.75rem;
-  font-size: 1.125rem;
-  line-height: 1.333;
+  gap: 0.625rem; // 10px
+  padding: 0.875rem 1.75rem; // 14px 28px
+  font-size: 1.125rem; // 18px
+}
+
+.icon-only {
+  // Apply the same width and height padding as the top and bottom padding of the variants.
+  &-small {
+    padding: 0.4375rem;
+  }
+  &-medium {
+    padding: 0.625rem;
+  }
+  &-large {
+    padding: 0.875rem;
+  }
 }
 
 /* Shape */
-.rounded {
+.rounded-borders {
   border-radius: 9999px;
 }
 

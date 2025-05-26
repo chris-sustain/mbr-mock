@@ -40,9 +40,12 @@ export default {
         type: { summary: 'React.ReactNode' },
         defaultValue: { summary: 'undefined' }
       },
+      control: {
+        type: 'text'
+      },
       description: 'The content to display in the button.'
     },
-    color: {
+    variant: {
       table: {
         category: 'Main',
         order: 2,
@@ -51,9 +54,9 @@ export default {
       },
       control: {
         type: 'radio',
-        options: ['primary', 'outlined', 'tertiary']
+        options: ['primary', 'secondary', 'tertiary']
       },
-      description: 'The color (variant) of the button.'
+      description: 'The variant of the button.'
     },
     size: {
       table: {
@@ -187,7 +190,7 @@ export const WithStartAndEndIcons = {
     docs: {
       description: {
         story:
-          'The `startIcon` and `endIcon` props add icons to the button. You can use any React node as an icon, but typically you would use a CustomIcon component. Use color="currentColor" to inherit the CustomButton text color.'
+          'Use `startIcon` and `endIcon` props. You can pass a React node or a CustomIcon.<br/>Use `color="currentColor"` of the CustomIcon to automatically inherit the CustomButton text color of the variant.<br/>Use a height of 1.5 times the font size for the icon to match the height of the text (line height is 1.5). This ensures that the button height remains the same whether it contains text, just an icon, or both.<br/>Recommended line heights to use for each size: **small: 21px**, **medium: 24px**, **large: 27px**. For CustomIcon, use `size="1.5em"` to automatically match the line-height of each CustomButton size.'
       }
     }
   },
@@ -197,17 +200,28 @@ export const WithStartAndEndIcons = {
     return (
       <CustomButton
         {...args}
-        startIcon={startIcon ? startIcon : <CustomIcon name="add" size={24} color="currentColor" />}
+        startIcon={
+          startIcon ? startIcon : <CustomIcon name="add" size={'1.5em'} color="currentColor" />
+        }
         endIcon={endIcon ? endIcon : <span>➡️</span>}
       />
     );
   }
 };
 
+export const IconOnly = {
+  args: {
+    children: undefined,
+    startIcon: <CustomIcon name="add" size={'1.5em'} color="currentColor" />,
+    isRounded: true
+  }
+};
+
 export const KeepLongTextOnOneLine = {
   args: {
-    children: 'This is a very long text that should not wrap and should be truncated if it exceeds the button width.',
+    children:
+      'This is a very long text that should not wrap and should be truncated if it exceeds the button width.',
     textBehavior: 'nowrap',
     isFullWidth: true
   }
-}
+};

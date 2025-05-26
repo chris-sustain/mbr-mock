@@ -12,8 +12,8 @@ export type CustomButtonProps = AriaButtonProps & {
   children?: React.ReactNode;
   /** Additional className applied to the react-aria Button. */
   className?: string;
-  /** The color (variant) of the button. */
-  color?: 'primary' | 'outlined' | 'tertiary';
+  /** The variant of the button. */
+  variant?: 'primary' | 'secondary' | 'tertiary';
   /** The size of the button. */
   size?: 'small' | 'medium' | 'large';
   /** Defaults to 'center'. If set, applies **justify-content: [value]** to the button. */
@@ -39,7 +39,7 @@ export type CustomButtonProps = AriaButtonProps & {
 export const CustomButton = ({
   children,
   className,
-  color = 'primary',
+  variant = 'primary',
   size = 'medium',
   justifyContent = 'center',
   textBehavior = 'normal',
@@ -50,11 +50,12 @@ export const CustomButton = ({
   ...rest
 }: CustomButtonProps) => {
   const buttonClassName = classNames(styles['button'], className, {
-    [styles[`color-${color}`]]: color,
+    [styles[`variant-${variant}`]]: variant,
     [styles[`size-${size}`]]: size,
-    [styles['rounded']]: isRounded,
+    [styles['rounded-borders']]: isRounded,
     [styles['full-width']]: isFullWidth,
-    [styles[`justify-${justifyContent}`]]: justifyContent
+    [styles[`justify-${justifyContent}`]]: justifyContent,
+    [styles[`icon-only-${size}`]]: !children && ((startIcon && !endIcon) || (!startIcon && endIcon))
   });
 
   const contentClassName = classNames(styles['content'], {
@@ -64,21 +65,20 @@ export const CustomButton = ({
   return (
     <AriaButton {...rest} className={buttonClassName}>
       <IconWrapper>{startIcon}</IconWrapper>
-      <div className={contentClassName}>{children}</div>
+      {children ? <div className={contentClassName}>{children}</div> : null}
       <IconWrapper>{endIcon}</IconWrapper>
     </AriaButton>
   );
 };
 
 const IconWrapper = ({ children }: { children: React.ReactNode }) => {
-  if (children === undefined || children === null) {
+  if (!children) {
     return null;
   }
 
   return <div className={styles['icon-wrapper']}>{children}</div>;
 };
 
-// todo: remove
 // export const Test = () => {
 //   return (
 //     <CustomButton className={styles['temp']} onPress={() => console.warn('Button pressed')}>
