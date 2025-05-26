@@ -1,4 +1,4 @@
-import { useMemo, type Dispatch, type SetStateAction } from 'react';
+import { useMemo } from 'react';
 import { createColumnHelper, type Row } from '@tanstack/react-table';
 import type { Reference } from '@src/types/reference';
 import type { ColumnKey } from '@src/types/table';
@@ -15,7 +15,7 @@ import classNames from 'classnames';
 export const useTableColumns = (
   allIds: string[],
   selectedIds: string[],
-  setSelectedIds: Dispatch<SetStateAction<string[]>>
+  setSelectedIds: (ids: string[]) => void
 ) => {
   const { t } = useTranslation();
   const columnHelper = createColumnHelper<Reference>();
@@ -29,32 +29,44 @@ export const useTableColumns = (
     () => [
       {
         id: 'select',
-        header: () => (
-          <HeaderCheckbox
-            allIds={allIds}
-            selectedIds={selectedIds}
-            setSelectedIds={setSelectedIds}
-          />
-        ),
-        cell: ({ row }: { row: Row<Reference> }) => (
-          <RowCheckbox
-            id={row.original.id}
-            selectedIds={selectedIds}
-            setSelectedIds={setSelectedIds}
-          />
-        ),
+        header: () => {
+          const isAllSelected = selectedIds.length === allIds.length && allIds.length > 0;
+          const isIndeterminate = selectedIds.length > 0 && !isAllSelected;
+
+          return (
+            <HeaderCheckbox
+              isSelected={isAllSelected}
+              isIndeterminate={isIndeterminate}
+              setIsSelected={(isSelected) => setSelectedIds(isSelected ? allIds : [])}
+            />
+          );
+        },
+        cell: ({ row }: { row: Row<Reference> }) => {
+          const isSelected = selectedIds.includes(row.original.id);
+
+          const setIsSelected = (selected: boolean) => {
+            const newSelectedIds = selected
+              ? [...selectedIds, row.original.id]
+              : selectedIds.filter((id) => id !== row.original.id);
+            setSelectedIds(newSelectedIds);
+          };
+
+          return <RowCheckbox isSelected={isSelected} setIsSelected={setIsSelected} />;
+        },
         enableSorting: false
       },
       ...Object.entries(COLUMN_CONFIGS).map(([key, config]) =>
         columnHelper.accessor(key as ColumnKey, {
           header: () => getHeaderLabel(key as ColumnKey),
-          cell: (info) => (
-            <UnstyledLink
-              to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
-              className={`${styles[key]}`}>
-              {renderCellContent(config, info.getValue())}
-            </UnstyledLink>
-          ),
+          cell: (info) => {
+            return (
+              <UnstyledLink
+                to={generatePath(PATHS.REFERENCE, { id: info.row.original.id })}
+                className={`${styles[key]}`}>
+                {renderCellContent(config, info.getValue())}
+              </UnstyledLink>
+            );
+          },
           enableSorting: config.enableSorting
         })
       )

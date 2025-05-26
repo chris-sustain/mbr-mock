@@ -10,28 +10,29 @@
 
 .tableWrapper {
   flex: 1;
-  border-radius: 11px 11px 0px 0px;
-  border: 0.5px solid var(--neutral-300);
-  background: var(--neutral-0);
 }
 
 .table {
+  background: var(--neutral-0);
   width: 100%;
-  border-collapse: separate;
   border-spacing: 0;
+  border-collapse: separate;
+  border-radius: 10px;
+  border: 1px solid var(--neutral-300);
   table-layout: fixed;
-  border-collapse: collapse;
+  overflow: hidden;
 }
 
 .table tbody {
   display: block;
   overflow: auto;
-  // overflow-x: hidden;
   width: 100%;
 }
+
 .table thead tr {
   display: block;
-  width: 100%;
+  width: calc(100% - 5px);
+
   overflow-x: auto;
   /* Hide scrollbar for Chrome, Safari and Opera */
   &::-webkit-scrollbar {
@@ -44,6 +45,7 @@
 }
 
 .th {
+  // border: 1px solid black;
   position: sticky;
   top: 0;
   background-color: var(--neutral-0);
@@ -54,7 +56,6 @@
   border-bottom: 2px solid #e2e8f0;
   z-index: 10;
   white-space: normal;
-
   &:first-child {
     border-top-left-radius: 8px;
   }
@@ -146,6 +147,18 @@
   white-space: nowrap;
 }
 
-// table {
-//   width: 100%; /* Optional */
-// }
+/* Apply a border to the bottom of all but the last row */
+table > thead > tr:not(:last-child) > th,
+table > thead > tr:not(:last-child) > td,
+table > tbody > tr:not(:last-child) > th,
+table > tbody > tr:not(:last-child) > td,
+table > tfoot > tr:not(:last-child) > th,
+table > tfoot > tr:not(:last-child) > td,
+table > tr:not(:last-child) > td,
+table > tr:not(:last-child) > th,
+table > thead:not(:last-child),
+table > tbody:not(:last-child),
+table > tfoot:not(:last-child) {
+  border-bottom: 1px solid var(--neutral-300);
+  // border: 1px solid black;
+}

@@ -1,28 +1,25 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Checkbox } from '@src/components/inputs/Checkbox';
+
 interface HeaderCheckboxProps {
-  allIds: string[];
-  selectedIds: string[];
-  setSelectedIds: (ids: string[]) => void;
+  isSelected: boolean;
+  isIndeterminate: boolean;
+  setIsSelected: (isSelected: boolean) => void;
   className?: string;
 }
 
-export const HeaderCheckbox: React.FC<HeaderCheckboxProps> = ({
-  allIds,
-  selectedIds,
-  setSelectedIds,
-  className
-}) => {
-  const isAllSelected = selectedIds.length === allIds.length && allIds.length > 0;
-  const isIndeterminate = selectedIds.length > 0 && !isAllSelected;
+export const HeaderCheckbox: React.FC<HeaderCheckboxProps> = memo(
+  ({ isSelected, isIndeterminate, setIsSelected, className }) => {
+    return (
+      <Checkbox
+        className={className}
+        isSelected={isSelected}
+        isIndeterminate={isIndeterminate}
+        aria-checked={isIndeterminate ? 'mixed' : isSelected}
+        onChange={setIsSelected}
+      />
+    );
+  }
+);
 
-  return (
-    <Checkbox
-      className={className}
-      isSelected={isAllSelected}
-      isIndeterminate={isIndeterminate}
-      aria-checked={isIndeterminate ? 'mixed' : isAllSelected}
-      onChange={(isSelected) => setSelectedIds(isSelected ? allIds : [])}
-    />
-  );
-};
+HeaderCheckbox.displayName = 'HeaderCheckbox';

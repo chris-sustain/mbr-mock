@@ -7,11 +7,14 @@ import { useEffect } from 'react';
 
 //todo add type
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-export const transformReferenceData = (_: any): Reference[] => {
-  // Generate an array of 100 items
-  return Array.from({ length: 100 }, () => ({
-    id: `REF-${Math.random().toString(36).substring(2, 15)}`,
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const transformReferenceData = (_: any, page: number): Reference[] => {
+  const rowsPerPage = 100;
+
+  const startId = (page - 1) * rowsPerPage;
+
+  return Array.from({ length: rowsPerPage }, (_, index) => ({
+    id: `REF-${startId + index + 1}`, // +1 to start from 1 instead of 0
     commercialTitle:
       'Assistance technique pour la réalisation des ateliers-dépôts des lignes A & B du métro',
     egisOwnerFiliale: 'Egis Rail',
@@ -39,7 +42,7 @@ export function useReferenceQuery(page = 1) {
       const response = await fetchReference(url);
       return {
         ...response,
-        results: transformReferenceData(response),
+        results: transformReferenceData(response, page),
         currentPage: page,
         totalPages: Math.ceil(1000 / 100),
         totalItems: response.count
@@ -63,7 +66,7 @@ export function useReferenceQuery(page = 1) {
           const response = await fetchReference(url);
           return {
             ...response,
-            results: transformReferenceData(response),
+            results: transformReferenceData(response, nextPage),
             currentPage: nextPage,
             totalPages: Math.ceil(1000 / 100),
             totalItems: response.count
