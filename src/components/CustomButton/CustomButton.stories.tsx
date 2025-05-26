@@ -1,5 +1,6 @@
 import { fn } from '@storybook/test';
 import type { Meta } from '@storybook/react';
+import { CaretLeftIcon, CalendarDotsIcon } from '@phosphor-icons/react';
 import { CustomButton, type CustomButtonProps } from './CustomButton';
 import { CustomIcon } from '../CustomIcon/CustomIcon';
 
@@ -185,7 +186,7 @@ export default {
 
 export const Default = {};
 
-export const WithStartAndEndIcons = {
+export const StartEndIcons = {
   parameters: {
     docs: {
       description: {
@@ -209,7 +210,29 @@ export const WithStartAndEndIcons = {
   }
 };
 
-export const IconOnly = {
+export const PhosphorIcons = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Phosphor icons already have currentColor. You can adjust size to "1em" to match the text size, up to "1.5em" without affecting the button height.'
+      }
+    }
+  },
+  render: (args: CustomButtonProps) => {
+    const { startIcon, endIcon } = args;
+
+    return (
+      <CustomButton
+        {...args}
+        startIcon={startIcon ? startIcon : <CaretLeftIcon />}
+        endIcon={endIcon ? endIcon : <CalendarDotsIcon size={24} color="currentColor" />}
+      />
+    );
+  }
+};
+
+export const Icon = {
   args: {
     children: undefined,
     startIcon: <CustomIcon name="add" size={'1.5em'} color="currentColor" />,
@@ -217,7 +240,7 @@ export const IconOnly = {
   }
 };
 
-export const KeepLongTextOnOneLine = {
+export const LongText = {
   args: {
     children:
       'This is a very long text that should not wrap and should be truncated if it exceeds the button width.',
