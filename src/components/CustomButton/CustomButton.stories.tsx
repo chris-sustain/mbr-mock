@@ -84,7 +84,7 @@ export default {
         options: ['start', 'center', 'end', 'space-between', 'space-around', 'space-evenly']
       },
       description:
-        'The justify-content CSS property defines how the browser distributes space between and around content items along the main-axis of a flex container. Defaults to "center".'
+        'If set, applies **justify-content: [value]** to the button. Useful for [startIcon, children, endIcon] placement when the button is wide enough.'
     },
     textBehavior: {
       table: {
@@ -98,7 +98,7 @@ export default {
         options: ['normal', 'ellipsis', 'wrap', 'nowrap']
       },
       description:
-        'If set, applies text behavior to the button. "ellipsis" will truncate text with an ellipsis, while "wrap" will allow text to wrap onto multiple lines.'
+        "If set, applies 'ellipsis', 'wrap' or 'nowrap' behavior to the children container div of the button. Useful for the text."
     },
     isRounded: {
       table: {
@@ -191,7 +191,7 @@ export const StartEndIcons = {
     docs: {
       description: {
         story:
-          'Use `startIcon` and `endIcon` props. You can pass a React node or a CustomIcon.<br/>Use `color="currentColor"` of the CustomIcon to automatically inherit the CustomButton text color of the variant.<br/>Use a height of 1.5 times the font size for the icon to match the height of the text (line height is 1.5). This ensures that the button height remains the same whether it contains text, just an icon, or both.<br/>Recommended line heights to use for each size: **small: 21px**, **medium: 24px**, **large: 27px**. For CustomIcon, use `size="1.5em"` to automatically match the line-height of each CustomButton size.<br/>Use css scale to adjust the icon size of the CustomIcon if needed, e.g., `style={{ transform: "scale(1.1)" }}`.'
+          'Use `startIcon` and `endIcon` props. You can pass a React node or components such as CustomIcon and Phosphor icons.<br/>Use `color="currentColor"` of the CustomIcon to automatically inherit the CustomButton text color of the variant.<br/>Use a height of 1.5 times the font size for the icon to match the height of the text (line height is 1.5). This ensures that the button height remains the same whether it contains text, just an icon, or both.<br/>Recommended line heights to use for each size: **small: 21px**, **medium: 24px**, **large: 27px**. For CustomIcon, use `size="1.5em"` to automatically match the line-height of each CustomButton size.<br/>Use css scale to adjust the icon size of the CustomIcon if needed, e.g., `style={{ transform: "scale(1.1)" }}`.'
       }
     }
   },
@@ -215,7 +215,7 @@ export const PhosphorIcons = {
     docs: {
       description: {
         story:
-          'Phosphor icons already have currentColor. You can adjust size to "1em" to match the text size, up to "1.5em" without affecting the button height.'
+          'Phosphor icons already have currentColor. You can adjust size to **1em** to match the text size, up to **1.5em** without affecting the button height.'
       }
     }
   },
@@ -233,6 +233,14 @@ export const PhosphorIcons = {
 };
 
 export const Icon = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The padding is adjusted in case there is only an icon in the button (startIcon or endIcon), to allow **isRounded** to properly make the button a circle. Works as long as the icon is a square.'
+      }
+    }
+  },
   args: {
     children: undefined,
     startIcon: <CustomIcon name="add" size={'1.5em'} color="currentColor" />,

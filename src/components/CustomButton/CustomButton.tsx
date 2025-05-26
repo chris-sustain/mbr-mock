@@ -16,13 +16,13 @@ export type CustomButtonProps = AriaButtonProps & {
   variant?: 'primary' | 'secondary' | 'tertiary';
   /** The size of the button. */
   size?: 'small' | 'medium' | 'large';
-  /** Defaults to 'center'. If set, applies **justify-content: [value]** to the button. */
+  /** Defaults to 'center'. If set, applies **justify-content: [value]** to the button. Useful for [startIcon, children, endIcon] placement when the button is wide enough. */
   justifyContent?: 'start' | 'center' | 'end' | 'space-between' | 'space-around' | 'space-evenly';
-  /** Defaults to 'normal'. If set, applies 'ellipsis', 'wrap' or 'nowrap' behavior to the button text. */
+  /** Defaults to 'normal'. If set, applies 'ellipsis', 'wrap' or 'nowrap' behavior to the children container div of the button. Useful for the text. */
   textBehavior?: 'normal' | 'ellipsis' | 'wrap' | 'nowrap';
-  /** Defaults to false. If true, applies fully rounded borders. */
+  /** If true, applies fully rounded borders. */
   isRounded?: boolean;
-  /** Defaults to false. If true, adds **width: 100%** to the button. */
+  /** If true, adds **width: 100%** to the button. */
   isFullWidth?: boolean;
   /** The icon to display at the start of the button. */
   startIcon?: React.ReactNode;
@@ -33,7 +33,6 @@ export type CustomButtonProps = AriaButtonProps & {
 /**
  * CustomButton component that wraps the react-aria-components Button.
  * Some props are passed directly to the Button while others are specific to this component.
- * Refer to the Storybook for more information on the props and their usage.
  * https://react-spectrum.adobe.com/react-aria/Button.html
  */
 export const CustomButton = ({
