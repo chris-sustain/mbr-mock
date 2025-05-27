@@ -73,11 +73,7 @@ function ProjectContext() {
   return (
     <>
       <TextInput label={t('common.createRef.fields.directClientAddress')} multiline isRequired />
-      <TextInput
-        label={t('common.createRef.fields.servicesDescription')}
-        multiline
-        isRequired
-      />
+      <TextInput label={t('common.createRef.fields.servicesDescription')} multiline isRequired />
       <TextInput label={t('common.createRef.fields.projectSummary')} multiline isRequired />
       <div>{'Select, Domaine'}</div>
       <div>{'Select, Géographie'}</div>
