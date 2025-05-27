@@ -31,6 +31,8 @@ export const Pagination = ({
 }: PaginationProps) => {
   const { start, end } = calculatePaginationRange(currentPage, totalPages, maxPages);
 
+  console.log('props', { currentPage, totalPages, isLoading, maxPages });
+
   const navigationButtons: NavigationButton[] = [
     {
       onClick: 1,

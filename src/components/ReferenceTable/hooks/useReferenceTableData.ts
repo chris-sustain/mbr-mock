@@ -1,16 +1,20 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useReferenceQuery, useReferenceTable } from '@src/hooks';
 import type { SortingState } from '@tanstack/react-table';
 import type { ColumnKey } from '@src/types/table';
 
 export const useReferenceTableData = () => {
+  let totalPages = useRef<number | null>(null);
   const [sorting, setSorting] = useState<SortingState>([{ id: 'id', desc: true }]);
   const [currentPage, setCurrentPage] = useState(1);
   const { setSort } = useReferenceTable();
   const { data, isLoading, isFetching } = useReferenceQuery(currentPage);
 
   const allRows = useMemo(() => data?.results ?? [], [data?.results]);
-  const totalPages = useMemo(() => data?.totalPages ?? 1, [data?.totalPages]);
+  if (!totalPages?.current && data?.totalPages) {
+    totalPages.current = data.totalPages;
+  }
+
   const totalRows = useMemo(() => data?.totalRows ?? 20000, [data?.totalRows]);
 
   useEffect(() => {
@@ -30,7 +34,7 @@ export const useReferenceTableData = () => {
     isFetching,
     currentPage,
     setCurrentPage,
-    totalPages,
+    totalPages: totalPages.current,
     totalRows
   };
 };
