@@ -19,7 +19,6 @@ import { PATHS } from '@src/router';
 import { renderCellContent } from './helper';
 import styles from './ReferenceTable.module.scss';
 import classNames from 'classnames';
-import { Pagination } from './components/Pagination/Pagination';
 
 export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: TableMode }) => {
   const {

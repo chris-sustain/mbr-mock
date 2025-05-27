@@ -4,14 +4,14 @@ import type { SortingState } from '@tanstack/react-table';
 import type { ColumnKey } from '@src/types/table';
 
 export const useReferenceTableData = () => {
-  let totalPages = useRef<number | null>(null);
+  let totalPages = useRef<number>(0);
   const [sorting, setSorting] = useState<SortingState>([{ id: 'id', desc: true }]);
   const [currentPage, setCurrentPage] = useState(1);
   const { setSort } = useReferenceTable();
   const { data, isLoading, isFetching } = useReferenceQuery(currentPage);
 
   const allRows = useMemo(() => data?.results ?? [], [data?.results]);
-  if (!totalPages?.current && data?.totalPages) {
+  if (totalPages?.current === 0 && data?.totalPages) {
     totalPages.current = data.totalPages;
   }
 
