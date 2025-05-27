@@ -8,7 +8,7 @@ interface PaginationProps {
   currentPage: number;
   totalPages: number;
   isLoading: boolean;
-  maxPages: number;
+  maxPages?: number;
   onPageChange: (page: number) => void;
 }
 

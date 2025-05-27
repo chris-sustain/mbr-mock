@@ -1,4 +1,4 @@
-import { memo, useRef, useCallback, useEffect } from 'react';
+import { memo, useRef, useCallback, useEffect, useState } from 'react';
 
 import styles from './ReferenceTable.module.scss';
 import type { Reference } from '@src/types/reference';
@@ -36,9 +36,21 @@ export const ReferenceTable = memo<{
     const bodyRef = useRef<HTMLTableSectionElement | null>(null);
     const showLoading = useLoadingState(isLoading);
 
-    const containerHeight = tableContainerRef?.current?.clientHeight || 400;
-    const headerHeight = headerRef?.current?.clientHeight || 40;
-    const containerWidth = tableContainerRef?.current?.clientWidth || 800;
+    const [dimensions, setDimensions] = useState({
+      containerHeight: 0,
+      headerHeight: 0,
+      containerWidth: 0
+    });
+
+    useEffect(() => {
+      if (tableContainerRef.current && headerRef.current) {
+        setDimensions({
+          containerHeight: tableContainerRef.current.clientHeight,
+          headerHeight: headerRef.current.clientHeight,
+          containerWidth: tableContainerRef.current.clientWidth
+        });
+      }
+    }, []);
 
     /*
       Only tbody can be scrolled vertically.
@@ -68,8 +80,8 @@ export const ReferenceTable = memo<{
       if (!showLoading && !isFetching && allRows.length === 0) {
         return (
           <EmptyState
-            height={containerHeight}
-            width={containerWidth}
+            height={dimensions.containerHeight}
+            width={dimensions.containerWidth}
             colSpan={table.getAllColumns().length}
           />
         );
@@ -78,8 +90,8 @@ export const ReferenceTable = memo<{
       if (showLoading) {
         return (
           <LoadingState
-            height={containerHeight}
-            width={containerWidth}
+            height={dimensions.containerHeight}
+            width={dimensions.containerWidth}
             colSpan={table.getAllColumns().length}
           />
         );
@@ -128,7 +140,7 @@ export const ReferenceTable = memo<{
             </thead>
             <tbody
               ref={bodyRef}
-              style={{ height: containerHeight - headerHeight }}
+              style={{ height: dimensions.containerHeight - dimensions.headerHeight }}
               className="main-scrollbar"
               onScroll={handleBodyScroll}>
               {renderBody()}
