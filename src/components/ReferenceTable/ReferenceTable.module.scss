@@ -45,7 +45,6 @@
 }
 
 .th {
-  // border: 1px solid black;
   position: sticky;
   top: 0;
   background-color: var(--neutral-0);
@@ -160,5 +159,4 @@ table > thead:not(:last-child),
 table > tbody:not(:last-child),
 table > tfoot:not(:last-child) {
   border-bottom: 1px solid var(--neutral-300);
-  // border: 1px solid black;
 }

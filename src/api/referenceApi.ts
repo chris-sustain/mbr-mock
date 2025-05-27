@@ -1,3 +1,4 @@
+// wait for backend to be ready
 // import type { Reference } from '@src/types/reference';
 
 export const baseUrl = 'https://swapi-node.vercel.app';

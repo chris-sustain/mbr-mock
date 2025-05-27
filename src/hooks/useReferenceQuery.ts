@@ -6,7 +6,6 @@ import type { Reference } from '@src/types/reference';
 import { useEffect } from 'react';
 
 //todo add type
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const transformReferenceData = (_: any, page: number): Reference[] => {
   const rowsPerPage = 200;
@@ -36,7 +35,6 @@ export function useReferenceQuery(page = 1) {
   const query = useQuery({
     queryKey: [queryKeys.reference, sort, search, filters, page],
     queryFn: async () => {
-      // const response = await fetchReference(`${baseUrl}?page=${page}`);
       const url =
         page > 1 ? `${FETCH_REFERENCE_INITIAL_URL}?page=${page}` : FETCH_REFERENCE_INITIAL_URL;
       const response = await fetchReference(url);

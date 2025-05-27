@@ -23,8 +23,6 @@ type FilterValue = string | number | string[];
 // Create a type for the filters object
 export type ReferenceFilters = Partial<Record<FilterKey, FilterValue>>;
 
-// export type ColumnId = keyof typeof COLUMNS_IDS;
-
 export type TableMode = (typeof TABLE_MODES)[keyof typeof TABLE_MODES];
 
 // Type for the renderer options
