@@ -1,10 +1,14 @@
 import styles from './Pagination.module.scss';
 import { CustomIcon } from '@src/components/CustomIcon';
 
+const VISIBLE_PAGE_COUNT = 5; // Total number of page buttons to show at once
+const SIBLING_PAGE_COUNT = 2; // Number of pages to show on each side of current page
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
   isLoading: boolean;
+  maxPages: number;
   onPageChange: (page: number) => void;
 }
 
@@ -12,6 +16,7 @@ export const Pagination = ({
   currentPage,
   totalPages,
   isLoading,
+  maxPages = VISIBLE_PAGE_COUNT,
   onPageChange
 }: PaginationProps) => {
   const renderPages = () => {
@@ -19,16 +24,25 @@ export const Pagination = ({
     let start = 1;
     let end = totalPages;
 
-    if (totalPages > 5) {
-      if (currentPage <= 3) {
+    // Check if we need to implement page truncation (when total pages exceed our minimum threshold)
+    if (totalPages > VISIBLE_PAGE_COUNT) {
+      // Case 1: When we're near the start of the pagination
+      // If current page is close to the beginning, show first 'maxPages' pages
+      if (currentPage <= maxPages - SIBLING_PAGE_COUNT) {
         start = 1;
-        end = 5;
-      } else if (currentPage >= totalPages - 2) {
-        start = totalPages - 4;
+        end = maxPages;
+      }
+      // Case 2: When we're near the end of the pagination
+      // If current page is close to the end, show last 'maxPages' pages
+      else if (currentPage >= totalPages - SIBLING_PAGE_COUNT) {
+        start = totalPages - (maxPages - 1);
         end = totalPages;
-      } else {
-        start = currentPage - 2;
-        end = currentPage + 2;
+      }
+      // Case 3: When we're in the middle of the pagination
+      // Show a window of pages centered around the current page
+      else {
+        start = currentPage - SIBLING_PAGE_COUNT;
+        end = currentPage + SIBLING_PAGE_COUNT;
       }
     }
 
@@ -54,7 +68,6 @@ export const Pagination = ({
         className={styles.iconButton}
         aria-label="First page">
         <CustomIcon name="double-chevron-left" />
-        {/* <DoubleChevronLeft /> */}
       </button>
       <button
         onClick={() => onPageChange(currentPage - 1)}
@@ -62,7 +75,6 @@ export const Pagination = ({
         className={styles.iconButton}
         aria-label="Previous page">
         <CustomIcon name="chevron-left" />
-        {/* <ChevronLeft /> */}
       </button>
       {renderPages()}
       <button
@@ -71,7 +83,6 @@ export const Pagination = ({
         className={styles.iconButton}
         aria-label="Next page">
         <CustomIcon name="chevron-right" />
-        {/* <ChevronRight /> */}
       </button>
       <button
         onClick={() => onPageChange(totalPages)}
@@ -79,7 +90,6 @@ export const Pagination = ({
         className={styles.iconButton}
         aria-label="Last page">
         <CustomIcon name="double-chevron-right" />
-        {/* <DoubleChevronRight /> */}
       </button>
     </div>
   );
