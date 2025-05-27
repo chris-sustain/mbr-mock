@@ -48,7 +48,7 @@ export const CustomButton = ({
   endIcon,
   ...rest
 }: CustomButtonProps) => {
-  const hasChildren = children !== undefined || children !== null;
+  const hasChildren = children !== undefined && children !== null;
 
   const buttonClassName = classNames(styles['button'], className, {
     [styles[`variant-${variant}`]]: variant,
