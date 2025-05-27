@@ -1,8 +1,18 @@
 import styles from './Pagination.module.scss';
-import { CustomIcon } from '@src/components/CustomIcon';
+import { PageList } from './PageList';
+import { Page } from './Page';
+import { calculatePaginationRange } from './utils';
 
 const VISIBLE_PAGE_COUNT = 5; // Total number of page buttons to show at once
-const SIBLING_PAGE_COUNT = 2; // Number of pages to show on each side of current page
+
+type IconName = 'double-chevron-left' | 'chevron-left' | 'chevron-right' | 'double-chevron-right';
+
+interface NavigationButton {
+  onClick: number;
+  disabled: boolean;
+  icon: IconName;
+  ariaLabel: string;
+}
 
 interface PaginationProps {
   currentPage: number;
@@ -19,78 +29,62 @@ export const Pagination = ({
   maxPages = VISIBLE_PAGE_COUNT,
   onPageChange
 }: PaginationProps) => {
-  const renderPages = () => {
-    const pages = [];
-    let start = 1;
-    let end = totalPages;
+  const { start, end } = calculatePaginationRange(currentPage, totalPages, maxPages);
 
-    // Check if we need to implement page truncation (when total pages exceed our minimum threshold)
-    if (totalPages > VISIBLE_PAGE_COUNT) {
-      // Case 1: When we're near the start of the pagination
-      // If current page is close to the beginning, show first 'maxPages' pages
-      if (currentPage <= maxPages - SIBLING_PAGE_COUNT) {
-        start = 1;
-        end = maxPages;
-      }
-      // Case 2: When we're near the end of the pagination
-      // If current page is close to the end, show last 'maxPages' pages
-      else if (currentPage >= totalPages - SIBLING_PAGE_COUNT) {
-        start = totalPages - (maxPages - 1);
-        end = totalPages;
-      }
-      // Case 3: When we're in the middle of the pagination
-      // Show a window of pages centered around the current page
-      else {
-        start = currentPage - SIBLING_PAGE_COUNT;
-        end = currentPage + SIBLING_PAGE_COUNT;
-      }
+  const navigationButtons: NavigationButton[] = [
+    {
+      onClick: 1,
+      disabled: currentPage === 1 || isLoading,
+      icon: 'double-chevron-left',
+      ariaLabel: 'First page'
+    },
+    {
+      onClick: currentPage - 1,
+      disabled: currentPage === 1 || isLoading,
+      icon: 'chevron-left',
+      ariaLabel: 'Previous page'
+    },
+    {
+      onClick: currentPage + 1,
+      disabled: currentPage === totalPages || isLoading,
+      icon: 'chevron-right',
+      ariaLabel: 'Next page'
+    },
+    {
+      onClick: totalPages,
+      disabled: currentPage === totalPages || isLoading,
+      icon: 'double-chevron-right',
+      ariaLabel: 'Last page'
     }
-
-    for (let i = start; i <= end; i++) {
-      pages.push(
-        <button
-          key={i}
-          onClick={() => onPageChange(i)}
-          disabled={isLoading}
-          className={i === currentPage ? styles.currentPage : styles.pageButton}>
-          {i}
-        </button>
-      );
-    }
-    return pages;
-  };
+  ] as const;
 
   return (
     <div className={styles.pagination}>
-      <button
-        onClick={() => onPageChange(1)}
-        disabled={currentPage === 1 || isLoading}
-        className={styles.iconButton}
-        aria-label="First page">
-        <CustomIcon name="double-chevron-left" />
-      </button>
-      <button
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1 || isLoading}
-        className={styles.iconButton}
-        aria-label="Previous page">
-        <CustomIcon name="chevron-left" />
-      </button>
-      {renderPages()}
-      <button
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages || isLoading}
-        className={styles.iconButton}
-        aria-label="Next page">
-        <CustomIcon name="chevron-right" />
-      </button>
-      <button
-        onClick={() => onPageChange(totalPages)}
-        disabled={currentPage === totalPages || isLoading}
-        className={styles.iconButton}
-        aria-label="Last page">
-        <CustomIcon name="double-chevron-right" />
-      </button>
+      {navigationButtons.slice(0, 2).map((button, index) => (
+        <Page
+          key={`nav-${index}`}
+          onClick={() => onPageChange(button.onClick)}
+          disabled={button.disabled}
+          icon={button.icon}
+          ariaLabel={button.ariaLabel}
+        />
+      ))}
+      <PageList
+        currentPage={currentPage}
+        isLoading={isLoading}
+        onPageChange={onPageChange}
+        start={start}
+        end={end}
+      />
+      {navigationButtons.slice(2).map((button, index) => (
+        <Page
+          key={`nav-${index + 2}`}
+          onClick={() => onPageChange(button.onClick)}
+          disabled={button.disabled}
+          icon={button.icon}
+          ariaLabel={button.ariaLabel}
+        />
+      ))}
     </div>
   );
 };
