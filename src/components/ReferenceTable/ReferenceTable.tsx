@@ -38,6 +38,7 @@ export const ReferenceTable = memo<{
   }) => {
     const { t } = useTranslation();
     const tableContainerRef = useRef<HTMLDivElement | null>(null);
+    const paginationRef = useRef<HTMLDivElement | null>(null);
     const headerRef = useRef<HTMLTableRowElement | null>(null);
     const bodyRef = useRef<HTMLTableSectionElement | null>(null);
     const showLoading = useLoadingState(isLoading);
@@ -45,15 +46,17 @@ export const ReferenceTable = memo<{
     const [dimensions, setDimensions] = useState({
       containerHeight: 0,
       headerHeight: 0,
+      paginationHeight: 0,
       containerWidth: 0
     });
 
     useEffect(() => {
-      if (tableContainerRef.current && headerRef.current) {
+      if (tableContainerRef.current && headerRef.current && paginationRef.current) {
         setDimensions({
           containerHeight: tableContainerRef.current.clientHeight,
           headerHeight: headerRef.current.clientHeight,
-          containerWidth: tableContainerRef.current.clientWidth
+          containerWidth: tableContainerRef.current.clientWidth,
+          paginationHeight: paginationRef.current.clientHeight
         });
       }
     }, []);
@@ -158,19 +161,24 @@ export const ReferenceTable = memo<{
             </thead>
             <tbody
               ref={bodyRef}
-              style={{ height: dimensions.containerHeight - dimensions.headerHeight }}
+              style={{
+                height:
+                  dimensions.containerHeight - dimensions.headerHeight - dimensions.paginationHeight
+              }}
               className="main-scrollbar"
               onScroll={handleBodyScroll}>
               {renderBody()}
             </tbody>
           </table>
         </div>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          isLoading={isLoading}
-          onPageChange={setCurrentPage}
-        />
+        <div ref={paginationRef}>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            isLoading={isLoading}
+            onPageChange={setCurrentPage}
+          />
+        </div>
       </div>
     );
   }

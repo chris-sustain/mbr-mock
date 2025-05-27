@@ -4,7 +4,7 @@ import type { SortingState } from '@tanstack/react-table';
 import type { ColumnKey } from '@src/types/table';
 
 export const useReferenceTableData = () => {
-  let totalPages = useRef<number>(0);
+  const totalPages = useRef<number>(0);
   const [sorting, setSorting] = useState<SortingState>([{ id: 'id', desc: true }]);
   const [currentPage, setCurrentPage] = useState(1);
   const { setSort } = useReferenceTable();
