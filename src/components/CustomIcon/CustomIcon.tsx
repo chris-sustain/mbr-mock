@@ -1,5 +1,6 @@
 import { useMemo, type SVGProps } from 'react';
-import { getSVGIconsAsComponents, type IconName } from './utils';
+import type { IconName } from './icon-names.generated';
+import { getSVGIconsAsComponents } from './utils';
 
 interface CustomIconProps {
   className?: string;

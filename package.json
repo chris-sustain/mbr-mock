@@ -15,7 +15,8 @@
     "format": "npm run prettier:fix && npm run lint:fix",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "vitest --project=storybook"
+    "test": "vitest --project=storybook",
+    "generate:icon-types": "node scripts/generate-icon-types.js"
   },
   "dependencies": {
     "@internationalized/date": "^3.8.1",
