@@ -37,7 +37,7 @@ export const Checkbox: React.FC<CheckBoxProps> = ({ children, variant = 'default
             </svg>
           </div>
 
-          {children}
+          <span className={styles.label}>{children}</span>
         </>
       )}
     </CheckboxAria>

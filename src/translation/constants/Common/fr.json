@@ -21,6 +21,38 @@
       "search": {
         "link": "Rechercher"
       }
+    },
+    "createRef": {
+      "sections": {
+        "generalInfo": "Informations générales",
+        "clients": "Clients",
+        "projectContext": "Contexte du projet",
+        "ourService": "Notre prestation",
+        "participants": "Intervenants",
+        "amountsAndFunding": "Montants et financements",
+        "relatedFiles": "Fichiers liés"
+      },
+      "fields": {
+        "contractualProjectTitle": "Titre contractuel du projet",
+        "commercialProjectTitle": "Titre commercial du projet",
+        "groupingAgent": "Mandataire en cas de groupement",
+        "subsidiaryOfferNumber": "N° offre CRM filiale",
+        "subsidiaryEarthProjectNumber": "N° projet EARTH filiale",
+        "client": "Client",
+        "directClientDescription": "Description du client direct",
+        "directClientAddress": "Adresse du client direct",
+        "finalClient": "Client final (bénéficiaire)",
+        "finalClientAddress": "Adresse du client final",
+        "clientContactName": "Contact client : Prénom - NOM",
+        "clientContactFunction": "Contact client : Fonction",
+        "clientContactPhone": "Contact client : Téléphone",
+        "clientContactFax": "Contact client : Fax",
+        "clientContactEmail": "Contact client : Email",
+        "servicesDescription": "Description des services fournis par la filiale Egis propriétaire de la référence",
+        "projectSummary": "Résumé du projet",
+        "internalComments": "Commentaire(s) (à usage interne)",
+        "serviceCompleted": "Prestation terminée"
+      }
     }
   }
 }

@@ -1,0 +1,61 @@
+.select-button {
+  cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #707070;
+  border-radius: 6px;
+  background-color: transparent;
+  transition: border-color 0.2s ease-in-out;
+
+  &:hover {
+    border-color: #abc022;
+
+    & > div {
+      color: #abc022;
+      transition: color 0.2s ease-in-out;
+    }
+  }
+}
+
+.select-value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.select-button-drop-icon {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  background-color: white;
+  transform: translate(50%, -50%);
+}
+
+.option-list {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid #707070;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.2s ease-in-out;
+
+  &:hover {
+    border-color: #abc022;
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #f3ffa4;
+    }
+  }
+}

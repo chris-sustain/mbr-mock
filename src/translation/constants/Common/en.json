@@ -11,6 +11,38 @@
       }
     },
     "close": "Close",
+    "createRef": {
+      "fields": {
+        "client": "Client",
+        "clientContactEmail": "Client contact: Email",
+        "clientContactFax": "Client contact: Fax",
+        "clientContactFunction": "Client contact: Function",
+        "clientContactName": "Client contact: First name - LAST NAME",
+        "clientContactPhone": "Client contact: Phone",
+        "commercialProjectTitle": "Commercial project title",
+        "contractualProjectTitle": "Contractual project title",
+        "directClientAddress": "Direct client address",
+        "directClientDescription": "Direct client description",
+        "finalClient": "Final client (beneficiary)",
+        "finalClientAddress": "Final client address",
+        "groupingAgent": "Agent in case of grouping",
+        "internalComments": "Comment(s) (for internal use)",
+        "projectSummary": "Project summary",
+        "serviceCompleted": "Service completed",
+        "servicesDescription": "Description of services provided by the Egis subsidiary owning the reference",
+        "subsidiaryEarthProjectNumber": "Subsidiary EARTH project number",
+        "subsidiaryOfferNumber": "Subsidiary CRM offer number"
+      },
+      "sections": {
+        "amountsAndFunding": "Amounts and Funding",
+        "clients": "Clients",
+        "generalInfo": "General Information",
+        "ourService": "Our Service",
+        "participants": "Participants",
+        "projectContext": "Project Context",
+        "relatedFiles": "Related Files"
+      }
+    },
     "emptyState": {
       "title": " <strong>No results found for the requested search.</strong> Try again with different keywords."
     },
@@ -18,7 +50,6 @@
       "create": {
         "link": "Create a reference"
       },
-
       "new": {
         "link": "New"
       },
@@ -34,19 +65,6 @@
       "validation": {
         "link": "Validation"
       }
-    },
-    "table": {
-      "commercialTitle": "Commercial Title",
-      "country": "Country",
-      "domain": "Domain",
-      "egisOwnerFiliale": "Egis Owner Filiale",
-      "egisPart": "Egis Part",
-      "endDate": "End Date",
-      "filialePart": "Filiale Part",
-      "id": "Ref. No.",
-      "satisfecit": "Satisfecit",
-      "startDate": "Start Date",
-      "totalContractAmount": "Total Contract Amount"
     }
   }
 }

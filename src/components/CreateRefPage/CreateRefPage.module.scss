@@ -1,2 +1,48 @@
+@import '@src/index.scss';
+
 .root {
+  display: flex;
+  align-items: stretch;
+  max-width: $breakpoint-l;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.sidebar {
+  flex-basis: 160px;
+  padding: 12px;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 12px;
+}
+
+.section {
+  width: 100%;
+  padding: 12px;
+}
+
+.title {
+  @include heading-200;
+  width: 100%;
+  text-align: start;
+  background-color: var(--vert-500);
+  color: white;
+  border-radius: 6px;
+  padding: 9px;
+}
+
+.field {
+  margin-bottom: 21px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+
+  & > * {
+    flex: 1 1 0;
+  }
 }
