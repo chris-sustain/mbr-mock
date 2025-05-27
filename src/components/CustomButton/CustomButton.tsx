@@ -77,11 +77,3 @@ const IconWrapper = ({ children }: { children: React.ReactNode }) => {
 
   return <div className={styles['icon-wrapper']}>{children}</div>;
 };
-
-// export const Test = () => {
-//   return (
-//     <CustomButton className={styles['temp']} onPress={() => console.warn('Button pressed')}>
-//       {'aze'}
-//     </CustomButton>
-//   );
-// };
