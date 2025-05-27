@@ -8,6 +8,7 @@ import { EmptyState, Pagination, LoadingState } from './components';
 import classNames from 'classnames';
 import { useLoadingState } from '@src/hooks/useLoadingState';
 import { getColumnWidth } from '@src/utils/table';
+import { useTranslation } from 'react-i18next';
 
 export const ReferenceTable = memo<{
   table: Table<Reference>;
@@ -19,6 +20,8 @@ export const ReferenceTable = memo<{
   currentPage: number;
   setCurrentPage: (page: number) => void;
   totalPages: number;
+  countSelectedRows: number;
+  countTotalRows: number;
 }>(
   ({
     table,
@@ -29,8 +32,11 @@ export const ReferenceTable = memo<{
     getRowClassName,
     currentPage,
     setCurrentPage,
-    totalPages
+    totalPages,
+    countSelectedRows,
+    countTotalRows
   }) => {
+    const { t } = useTranslation();
     const tableContainerRef = useRef<HTMLDivElement | null>(null);
     const headerRef = useRef<HTMLTableRowElement | null>(null);
     const bodyRef = useRef<HTMLTableSectionElement | null>(null);
@@ -119,9 +125,21 @@ export const ReferenceTable = memo<{
     };
     const tableWrapperClass = classNames(styles.tableWrapper, 'main-scrollbar');
 
+    const countLabel = t('common.selectedOf', {
+      count: countSelectedRows,
+      total: countTotalRows
+    });
+
     return (
       <div className={styles.container}>
         <div className={tableWrapperClass} ref={tableContainerRef}>
+          <div className={styles.header}>
+            <div className={styles.header__right}>
+              <div className={styles.header__right__title}>
+                <span>{countLabel}</span>
+              </div>
+            </div>
+          </div>
           <table className={styles.table}>
             <thead>
               {table.getHeaderGroups().map((headerGroup) => (

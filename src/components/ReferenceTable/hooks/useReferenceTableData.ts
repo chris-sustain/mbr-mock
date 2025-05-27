@@ -12,6 +12,7 @@ export const useReferenceTableData = () => {
 
   const allRows = useMemo(() => data?.results ?? [], [data?.results]);
   const totalPages = useMemo(() => data?.totalPages ?? 1, [data?.totalPages]);
+  const totalRows = useMemo(() => data?.totalRows ?? 20000, [data?.totalRows]);
 
   useEffect(() => {
     if (sorting.length > 0) {
@@ -32,6 +33,7 @@ export const useReferenceTableData = () => {
     isFetching,
     currentPage,
     setCurrentPage,
-    totalPages
+    totalPages,
+    totalRows
   };
 };

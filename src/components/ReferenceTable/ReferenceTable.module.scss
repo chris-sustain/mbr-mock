@@ -160,3 +160,25 @@ table > tbody:not(:last-child),
 table > tfoot:not(:last-child) {
   border-bottom: 1px solid var(--neutral-300);
 }
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header__right__title {
+  color: var(--gris-300);
+  font-family: Urbanist;
+  font-size: 0.9rem;
+  font-style: italic;
+  font-weight: 500;
+  line-height: normal;
+}

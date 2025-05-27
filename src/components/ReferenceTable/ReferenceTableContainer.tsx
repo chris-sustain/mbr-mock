@@ -31,7 +31,8 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
     isFetching,
     currentPage,
     setCurrentPage,
-    totalPages
+    totalPages,
+    totalRows
   } = useReferenceTableData();
   const [rowSelection, setRowSelection] = useState({});
 
@@ -126,6 +127,8 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       totalPages={totalPages}
+      countSelectedRows={Object.keys(rowSelection).length}
+      countTotalRows={totalRows}
     />
   );
 };
