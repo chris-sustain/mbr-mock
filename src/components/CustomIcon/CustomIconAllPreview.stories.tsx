@@ -1,9 +1,7 @@
 import { CustomIcon } from './CustomIcon';
-import { getSVGIconsAsComponents } from './utils';
+import { availableIconNames } from './icon-names.generated';
 
-const icons = getSVGIconsAsComponents();
-
-export const AllIcons = ({ className, size = 24, color = '#000' }) => (
+export const AllIcons = ({ className = '', size = 24, color = '#000' }) => (
   <div
     style={{
       maxHeight: '40vh',
@@ -14,7 +12,7 @@ export const AllIcons = ({ className, size = 24, color = '#000' }) => (
       justifyItems: 'center',
       alignItems: 'center'
     }}>
-    {Object.keys(icons).map((name) => (
+    {availableIconNames.map((name) => (
       <div
         key={name}
         style={{
