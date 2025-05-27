@@ -47,7 +47,7 @@ export const CustomButton = ({
   startIcon,
   endIcon,
   ...rest
-}: CustomButtonProps) => {
+}: CustomButtonProps) => {  
   const buttonClassName = classNames(styles['button'], className, {
     [styles[`variant-${variant}`]]: variant,
     [styles[`size-${size}`]]: size,
@@ -64,7 +64,7 @@ export const CustomButton = ({
   return (
     <AriaButton {...rest} className={buttonClassName}>
       <IconWrapper>{startIcon}</IconWrapper>
-      {children ? <div className={contentClassName}>{children}</div> : null}
+      <div className={contentClassName}>{children}</div>
       <IconWrapper>{endIcon}</IconWrapper>
     </AriaButton>
   );
