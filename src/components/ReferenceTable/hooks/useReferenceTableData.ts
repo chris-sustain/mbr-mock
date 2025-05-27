@@ -1,11 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useReferenceQuery, useReferenceTable } from '@src/hooks';
-import type { SortingState, VisibilityState } from '@tanstack/react-table';
+import type { SortingState } from '@tanstack/react-table';
 import type { ColumnKey } from '@src/types/table';
 
 export const useReferenceTableData = () => {
   const [sorting, setSorting] = useState<SortingState>([{ id: 'id', desc: true }]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [currentPage, setCurrentPage] = useState(1);
   const { setSort } = useReferenceTable();
   const { data, isLoading, isFetching } = useReferenceQuery(currentPage);
@@ -26,8 +25,6 @@ export const useReferenceTableData = () => {
   return {
     sorting,
     setSorting,
-    columnVisibility,
-    setColumnVisibility,
     allRows,
     isLoading,
     isFetching,

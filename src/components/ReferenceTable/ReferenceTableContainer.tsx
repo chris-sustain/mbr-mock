@@ -24,8 +24,6 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
   const {
     sorting,
     setSorting,
-    columnVisibility,
-    setColumnVisibility,
     allRows,
     isLoading,
     isFetching,
