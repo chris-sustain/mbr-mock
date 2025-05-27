@@ -101,7 +101,6 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
     columns,
     state: {
       sorting,
-      columnVisibility,
       rowSelection: rowSelection
     },
     manualSorting: true,
@@ -110,7 +109,6 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
     enableRowSelection: true,
     onSortingChange: setSorting,
     onRowSelectionChange: setRowSelection,
-    onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel()
   });
 
