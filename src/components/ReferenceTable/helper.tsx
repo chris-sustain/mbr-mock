@@ -1,20 +1,20 @@
 import React from 'react';
 
-import { ArrowDown, ArrowUp } from 'lucide-react';
 import styles from './ReferenceTable.module.scss';
 import type { Reference } from '@src/types/reference';
 import { flexRender, type Header } from '@tanstack/react-table';
 import classNames from 'classnames';
 import type { ColumnConfig } from '@src/types/table';
 import { CellDateRenderer, CellAmountRenderer } from './components';
+import { ArrowDownIcon, ArrowUpIcon } from '@phosphor-icons/react';
 
 export const SortedHeaderCell: React.FC<{ header: Header<Reference, unknown> }> = ({ header }) => {
   const sortDirection = header.column.getIsSorted();
   if (!sortDirection) return null;
 
   const getSortIcon = () => {
-    if (sortDirection === 'asc') return <ArrowUp size={14} />;
-    if (sortDirection === 'desc') return <ArrowDown size={14} />;
+    if (sortDirection === 'asc') return <ArrowUpIcon size={14} />;
+    if (sortDirection === 'desc') return <ArrowDownIcon size={14} />;
     return null;
   };
   return <span className={styles.sortIcon}>{getSortIcon()}</span>;

@@ -39,6 +39,7 @@ code {
   // create a stacking context in order to work with modals and popovers
   position: relative;
   z-index: 0;
+  overflow: hidden;
 }
 
 .main-scrollbar {
