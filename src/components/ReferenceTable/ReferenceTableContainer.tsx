@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useMemo, type Dispatch, type SetStateAction } from 'react';
 import {
   getCoreRowModel,
   useReactTable,
@@ -20,7 +20,17 @@ import { renderCellContent } from './helper';
 import styles from './ReferenceTable.module.scss';
 import classNames from 'classnames';
 
-export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: TableMode }) => {
+export interface ReferenceTableContainerProps {
+  mode: TableMode;
+  rowSelection: Record<string, boolean>;
+  setRowSelection: Dispatch<SetStateAction<Record<string, boolean>>>;
+}
+
+export const ReferenceTableContainer = ({
+  mode = TABLE_MODES.all,
+  rowSelection,
+  setRowSelection
+}: ReferenceTableContainerProps) => {
   const {
     sorting,
     setSorting,
@@ -32,7 +42,6 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
     totalPages,
     totalRows
   } = useReferenceTableData();
-  const [rowSelection, setRowSelection] = useState({});
 
   const { t } = useTranslation();
   const columnHelper = createColumnHelper<Reference>();

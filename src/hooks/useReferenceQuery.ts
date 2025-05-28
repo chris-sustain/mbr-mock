@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const transformReferenceData = (_: any, page: number): Reference[] => {
-  const rowsPerPage = 1;
+  const rowsPerPage = 100;
 
   const startId = (page - 1) * rowsPerPage;
 
