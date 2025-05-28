@@ -43,9 +43,6 @@
         "relatedFiles": "Related Files"
       }
     },
-    "emptyState": {
-      "title": " <strong>No results found for the requested search.</strong> Try again with different keywords."
-    },
     "page": {
       "create": {
         "link": "Create a reference"
@@ -65,21 +62,6 @@
       "validation": {
         "link": "Validation"
       }
-    },
-    "selectedOf_one": "{{count}} row selected of {{total}}",
-    "selectedOf_other": "{{count}} rows selected of {{total}}",
-    "table": {
-      "commercialTitle": "Commercial Title",
-      "country": "Country",
-      "domain": "Domain",
-      "egisOwnerFiliale": "Egis Owner Filiale",
-      "egisPart": "Egis Part",
-      "endDate": "End Date",
-      "filialePart": "Filiale Part",
-      "id": "Ref. No.",
-      "satisfecit": "Satisfecit",
-      "startDate": "Start Date",
-      "totalContractAmount": "Total Contract Amount"
     }
   }
 }

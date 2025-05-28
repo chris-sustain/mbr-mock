@@ -1,0 +1,57 @@
+.array {
+  border: 1px solid var(--neutral-400);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.fieldRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.fieldContent {
+  flex-grow: 1;
+}
+
+.removeButton {
+  flex-shrink: 0;
+  width: 19px;
+  height: 19px;
+  margin-left: 19px;
+  background-color: #fdc603;
+  border: none;
+  outline: none;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+
+  &.invisible {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.addButton {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px;
+  margin: 0 auto;
+  background-color: var(--neutral-300);
+  color: var(--neutral-500);
+  font-size: 12px;
+  line-height: 1;
+  border: none;
+  border-radius: 7px;
+  margin-top: 26px;
+  cursor: pointer;
+}
