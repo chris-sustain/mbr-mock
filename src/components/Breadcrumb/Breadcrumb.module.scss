@@ -1,0 +1,46 @@
+.root {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--bleue-nuit);
+
+  /* Buttons/Buttons Medium (Med) */
+  font-family: Urbanist;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  padding: 0;
+  &:hover {
+    color: #333;
+  }
+}
+
+.leaf {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title {
+  color: #000;
+  font-family: Urbanist;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.separator {
+  width: 2px;
+  height: 26px;
+  background-color: var(--vert-500);
+}
