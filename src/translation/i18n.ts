@@ -45,7 +45,8 @@ i18n
       es: {
         translation: ES_COMMON
       }
-    }
+    },
+    transKeepBasicHtmlNodesFor: ['span', 'br', 'strong', 'i', 'p']
   });
 
 //eslint-disable-next-line import/no-default-export
