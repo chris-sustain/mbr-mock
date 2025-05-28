@@ -1,8 +1,23 @@
 import { fn } from '@storybook/test';
 import type { Meta } from '@storybook/react';
 import { CaretLeftIcon, CalendarDotsIcon } from '@phosphor-icons/react';
-import { CustomButton, type CustomButtonProps } from './CustomButton';
+import { CustomButton } from './CustomButton';
 import { CustomIcon } from '../CustomIcon/CustomIcon';
+
+const iconPropMapping = {
+  'CustomIcon: name="add", size="1em"': <CustomIcon name="add" size={'1em'} color="currentColor" />,
+  'CustomIcon: name="add", size="1.5em"': (
+    <CustomIcon name="add" size={'1.5em'} color="currentColor" />
+  ),
+  '➡️': '➡️',
+  '❤️': '❤️',
+  '🐱': '🐱',
+  'Phosphor icon: CaretLeftIcon 1.2em': <CaretLeftIcon size="1.2em" color="currentColor" />,
+  'Phosphor icon: CalendarDotsIcon 1.3em': <CalendarDotsIcon size="1.3em" color="currentColor" />,
+  none: undefined
+};
+
+const iconPropOptions = Object.keys(iconPropMapping);
 
 export default {
   title: 'Components/CustomButton',
@@ -130,7 +145,9 @@ export default {
         'Whether the button is disabled or not. Passed directly to the AriaButton component.'
     },
     startIcon: {
-      control: 'text',
+      control: 'select',
+      options: iconPropOptions,
+      mapping: iconPropMapping,
       description: 'The icon to display at the start of the button.',
       table: {
         category: 'Icons',
@@ -140,7 +157,9 @@ export default {
       }
     },
     endIcon: {
-      control: 'text',
+      control: 'select',
+      options: iconPropOptions,
+      mapping: iconPropMapping,
       description: 'The icon to display at the end of the button.',
       table: {
         category: 'Icons',
@@ -171,6 +190,7 @@ export default {
       control: false,
       description: 'A ref to the react-aria Button.',
       table: {
+        disable: true,
         category: 'Misc',
         order: 151,
         type: { summary: 'React.Ref<HTMLButtonElement> | React.Ref<HTMLDivElement>' },
@@ -186,49 +206,30 @@ export default {
 
 export const Default = {};
 
-export const StartEndIcons = {
+export const StartIcon = {
   parameters: {
     docs: {
       description: {
         story:
-          'Use `startIcon` and `endIcon` props. You can pass a React node or components such as CustomIcon and Phosphor icons.<br/>Use `color="currentColor"` of the CustomIcon to automatically inherit the CustomButton text color of the variant.<br/>Use a height of 1.5 times the font size for the icon to match the height of the text (line height is 1.5). This ensures that the button height remains the same whether it contains text, just an icon, or both.<br/>Recommended line heights to use for each size: **small: 21px**, **medium: 24px**, **large: 27px**. For CustomIcon, use `size="1.5em"` to automatically match the line-height of each CustomButton size.<br/>Use css scale to adjust the icon size of the CustomIcon if needed, e.g., `style={{ transform: "scale(1.1)" }}`.'
+          'Use `startIcon` and `endIcon` props. You can pass a React node or components such as CustomIcon and Phosphor icons.<br/>Use `color="currentColor"` of the CustomIcon to automatically inherit the CustomButton text color of the variant. Phosphor icons already use "currentColor" by default. <br/>Use a height of 1.5 times the font size for the icon to match the height of the text (line height is 1.5). This ensures that the button height remains the same whether it contains text, just an icon, or both.<br/>Recommended line heights to use for each size: **small: 21px**, **medium: 24px**, **large: 27px**. For CustomIcon, use `size="1.5em"` to automatically match the line-height of each CustomButton size.<br/>Use css scale to adjust the icon size of the CustomIcon if needed, e.g., `style={{ transform: "scale(1.1)" }}`.'
       }
     }
   },
-  render: (args: CustomButtonProps) => {
-    const { startIcon, endIcon } = args;
-
-    return (
-      <CustomButton
-        {...args}
-        startIcon={
-          startIcon ? startIcon : <CustomIcon name="add" size={'1.5em'} color="currentColor" />
-        }
-        endIcon={endIcon ? endIcon : <span>➡️</span>}
-      />
-    );
+  args: {
+    startIcon: iconPropOptions[1] // 'CustomIcon: name="add", size="1.5em"'
   }
 };
 
-export const PhosphorIcons = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Phosphor icons already have currentColor. You can adjust size to **1em** to match the text size, up to **1.5em** without affecting the button height.'
-      }
-    }
-  },
-  render: (args: CustomButtonProps) => {
-    const { startIcon, endIcon } = args;
+export const EndIcon = {
+  args: {
+    endIcon: iconPropOptions[2] // '➡️'
+  }
+};
 
-    return (
-      <CustomButton
-        {...args}
-        startIcon={startIcon ? startIcon : <CaretLeftIcon />}
-        endIcon={endIcon ? endIcon : <CalendarDotsIcon size={24} color="currentColor" />}
-      />
-    );
+export const StartEndIcons = {
+  args: {
+    startIcon: iconPropOptions[1],
+    endIcon: iconPropOptions[2]
   }
 };
 
@@ -243,7 +244,7 @@ export const Icon = {
   },
   args: {
     children: undefined,
-    startIcon: <CustomIcon name="add" size={'1.5em'} color="currentColor" />,
+    startIcon: iconPropOptions[1], // 'Phosphor icon: CaretLeftIcon 1.2em'
     isRounded: true
   }
 };
