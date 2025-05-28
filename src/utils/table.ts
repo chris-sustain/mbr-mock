@@ -25,7 +25,7 @@ export const COLUMN_CONFIGS = {
     enableSorting: true,
     renderer: 'text',
     style: {
-      width: '100px'
+      width: '70px'
     }
   },
   commercialTitle: {
@@ -42,7 +42,7 @@ export const COLUMN_CONFIGS = {
     enableSorting: true,
     renderer: 'text',
     style: {
-      width: '100px'
+      width: '70px'
     }
   },
   domain: {
@@ -50,7 +50,7 @@ export const COLUMN_CONFIGS = {
     enableSorting: true,
     renderer: 'text',
     style: {
-      width: '100px'
+      width: '70px'
     }
   },
   country: {
@@ -58,7 +58,7 @@ export const COLUMN_CONFIGS = {
     enableSorting: true,
     renderer: 'text',
     style: {
-      width: '100px'
+      width: '70px'
     }
   },
   startDate: {
@@ -66,7 +66,7 @@ export const COLUMN_CONFIGS = {
     enableSorting: true,
     renderer: 'date',
     style: {
-      width: '100px'
+      width: '70px'
     }
   },
   endDate: {
@@ -74,7 +74,7 @@ export const COLUMN_CONFIGS = {
     enableSorting: true,
     renderer: 'date',
     style: {
-      width: '100px'
+      width: '70px'
     }
   },
   totalContractAmount: {
@@ -82,7 +82,7 @@ export const COLUMN_CONFIGS = {
     enableSorting: true,
     renderer: 'amount',
     style: {
-      width: '100px'
+      width: '70px'
     }
   },
   egisPart: {
@@ -90,7 +90,7 @@ export const COLUMN_CONFIGS = {
     enableSorting: true,
     renderer: 'amount',
     style: {
-      width: '100px'
+      width: '70px'
     }
   },
   filialePart: {
@@ -98,7 +98,7 @@ export const COLUMN_CONFIGS = {
     enableSorting: true,
     renderer: 'amount',
     style: {
-      width: '100px'
+      width: '70px'
     }
   },
   satisfecit: {
@@ -106,7 +106,7 @@ export const COLUMN_CONFIGS = {
     enableSorting: true,
     renderer: 'text',
     style: {
-      width: '100px'
+      width: '70px'
     }
   }
 } as const;

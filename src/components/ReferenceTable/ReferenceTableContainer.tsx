@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useMemo, type Dispatch, type SetStateAction } from 'react';
 import {
   getCoreRowModel,
   useReactTable,
@@ -20,7 +20,17 @@ import { renderCellContent } from './helper';
 import styles from './ReferenceTable.module.scss';
 import classNames from 'classnames';
 
-export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: TableMode }) => {
+export interface ReferenceTableContainerProps {
+  mode: TableMode;
+  rowSelection: Record<string, boolean>;
+  setRowSelection: Dispatch<SetStateAction<Record<string, boolean>>>;
+}
+
+export const ReferenceTableContainer = ({
+  mode = TABLE_MODES.all,
+  rowSelection,
+  setRowSelection
+}: ReferenceTableContainerProps) => {
   const {
     sorting,
     setSorting,
@@ -32,7 +42,6 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
     totalPages,
     totalRows
   } = useReferenceTableData();
-  const [rowSelection, setRowSelection] = useState({});
 
   const { t } = useTranslation();
   const columnHelper = createColumnHelper<Reference>();
@@ -52,6 +61,7 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
               isSelected={table.getIsAllPageRowsSelected()}
               isIndeterminate={table.getIsSomePageRowsSelected()}
               onChange={table.getToggleAllRowsSelectedHandler()}
+              mode={mode}
             />
           );
         },
@@ -60,6 +70,7 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
             <RowCheckbox
               isSelected={row.getIsSelected()}
               onChange={row.getToggleSelectedHandler()}
+              mode={mode}
             />
           );
         },
@@ -86,7 +97,7 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
 
   const getRowClassName = useCallback(
     (row: Row<Reference>) => {
-      const isSelected = Object.keys(rowSelection).includes(String(row.index));
+      const isSelected = Object.keys(rowSelection).includes(String(row.id));
       return classNames(styles.tr, {
         [styles.selected]: isSelected,
         [styles.draft]: isSelected && mode === TABLE_MODES.draft,

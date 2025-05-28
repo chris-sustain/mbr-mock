@@ -1,7 +1,7 @@
 .root {
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 0px;
   gap: 1rem;
 }
 
@@ -18,7 +18,6 @@
   line-height: 24px;
   display: flex;
   align-items: center;
-  font-size: 0.9rem;
   padding: 0;
   &:hover {
     color: #333;
@@ -29,6 +28,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  font-family: Urbanist;
 }
 
 .title {
