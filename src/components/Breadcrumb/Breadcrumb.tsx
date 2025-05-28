@@ -4,7 +4,7 @@ import { CustomIcon } from '@components/CustomIcon';
 import { useTranslation } from 'react-i18next';
 interface BreadcrumbProps {
   title?: string;
-  name?: 'eye' | 'pen';
+  name?: 'eye' | 'pen' | 'check';
 }
 
 export const Breadcrumb = ({ title, name }: BreadcrumbProps) => {

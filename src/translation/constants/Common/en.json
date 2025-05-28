@@ -64,7 +64,8 @@
         "link": "Search"
       },
       "validation": {
-        "link": "Validation"
+        "link": "My references to validate",
+        "title": "My references to validate"
       }
     },
     "selectedOf_one": "{{count}} row selected of {{total}}",
