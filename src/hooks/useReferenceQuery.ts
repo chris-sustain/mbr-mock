@@ -5,10 +5,9 @@ import { queryKeys } from '@src/react-query/constants';
 import type { Reference } from '@src/types/reference';
 import { useEffect } from 'react';
 
-//todo add type
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const transformReferenceData = (_: any, page: number): Reference[] => {
-  const rowsPerPage = 200;
+  const rowsPerPage = 1;
 
   const startId = (page - 1) * rowsPerPage;
 

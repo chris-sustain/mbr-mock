@@ -86,7 +86,7 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
 
   const getRowClassName = useCallback(
     (row: Row<Reference>) => {
-      const isSelected = Object.keys(rowSelection).includes(String(row.index));
+      const isSelected = Object.keys(rowSelection).includes(String(row.id));
       return classNames(styles.tr, {
         [styles.selected]: isSelected,
         [styles.draft]: isSelected && mode === TABLE_MODES.draft,

@@ -48,6 +48,9 @@
       "create": {
         "link": "Create a reference"
       },
+      "drafts": {
+        "title": "Drafts"
+      },
       "new": {
         "link": "New"
       },
@@ -64,6 +67,8 @@
         "link": "Validation"
       }
     },
+    "selectedOf_one": "{{count}} row selected of {{total}}",
+    "selectedOf_other": "{{count}} rows selected of {{total}}",
     "table": {
       "commercialTitle": "Commercial Title",
       "country": "Country",
