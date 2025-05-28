@@ -3,9 +3,10 @@
 .root {
   display: flex;
   align-items: stretch;
-  max-width: $breakpoint-l;
   width: 100%;
   margin: 0 auto;
+  height: 100%;
+  padding-top: var(--header-height);
 }
 
 .sidebar {
@@ -14,8 +15,10 @@
 }
 
 .content {
-  flex-grow: 1;
   padding: 12px;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
 }
 
 .section {

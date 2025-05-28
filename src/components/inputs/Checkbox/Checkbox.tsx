@@ -12,6 +12,7 @@ type CheckBoxProps = Omit<CheckboxPropsAria, 'children'> & {
 
 export const Checkbox: React.FC<CheckBoxProps> = ({ children, variant = 'default', ...props }) => {
   const rootClassname = classNames(styles['root'], styles[variant]);
+
   return (
     <CheckboxAria {...props} className={rootClassname}>
       {({ isIndeterminate }) => (

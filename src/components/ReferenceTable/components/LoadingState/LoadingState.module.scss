@@ -1,0 +1,17 @@
+.root {
+  margin-top: 100px;
+  will-change: transform; // Optimize for animations
+}
+
+.empty-state-container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--egisbase-ne-pas-modifier-vert-egis-vert-e-800, #5e6b09);
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 400;
+  transform: translateZ(0); // Force GPU acceleration
+}

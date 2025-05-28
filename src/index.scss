@@ -3,10 +3,20 @@
 
 :root {
   --success: #1fb81f;
+  --neutral-alpha10: rgba(132, 132, 132, 0.1);
+  --egisbase-ne-pas-modifier-vert-egis-vert-e-800: #5e6b09;
+  --egisbase-ne-pas-modifier-rouge-rouge-200: #e38f91;
+  --secondary-500: #002b4a;
+  --neutral-300: #dcdcdc;
+  --neutral-0: #ffffff;
   --vert-500: #abc022;
   --vert-500-pressed: #91a41a;
   --vert-500-disabled: #d6d6d6;
   --vert-500-hover: #f6f9d7;
+  --vert-200: #d8e28f;
+  --bleue-nuit: #08212c;
+  --header-height: 64px;
+  --gris-300: #a5a5a5;
 }
 
 html {
@@ -31,16 +41,18 @@ code {
   // create a stacking context in order to work with modals and popovers
   position: relative;
   z-index: 0;
+  overflow: hidden;
 }
 
 .main-scrollbar {
   @supports (-moz-appearance: none) {
     scrollbar-width: thin;
-    scrollbar-color: var(--main-secondary-color) transparent;
+    scrollbar-color: var(--vert-500) transparent;
   }
 }
 .main-scrollbar::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
   @include respond-to-and-between('s', 'xl') {
     width: 4px;
     height: 4px;
@@ -57,7 +69,7 @@ code {
 }
 
 .main-scrollbar::-webkit-scrollbar-thumb {
-  background-color: var(--main-secondary-color) !important;
+  background-color: var(--vert-500) !important;
   border-radius: 50px;
   border: 1px solid transparent !important;
 }

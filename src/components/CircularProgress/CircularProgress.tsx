@@ -18,7 +18,7 @@ export const CircularProgress = ({
   const center = size / 2;
 
   return (
-    <div className={styles.root} style={{ width: size, height: size }}>
+    <div className={styles.root}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className={styles.svg}>
         {/* Background circle */}
         <circle

@@ -11,44 +11,44 @@
       }
     },
     "close": "Cerrar",
+    "createRef": {
+      "fields": {
+        "client": "Cliente",
+        "clientContactEmail": "Contacto cliente: Email",
+        "clientContactFax": "Contacto cliente: Fax",
+        "clientContactFunction": "Contacto cliente: Función",
+        "clientContactName": "Contacto cliente: Nombre - APELLIDO",
+        "clientContactPhone": "Contacto cliente: Teléfono",
+        "commercialProjectTitle": "Título comercial del proyecto",
+        "contractualProjectTitle": "Título contractual del proyecto",
+        "directClientAddress": "Dirección del cliente directo",
+        "directClientDescription": "Descripción del cliente directo",
+        "finalClient": "Cliente final (beneficiario)",
+        "finalClientAddress": "Dirección del cliente final",
+        "groupingAgent": "Agente en caso de agrupación",
+        "internalComments": "Comentario(s) (para uso interno)",
+        "projectSummary": "Resumen del proyecto",
+        "serviceCompleted": "Servicio completado",
+        "servicesDescription": "Descripción de servicios proporcionados por la filial Egis propietaria de la referencia",
+        "subsidiaryEarthProjectNumber": "N° proyecto EARTH filial",
+        "subsidiaryOfferNumber": "N° oferta CRM filial"
+      },
+      "sections": {
+        "amountsAndFunding": "Montos y financiamiento",
+        "clients": "Clientes",
+        "generalInfo": "Información general",
+        "ourService": "Nuestro servicio",
+        "participants": "Participantes",
+        "projectContext": "Contexto del proyecto",
+        "relatedFiles": "Archivos relacionados"
+      }
+    },
     "page": {
       "create": {
         "link": "Crear una referencia"
       },
       "search": {
         "link": "Buscar"
-      }
-    },
-    "createRef": {
-      "sections": {
-        "generalInfo": "Información general",
-        "clients": "Clientes",
-        "projectContext": "Contexto del proyecto",
-        "ourService": "Nuestro servicio",
-        "participants": "Participantes",
-        "amountsAndFunding": "Montos y financiamiento",
-        "relatedFiles": "Archivos relacionados"
-      },
-      "fields": {
-        "contractualProjectTitle": "Título contractual del proyecto",
-        "commercialProjectTitle": "Título comercial del proyecto",
-        "groupingAgent": "Agente en caso de agrupación",
-        "subsidiaryOfferNumber": "N° oferta CRM filial",
-        "subsidiaryEarthProjectNumber": "N° proyecto EARTH filial",
-        "client": "Cliente",
-        "directClientDescription": "Descripción del cliente directo",
-        "directClientAddress": "Dirección del cliente directo",
-        "finalClient": "Cliente final (beneficiario)",
-        "finalClientAddress": "Dirección del cliente final",
-        "clientContactName": "Contacto cliente: Nombre - APELLIDO",
-        "clientContactFunction": "Contacto cliente: Función",
-        "clientContactPhone": "Contacto cliente: Teléfono",
-        "clientContactFax": "Contacto cliente: Fax",
-        "clientContactEmail": "Contacto cliente: Email",
-        "servicesDescription": "Descripción de servicios proporcionados por la filial Egis propietaria de la referencia",
-        "projectSummary": "Resumen del proyecto",
-        "internalComments": "Comentario(s) (para uso interno)",
-        "serviceCompleted": "Servicio completado"
       }
     }
   }
