@@ -2,10 +2,10 @@ import styles from './Breadcrumb.module.scss';
 import { useNavigate } from 'react-router';
 import { CustomIcon } from '@components/CustomIcon';
 import { useTranslation } from 'react-i18next';
-type BreadcrumbProps = {
+interface BreadcrumbProps {
   title?: string;
   name?: 'eye' | 'pen';
-};
+}
 
 export const Breadcrumb = ({ title, name }: BreadcrumbProps) => {
   const { t } = useTranslation();
