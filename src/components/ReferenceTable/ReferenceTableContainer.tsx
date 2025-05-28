@@ -52,6 +52,7 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
               isSelected={table.getIsAllPageRowsSelected()}
               isIndeterminate={table.getIsSomePageRowsSelected()}
               onChange={table.getToggleAllRowsSelectedHandler()}
+              mode={mode}
             />
           );
         },
@@ -60,6 +61,7 @@ export const ReferenceTableContainer = ({ mode = TABLE_MODES.all }: { mode: Tabl
             <RowCheckbox
               isSelected={row.getIsSelected()}
               onChange={row.getToggleSelectedHandler()}
+              mode={mode}
             />
           );
         },
