@@ -1,30 +1,48 @@
 import { PlusIcon } from '@phosphor-icons/react';
+import { CustomIcon } from '@src/components/CustomIcon';
+import classNames from 'classnames';
 import { useState, type ReactNode } from 'react';
 import { Button } from 'react-aria-components';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './FieldArray.module.scss';
 
-export function FieldArray<P>({
+interface Field<T> {
+  id: string;
+  defaultValue?: T;
+}
+
+export function FieldArray<T>({
   addButtonLabel,
-  children,
-  defaultValues = []
+  defaultValues = [],
+  children
 }: {
   addButtonLabel: string;
-  children: (field: { id: string; defaultValue?: P }, index: number) => ReactNode;
-  defaultValues?: P[];
+  defaultValues?: T[];
+  children: (field: Field<T>, index: number) => ReactNode;
 }) {
-  const initialFields =
-    defaultValues.length > 0
-      ? defaultValues.map((defaultValue) => ({ id: uuidv4(), defaultValue }))
-      : [{ id: uuidv4() }];
-
-  const [fields, setFields] = useState<{ id: string; defaultValue?: P }[]>(initialFields);
+  const initialFields = defaultValues.map((value) => ({ id: uuidv4(), defaultValue: value }));
+  const [fields, setFields] = useState<{ id: string; defaultValue?: T }[]>(initialFields);
 
   const addField = () => setFields([...fields, { id: uuidv4() }]);
+  const removeField = (index: number) => setFields(fields.filter((_, i) => i !== index));
+
+  const cantDelete = fields.length <= 1;
 
   return (
     <div className={styles.array}>
-      {fields.map((field, index) => children(field, index))}
+      {fields.map((field, index) => (
+        <div key={field.id} className={styles.fieldRow}>
+          <div className={styles.fieldContent}>{children(field, index)}</div>
+          <Button
+            className={classNames(styles.removeButton, { [styles.invisible]: cantDelete })}
+            onPress={() => removeField(index)}
+            isDisabled={cantDelete}
+            aria-label="remove"
+            aria-hidden={cantDelete}>
+            <CustomIcon name="minus" />
+          </Button>
+        </div>
+      ))}
       <Button className={styles.addButton} onPress={addField}>
         <span>{addButtonLabel}</span>
         <PlusIcon />

@@ -1,4 +1,5 @@
 import type { StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
 import { Form } from 'react-aria-components';
 import { TextInput } from '../Text';
@@ -52,7 +53,6 @@ function FormTemplate() {
           <FieldArray addButtonLabel="Add item" defaultValues={defaultValues.flatArray}>
             {(field, index) => (
               <TextInput
-                key={field.id}
                 label={`Item ${index + 1}`}
                 name="flatArray"
                 aria-label={`flatArray.${index}`}
@@ -65,7 +65,6 @@ function FormTemplate() {
           <FieldArray addButtonLabel="Add nested item" defaultValues={defaultValues.nestedArray}>
             {(field, index) => (
               <div
-                key={field.id}
                 aria-label={`nestedArray.${index}`}
                 style={{ background: 'lightgrey', padding: '6px', marginBottom: '16px' }}>
                 <TextInput
@@ -93,4 +92,80 @@ function FormTemplate() {
 
 export const Base: StoryObj<typeof FormTemplate> = {
   render: () => <FormTemplate />
+};
+
+export const InteractiveTest: StoryObj<typeof FieldArray> = {
+  render: () => (
+    <FieldArray addButtonLabel="Add item" defaultValues={['Server value 1']}>
+      {(field, index) => (
+        <TextInput
+          label={`Item ${index + 1}`}
+          name={`item-${index}`}
+          defaultValue={field?.defaultValue || `Client Default value`}
+          data-testid={`text-input-${index}`}
+        />
+      )}
+    </FieldArray>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+    // Initially, there should be one field and no visible remove button
+    const initialInput = canvas.getByRole('textbox', { name: /item 1/i });
+    expect(initialInput).toBeInTheDocument();
+    expect(initialInput).toHaveValue('Server value 1');
+
+    // Remove button should be invisible (aria-hidden)
+    expect(canvas.getByRole('button', { name: /remove/i })).not.toBeVisible();
+
+    // Add a second field
+    const addButton = canvas.getByRole('button', { name: /add item/i });
+    await user.click(addButton);
+
+    // Now there should be two fields
+    const secondInput = canvas.getByRole('textbox', { name: /item 2/i });
+    expect(secondInput).toBeInTheDocument();
+
+    // Second field's remove button should be visible and functional
+    const allRemoveButtons = canvas.getAllByRole('button', { name: /remove/i });
+    expect(allRemoveButtons).toHaveLength(2);
+
+    // Add a third field and set values
+    await user.click(addButton);
+    const thirdInput = canvas.getByRole('textbox', { name: /item 3/i });
+    expect(thirdInput).toBeInTheDocument();
+
+    // Set different values in each field
+    await user.clear(initialInput);
+    await user.type(initialInput, 'First field value');
+
+    await user.clear(secondInput);
+    await user.type(secondInput, 'Second field value');
+
+    await user.clear(thirdInput);
+    await user.type(thirdInput, 'Third field value');
+
+    // Remove the second field (middle one)
+    const updatedRemoveButtons = canvas.getAllByRole('button', { name: /remove/i });
+    await user.click(updatedRemoveButtons[1]); // Remove second field
+
+    // Should now have 2 fields again
+    const remainingInputs = canvas.getAllByRole('textbox');
+    expect(remainingInputs).toHaveLength(2);
+
+    // Check that the first and third field values are preserved
+    expect(remainingInputs[0]).toHaveValue('First field value');
+    expect(remainingInputs[1]).toHaveValue('Third field value'); // This was the third field, now second
+
+    // Remove the last field to get back to single field
+    const finalRemoveButtons = canvas.getAllByRole('button', { name: /remove/i });
+    await user.click(finalRemoveButtons[1]); // Remove the second field
+
+    // Back to single field - remove button should be invisible again
+    const finalInputs = canvas.getAllByRole('textbox');
+    expect(finalInputs).toHaveLength(1);
+    expect(finalInputs[0]).toHaveValue('First field value');
+
+    expect(canvas.getByRole('button', { name: /remove/i })).not.toBeVisible();
+  }
 };

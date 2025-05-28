@@ -4,6 +4,41 @@
   padding: 16px;
 }
 
+.fieldRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.fieldContent {
+  flex-grow: 1;
+}
+
+.removeButton {
+  flex-shrink: 0;
+  width: 19px;
+  height: 19px;
+  margin-left: 19px;
+  background-color: #fdc603;
+  border: none;
+  outline: none;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+
+  &.invisible {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
 .addButton {
   display: flex;
   gap: 15px;
