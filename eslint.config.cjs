@@ -123,5 +123,5 @@ module.exports = defineConfig([
 
     files: ['**/.eslintrc.{js,cjs}']
   },
-  globalIgnores(['**/src/stories/**/*', '**/src/**/*.stories.**'])
+  globalIgnores(['**/src/stories/**/*'])
 ]);
