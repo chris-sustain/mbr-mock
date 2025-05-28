@@ -6,6 +6,8 @@ import { DraftsPage } from '@components/DraftsPage';
 import { ValidationPage } from '@components/ValidationPage';
 import { EditRefPage } from '@components/EditRefPage';
 import { RefPage } from '@components/RefPage';
+import { CreateRefFormPage } from '@components/CreateRefFormPage';
+
 export const PATHS = {
   HOME: '/',
   NEW: '/new',
@@ -44,7 +46,7 @@ export const router = createBrowserRouter([
       },
       {
         path: PATHS.NEW_REFERENCE,
-        element: <CreateRefPage />
+        element: <CreateRefFormPage />
       },
       {
         path: `${PATHS.EDIT_REFERENCE}`,
