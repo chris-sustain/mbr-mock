@@ -1,5 +1,3 @@
-/* eslint-disable import/no-default-export */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TruncableText } from './TruncableText';
 import type { StoryFn, StoryContext } from '@storybook/react';
 
