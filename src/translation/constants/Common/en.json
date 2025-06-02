@@ -12,6 +12,14 @@
     },
     "back": "Back",
     "close": "Close",
+    "continueDraft": {
+      "bold": "draft",
+      "normal": "Resume a"
+    },
+    "createNewRef": {
+      "bold": "new file",
+      "normal": "Create a"
+    },
     "createRef": {
       "fields": {
         "client": "Client",
