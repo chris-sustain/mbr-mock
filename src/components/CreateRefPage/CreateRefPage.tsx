@@ -2,6 +2,7 @@ import { PlusCircleIcon } from '@phosphor-icons/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
+import notepadPencil from '@src/assets/notepad-pencil.png';
 import { PATHS } from '@src/router';
 
 import styles from './CreateRefPage.module.scss';
@@ -14,7 +15,7 @@ export const CreateRefPage = () => {
       <div className={styles.cards}>
         <Link to={PATHS.DRAFTS} className={styles['card']}>
           <div className={styles['card-header']}>
-            <img src="/notepad-pencil.png" className={styles['draft-image']} />
+            <img src={notepadPencil} alt="Notepad Pencil icon" className={styles['draft-image']} />
           </div>
           <div className={styles['card-content']}>
             {t('common.continueDraft.normal')}{' '}
