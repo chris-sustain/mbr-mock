@@ -12,6 +12,14 @@
     },
     "back": "Retour",
     "close": "Fermer",
+    "continueDraft": {
+      "bold": "brouillon",
+      "normal": "Poursuivre un"
+    },
+    "createNewRef": {
+      "bold": "nouvelle fiche",
+      "normal": "Créer une"
+    },
     "createRef": {
       "fields": {
         "client": "Client",
