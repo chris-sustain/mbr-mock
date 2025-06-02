@@ -1,7 +1,9 @@
 import { memo } from 'react';
-import styles from './LoadingState.module.scss';
 
 import { CircularProgress } from '@src/components/CircularProgress';
+
+import styles from './LoadingState.module.scss';
+
 const TABLE_HEADER_HEIGHT = 50;
 interface LoadingStateProps {
   height: number;

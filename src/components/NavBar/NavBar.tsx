@@ -1,11 +1,14 @@
-import styles from './NavBar.module.scss';
-import { useTranslation } from 'react-i18next';
-import type { Key } from 'react-aria-components';
-import React from 'react';
-import { PATHS } from '@src/router';
-import { NavLink } from 'react-router';
 import classNames from 'classnames';
+import React from 'react';
+import type { Key } from 'react-aria-components';
+import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router';
+
+import { PATHS } from '@src/router';
+
 import { LanguageSelector } from '../LanguageSelector';
+
+import styles from './NavBar.module.scss';
 
 export const NavBar = () => {
   const { t } = useTranslation();

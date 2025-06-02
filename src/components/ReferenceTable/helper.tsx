@@ -1,12 +1,14 @@
-import React from 'react';
-
-import styles from './ReferenceTable.module.scss';
-import type { Reference } from '@src/types/reference';
+import { ArrowDownIcon, ArrowUpIcon } from '@phosphor-icons/react';
 import { flexRender, type Header } from '@tanstack/react-table';
 import classNames from 'classnames';
+import React from 'react';
+
+import type { Reference } from '@src/types/reference';
 import type { ColumnConfig } from '@src/types/table';
-import { CellDateRenderer, CellAmountRenderer } from './components';
-import { ArrowDownIcon, ArrowUpIcon } from '@phosphor-icons/react';
+
+import { CellAmountRenderer, CellDateRenderer } from './components';
+
+import styles from './ReferenceTable.module.scss';
 
 export const SortedHeaderCell: React.FC<{ header: Header<Reference, unknown> }> = ({ header }) => {
   const sortDirection = header.column.getIsSorted();

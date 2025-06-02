@@ -1,10 +1,13 @@
-import styles from './ValidationPage.module.scss';
-import { TABLE_MODES } from '@src/utils';
-import { ReferenceTableContainer } from '@components/ReferenceTable/ReferenceTableContainer';
-import { useTranslation } from 'react-i18next';
-import { Breadcrumb } from '@components/Breadcrumb';
-import { SearchRef } from '@components/SearchRef';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { TABLE_MODES } from '@src/utils';
+import { Breadcrumb } from '@components/Breadcrumb';
+import { ReferenceTableContainer } from '@components/ReferenceTable/ReferenceTableContainer';
+import { SearchRef } from '@components/SearchRef';
+
+import styles from './ValidationPage.module.scss';
+
 export const ValidationPage = () => {
   const { t } = useTranslation();
   const [rowSelection, setRowSelection] = useState({});

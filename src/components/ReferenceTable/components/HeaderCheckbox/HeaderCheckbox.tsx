@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+
 import { Checkbox } from '@src/components/inputs/Checkbox';
 import type { TableMode } from '@src/types/table';
 import { TABLE_MODES } from '@src/utils';

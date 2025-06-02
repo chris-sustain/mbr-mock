@@ -1,8 +1,10 @@
-import { ReferenceTableContainer } from '@components/ReferenceTable/ReferenceTableContainer';
-import styles from './SearchRefPage.module.scss';
-import { TABLE_MODES } from '@src/utils';
-import { SearchRef } from '@components/SearchRef';
 import { useState } from 'react';
+
+import { TABLE_MODES } from '@src/utils';
+import { ReferenceTableContainer } from '@components/ReferenceTable/ReferenceTableContainer';
+import { SearchRef } from '@components/SearchRef';
+
+import styles from './SearchRefPage.module.scss';
 
 export const SearchRefPage = () => {
   const [rowSelection, setRowSelection] = useState({});

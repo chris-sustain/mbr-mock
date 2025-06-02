@@ -1,9 +1,11 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { fetchReference, FETCH_REFERENCE_INITIAL_URL } from '@src/api/referenceApi';
-import { useReferenceTable } from './useReferenceTable';
+import { useEffect } from 'react';
+
+import { FETCH_REFERENCE_INITIAL_URL, fetchReference } from '@src/api/referenceApi';
 import { queryKeys } from '@src/react-query/constants';
 import type { Reference } from '@src/types/reference';
-import { useEffect } from 'react';
+
+import { useReferenceTable } from './useReferenceTable';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const transformReferenceData = (_: any, page: number): Reference[] => {

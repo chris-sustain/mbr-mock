@@ -1,12 +1,13 @@
 import { createBrowserRouter } from 'react-router';
-import { RootLayout } from '@components/RootLayout';
+
+import { CreateRefFormPage } from '@components/CreateRefFormPage';
 import { CreateRefPage } from '@components/CreateRefPage';
-import { SearchRefPage } from '@components/SearchRefPage';
 import { DraftsPage } from '@components/DraftsPage';
-import { ValidationPage } from '@components/ValidationPage';
 import { EditRefPage } from '@components/EditRefPage';
 import { RefPage } from '@components/RefPage';
-import { CreateRefFormPage } from '@components/CreateRefFormPage';
+import { RootLayout } from '@components/RootLayout';
+import { SearchRefPage } from '@components/SearchRefPage';
+import { ValidationPage } from '@components/ValidationPage';
 
 export const PATHS = {
   HOME: '/',

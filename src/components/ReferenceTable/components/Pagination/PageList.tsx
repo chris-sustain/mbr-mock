@@ -1,5 +1,6 @@
-import styles from './Pagination.module.scss';
 import type { PaginationRange } from './utils';
+
+import styles from './Pagination.module.scss';
 
 interface PageListProps extends PaginationRange {
   currentPage: number;

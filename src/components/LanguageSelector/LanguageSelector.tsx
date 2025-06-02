@@ -1,13 +1,13 @@
+import { CaretDownIcon } from '@phosphor-icons/react/dist/ssr';
 import {
-  Select,
   Button,
-  Popover,
   ListBox,
   ListBoxItem,
-  SelectValue,
-  type SelectProps
+  Popover,
+  Select,
+  type SelectProps,
+  SelectValue
 } from 'react-aria-components';
-import { CaretDownIcon } from '@phosphor-icons/react/dist/ssr';
 
 import styles from './LanguageSelector.module.scss';
 

@@ -1,6 +1,6 @@
+import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { Label as ReactAriaLabel } from 'react-aria-components';
-import classNames from 'classnames';
 
 import styles from './Label.module.scss';
 

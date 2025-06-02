@@ -1,9 +1,11 @@
 import { PlusIcon } from '@phosphor-icons/react';
-import { CustomIcon } from '@src/components/CustomIcon';
 import classNames from 'classnames';
-import { useState, type ReactNode } from 'react';
+import { type ReactNode, useState } from 'react';
 import { Button } from 'react-aria-components';
 import { v4 as uuidv4 } from 'uuid';
+
+import { CustomIcon } from '@src/components/CustomIcon';
+
 import styles from './FieldArray.module.scss';
 
 interface Field<T> {

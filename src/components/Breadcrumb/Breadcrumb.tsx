@@ -1,7 +1,10 @@
-import styles from './Breadcrumb.module.scss';
-import { useNavigate } from 'react-router';
-import { CustomIcon } from '@components/CustomIcon';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+
+import { CustomIcon } from '@components/CustomIcon';
+
+import styles from './Breadcrumb.module.scss';
+
 interface BreadcrumbProps {
   title?: string;
   name?: 'eye' | 'pen' | 'check';

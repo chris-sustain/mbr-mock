@@ -1,4 +1,5 @@
 import { CustomIcon } from '@src/components/CustomIcon';
+
 import styles from './Pagination.module.scss';
 
 interface PageProps {

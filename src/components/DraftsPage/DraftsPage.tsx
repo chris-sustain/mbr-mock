@@ -1,11 +1,13 @@
-import { TABLE_MODES } from '@src/utils';
-import styles from './DraftsPage.module.scss';
-import { ReferenceTableContainer } from '@components/ReferenceTable/ReferenceTableContainer';
-import { useTranslation } from 'react-i18next';
-import { Breadcrumb } from '@components/Breadcrumb';
-import { SearchRef } from '@components/SearchRef';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { TABLE_MODES } from '@src/utils';
+import { Breadcrumb } from '@components/Breadcrumb';
 import { DeleteRefButton } from '@components/DeleteRefButton';
+import { ReferenceTableContainer } from '@components/ReferenceTable/ReferenceTableContainer';
+import { SearchRef } from '@components/SearchRef';
+
+import styles from './DraftsPage.module.scss';
 
 export const DraftsPage = () => {
   const { t } = useTranslation();

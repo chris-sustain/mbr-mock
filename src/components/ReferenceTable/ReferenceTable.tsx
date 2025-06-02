@@ -1,14 +1,16 @@
-import { memo, useRef, useCallback, useEffect, useState } from 'react';
+import { flexRender, type Row, type Table } from '@tanstack/react-table';
+import classNames from 'classnames';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { useLoadingState } from '@src/hooks/useLoadingState';
+import type { Reference } from '@src/types/reference';
+import { getColumnWidth } from '@src/utils/table';
+
+import { EmptyState, LoadingState, Pagination } from './components';
+import { renderHeaderCell } from './helper';
 
 import styles from './ReferenceTable.module.scss';
-import type { Reference } from '@src/types/reference';
-import { flexRender, type Row, type Table } from '@tanstack/react-table';
-import { renderHeaderCell } from './helper';
-import { EmptyState, Pagination, LoadingState } from './components';
-import classNames from 'classnames';
-import { useLoadingState } from '@src/hooks/useLoadingState';
-import { getColumnWidth } from '@src/utils/table';
-import { useTranslation } from 'react-i18next';
 
 export const ReferenceTable = memo<{
   table: Table<Reference>;

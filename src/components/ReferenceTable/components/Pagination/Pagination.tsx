@@ -1,7 +1,8 @@
-import styles from './Pagination.module.scss';
-import { PageList } from './PageList';
 import { Page } from './Page';
+import { PageList } from './PageList';
 import { calculatePaginationRange } from './utils';
+
+import styles from './Pagination.module.scss';
 
 const VISIBLE_PAGE_COUNT = 5; // Total number of page buttons to show at once
 

@@ -1,10 +1,11 @@
 import * as i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { i18nextPlugin } from 'translation-check';
+
 import EN_COMMON from './constants/Common/en.json';
+import ES_COMMON from './constants/Common/es.json';
 import FR_COMMON from './constants/Common/fr.json';
 import BPT_COMMON from './constants/Common/pt-BR.json';
-import ES_COMMON from './constants/Common/es.json';
 
 i18n
   // pass the i18n instance to react-i18next.

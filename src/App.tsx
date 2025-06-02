@@ -1,6 +1,7 @@
-import { useTranslation } from 'react-i18next';
-import { useNotify } from '@src/hooks';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { useNotify } from '@src/hooks';
 
 function App() {
   const { t } = useTranslation();

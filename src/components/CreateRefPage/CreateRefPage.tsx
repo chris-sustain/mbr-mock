@@ -1,6 +1,8 @@
-import { PATHS } from '@src/router';
-import styles from './CreateRefPage.module.scss';
 import { Link } from 'react-router';
+
+import { PATHS } from '@src/router';
+
+import styles from './CreateRefPage.module.scss';
 
 export const CreateRefPage = () => {
   return (
