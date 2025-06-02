@@ -1,8 +1,8 @@
 import type { StoryObj } from '@storybook/react';
-import { userEvent, within, expect } from '@storybook/test';
-import { type FocusEvent } from 'react';
+import { expect, userEvent, within } from '@storybook/test';
+import { useState, type FocusEvent } from 'react';
+import { Form } from '../../Form/Form';
 import { TextInput } from './Text';
-
 export default {
   title: 'Inputs/TextInput',
   component: TextInput
@@ -65,5 +65,38 @@ export const CustomValidation: StoryObj<typeof TextInput> = {
     await user.type(canvas.getByRole('textbox'), '42');
     await user.tab();
     expect(canvas.queryByText('not the answer')).not.toBeInTheDocument();
+  }
+};
+
+export const AutoSaveForm: StoryObj<typeof TextInput> = {
+  render: () => {
+    const [submittedData, setSubmittedData] = useState<string | null>(null);
+    return (
+      <div style={{ maxWidth: '600px', padding: '20px' }}>
+        <h3>Auto-Save Form</h3>
+        <Form
+          onSubmit={(data) => {
+            setSubmittedData(JSON.stringify(data, null, 2));
+          }}>
+          <TextInput label="First Name" name="first" isRequired />
+          <TextInput label="Last Name" name="second" />
+          <TextInput label="Email" name="email" type="email" isRequired />
+          <TextInput label="Phone Number" name="phone" />
+        </Form>
+        <div
+          style={{
+            marginTop: 16,
+            padding: 12,
+            background: '#f6f8fa',
+            border: '1px solid #d0d7de',
+            borderRadius: 4,
+            fontFamily: 'monospace',
+            fontSize: 14
+          }}>
+          <strong>Data sent to server:</strong>
+          <pre style={{ margin: 0 }}>{submittedData || '—'}</pre>
+        </div>
+      </div>
+    );
   }
 };
