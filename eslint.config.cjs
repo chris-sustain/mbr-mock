@@ -9,7 +9,6 @@ const tanstackQuery = require('@tanstack/eslint-plugin-query');
 const reactRefresh = require('eslint-plugin-react-refresh');
 const js = require('@eslint/js');
 const importPlugin = require('eslint-plugin-import');
-const simpleImportSort = require('eslint-plugin-simple-import-sort');
 
 const { FlatCompat } = require('@eslint/eslintrc');
 
@@ -59,8 +58,7 @@ module.exports = defineConfig([
       '@typescript-eslint': typescriptEslint,
       '@tanstack/query': tanstackQuery,
       'react-refresh': reactRefresh,
-      import: importPlugin,
-      'simple-import-sort': simpleImportSort
+      import: importPlugin
     },
 
     rules: {
@@ -100,37 +98,7 @@ module.exports = defineConfig([
       'max-statements': ['warn', 50],
       'no-duplicate-imports': 'error',
       '@tanstack/query/exhaustive-deps': 'error',
-      'react-refresh/only-export-components': 'off',
-      'simple-import-sort/imports': [
-        'error',
-        {
-          groups: [
-            // 1. Side effect imports (e.g. global styles)
-            ['^\\u0000'],
-
-            // 2. Node.js builtins
-            ['^node:'],
-
-            // 3. External packages
-            ['^@?\\w'],
-
-            // 4. Internal aliases (like @/components or similar)
-            ['^@src', '^@components'],
-
-            // 5. Relative imports (parent/sibling/index)
-            ['^\\.\\.(?!/?$)', '^\\./(?=.*/)', '^\\.(?!/?$)', '^\\./?$'],
-
-            // 6. CSS/SCSS modules
-            ['^.+\\.module\\.(css|scss)$']
-          ]
-        }
-      ],
-
-      'padding-line-between-statements': [
-        'error',
-        { blankLine: 'always', prev: 'import', next: '*' },
-        { blankLine: 'any', prev: 'import', next: 'import' }
-      ]
+      'react-refresh/only-export-components': 'off'
     },
 
     settings: {
