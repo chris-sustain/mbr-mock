@@ -1,27 +1,28 @@
-import { useContext, type ReactNode } from 'react';
+import { CalendarDotsIcon, CaretLeftIcon, CaretRightIcon } from '@phosphor-icons/react';
 import classNames from 'classnames';
+import { type ReactNode, useContext } from 'react';
 import {
   Button,
   Calendar,
-  RangeCalendar,
   CalendarCell,
   CalendarGrid,
   DateInput,
+  type DateInputProps,
   DatePicker as ReactAriaDatePicker,
+  type DatePickerProps,
+  DatePickerStateContext,
   DateRangePicker as ReactAriaDateRangePicker,
+  type DateRangePickerProps,
   DateSegment,
+  type DateValue,
   Dialog,
+  FieldError,
   Group,
   Heading,
   Popover,
-  FieldError,
-  DatePickerStateContext,
-  type DatePickerProps,
-  type DateValue,
-  type DateRangePickerProps,
-  type DateInputProps
+  RangeCalendar
 } from 'react-aria-components';
-import { CaretLeftIcon, CaretRightIcon, CalendarDotsIcon } from '@phosphor-icons/react';
+
 import { Label } from '../Label';
 
 import styles from './DatePicker.module.scss';

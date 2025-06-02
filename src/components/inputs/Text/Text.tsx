@@ -1,6 +1,8 @@
-import { TextField, Input, FieldError, TextArea, type TextFieldProps } from 'react-aria-components';
 import classNames from 'classnames';
+import { FieldError, Input, TextArea, TextField, type TextFieldProps } from 'react-aria-components';
+
 import { Label } from '../Label';
+
 import styles from './Text.module.scss';
 
 export function TextInput({

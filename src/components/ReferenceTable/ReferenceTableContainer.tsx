@@ -1,24 +1,27 @@
-import { useCallback, useMemo, type Dispatch, type SetStateAction } from 'react';
 import {
-  getCoreRowModel,
-  useReactTable,
   createColumnHelper,
+  getCoreRowModel,
   type Row,
-  type Table
+  type Table,
+  useReactTable
 } from '@tanstack/react-table';
-import type { Reference } from '@src/types/reference';
-import { ReferenceTable } from './ReferenceTable';
-import type { TableMode, ColumnKey } from '@src/types/table';
-import { TABLE_MODES, COLUMN_CONFIGS } from '@src/utils';
-import { useReferenceTableData } from './hooks';
-import { useTranslation } from 'react-i18next';
-import { HeaderCheckbox, RowCheckbox } from './components';
-import { UnstyledLink } from '@src/components/UnstyledLink';
-import { generatePath } from 'react-router';
-import { PATHS } from '@src/router';
-import { renderCellContent } from './helper';
-import styles from './ReferenceTable.module.scss';
 import classNames from 'classnames';
+import { type Dispatch, type SetStateAction, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { generatePath } from 'react-router';
+
+import { UnstyledLink } from '@src/components/UnstyledLink';
+import { PATHS } from '@src/router';
+import type { Reference } from '@src/types/reference';
+import type { ColumnKey, TableMode } from '@src/types/table';
+import { COLUMN_CONFIGS, TABLE_MODES } from '@src/utils';
+
+import { HeaderCheckbox, RowCheckbox } from './components';
+import { renderCellContent } from './helper';
+import { useReferenceTableData } from './hooks';
+import { ReferenceTable } from './ReferenceTable';
+
+import styles from './ReferenceTable.module.scss';
 
 export interface ReferenceTableContainerProps {
   mode: TableMode;

@@ -1,6 +1,6 @@
-import { Button as AriaButton } from 'react-aria-components';
-import type { ComponentPropsWithRef } from 'react';
 import classNames from 'classnames';
+import type { ComponentPropsWithRef } from 'react';
+import { Button as AriaButton } from 'react-aria-components';
 
 import styles from './CustomButton.module.scss';
 

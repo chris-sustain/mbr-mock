@@ -1,9 +1,11 @@
 import { type ReactNode } from 'react';
 import { Form, Group, type GroupProps } from 'react-aria-components';
-import { TextInput } from '@components/inputs/Text';
-import { Checkbox } from '@components/inputs/Checkbox';
-import styles from './CreateRefFormPage.module.scss';
 import { useTranslation } from 'react-i18next';
+
+import { Checkbox } from '@components/inputs/Checkbox';
+import { TextInput } from '@components/inputs/Text';
+
+import styles from './CreateRefFormPage.module.scss';
 
 function FormSection({ title, children }: { title: string; children: ReactNode }) {
   return (

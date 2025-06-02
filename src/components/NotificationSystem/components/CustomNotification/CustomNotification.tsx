@@ -1,6 +1,7 @@
-import toast from 'react-hot-toast';
 import classNames from 'classnames';
+import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+
 // todo import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import styles from './CustomNotification.module.scss';
 

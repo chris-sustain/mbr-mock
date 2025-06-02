@@ -1,6 +1,9 @@
-import styles from './EmptyState.module.scss';
 import { Trans } from 'react-i18next';
+
 import { CustomIcon } from '@src/components/CustomIcon/CustomIcon';
+
+import styles from './EmptyState.module.scss';
+
 const TABLE_HEADER_HEIGHT = 50;
 interface EmptyStateProps {
   height: number;

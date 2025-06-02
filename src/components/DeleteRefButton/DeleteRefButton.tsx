@@ -1,6 +1,8 @@
-import styles from './DeleteRefButton.module.scss';
-import { CustomIcon } from '@components/CustomIcon';
 import classNames from 'classnames';
+
+import { CustomIcon } from '@components/CustomIcon';
+
+import styles from './DeleteRefButton.module.scss';
 
 interface DeleteRefButtonProps {
   rowSelection: Record<string, boolean>;

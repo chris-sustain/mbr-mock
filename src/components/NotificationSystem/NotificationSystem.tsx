@@ -1,9 +1,8 @@
 import { createPortal } from 'react-dom';
 import toast, { Toaster } from 'react-hot-toast';
-import type { NotifySettings } from './types';
 
 import { CustomNotification } from './components/CustomNotification/CustomNotification';
-
+import type { NotifySettings } from './types';
 import { getParsedProps } from './utils';
 
 interface CustomNotificationProps {

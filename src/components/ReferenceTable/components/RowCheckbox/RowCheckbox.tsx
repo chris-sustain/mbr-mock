@@ -1,8 +1,10 @@
 import React, { memo } from 'react';
+
 import { Checkbox } from '@src/components/inputs/Checkbox';
-import styles from './RowCheckbox.module.scss';
 import type { TableMode } from '@src/types/table';
 import { TABLE_MODES } from '@src/utils';
+
+import styles from './RowCheckbox.module.scss';
 
 interface RowCheckboxProps {
   isSelected: boolean;

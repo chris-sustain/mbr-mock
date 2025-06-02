@@ -1,6 +1,7 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
-import { useReferenceQuery, useReferenceTable } from '@src/hooks';
 import type { SortingState } from '@tanstack/react-table';
+import { useEffect, useMemo, useRef, useState } from 'react';
+
+import { useReferenceQuery, useReferenceTable } from '@src/hooks';
 import type { ColumnKey } from '@src/types/table';
 
 export const useReferenceTableData = () => {

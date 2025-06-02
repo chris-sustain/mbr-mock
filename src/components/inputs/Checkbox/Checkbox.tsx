@@ -1,9 +1,10 @@
 import classNames from 'classnames';
-import styles from './Checkbox.module.scss';
 import {
   Checkbox as CheckboxAria,
   type CheckboxProps as CheckboxPropsAria
 } from 'react-aria-components';
+
+import styles from './Checkbox.module.scss';
 
 type CheckBoxProps = Omit<CheckboxPropsAria, 'children'> & {
   children?: React.ReactNode;

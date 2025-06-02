@@ -1,4 +1,5 @@
-import { useMemo, type SVGProps } from 'react';
+import { type SVGProps, useMemo } from 'react';
+
 import { getSVGIconsAsComponents, type IconName } from './utils';
 
 interface CustomIconProps extends SVGProps<SVGSVGElement> {
